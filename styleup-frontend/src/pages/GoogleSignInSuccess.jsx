@@ -2,11 +2,10 @@ import {useEffect, useState} from 'react'
 import axios  from 'axios';
 import { useNavigate } from "react-router-dom";
 
-
 const getGoogleCred = (code, setStatus, navigate) => {
     axios({
         method: 'get',
-        url: `${env.API_URL}/api/bots/authorize_session?code=${code}`
+        url: `${import.meta.env.VITE_API_URL}/api/bots/authorize_session?code=${code}`
     }).then((res) => {
         console.log(res);
         localStorage.setItem('googleCred', res.data.data);
