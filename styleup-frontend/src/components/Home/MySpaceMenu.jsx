@@ -19,10 +19,17 @@ const agentsData = [
 const libraryData = [
     { name: "Add file", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>},
     { name: "Add website", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>},
+    /*{ name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
-    { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
-    { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
+    { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},*/
 ];
+
+const libraryActions = (event) => {
+    switch(event.currentTarget.name) {
+        case 'Add file':
+
+    }
+}
 
 const MySpaceMenu = () => {
     return (
@@ -45,7 +52,7 @@ const MySpaceMenu = () => {
                 <Stack className='h-40 mt-4'>
                     {libraryData.map((item, index) => (
                         <div key={index}>
-                            <button className='flex h-10 items-center'>
+                            <button className='flex h-10 items-center' name={item.name} onClick={libraryActions}>
                                 <span className='mr-2'>{item.icon}</span>
                                 <p className='text-menuText'>{item.name}</p>
                             </button>
