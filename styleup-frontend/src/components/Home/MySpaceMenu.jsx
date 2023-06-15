@@ -26,7 +26,7 @@ const libraryData = [
 
 const MySpaceMenu = () => {
     return (
-        <Stack className='h-screen w-72 overflow-auto pb-10 bg-white'>
+        <Stack className=' w-72 overflow-auto pb-10 bg-white'>
             <Box className='mt-8 ml-4 text-menuText'>
                 Agents
                 <Stack className='h-40 mt-4'>

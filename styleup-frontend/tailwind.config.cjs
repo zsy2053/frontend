@@ -10,6 +10,7 @@ module.exports = {
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
         menuText: "#1c1c1c",
+        borderGrey: "#eaecf0",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

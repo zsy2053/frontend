@@ -22,3 +22,5 @@ export { default as books2 } from "./icons/books-2.svg";
 export { default as chatIcon } from "./icons/Icon.svg";
 export { default as Icon1 } from "./icons/Icon-1.svg";
 export { default as Icon2 } from "./icons/Icon-2.svg";
+export { default as SendIcon } from "./icons/SendIcon.svg";
+export { default as CalendarAgentIcon } from "./icons/CalendarAgent.svg";

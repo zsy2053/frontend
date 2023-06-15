@@ -3,20 +3,21 @@ import { Box, Stack, Typography } from '@mui/material';
 import Sidebar from '../components/Home/Sidebar';
 import MySpaceMenu from '../components/Home/MySpaceMenu';
 import Navbar from '../components/Home/Navbar';
+import ChatWindow from '../components/Home/ChatWindow';
 
 function Home() {
     return (
-        <Stack>
+        <Stack className='h-screen flex flex-col'>
         <Navbar/>
-        <Stack sx={{ flexDirection: 'row'}}>
-            <Box sx={{ height: { sx: 'auto', md: 'vh' }, borderRight: '1px solid #eaecf0' }}>
+        <Stack className='flex flex-auto divide-x' sx={{flexDirection:'row'}}>
+            <Box className='border-r-borderGrey'>
                 <Sidebar/>
             </Box>
-            <Box sx={{ height: 'vh', borderRight: '1px solid #eaecf0'}}>
+            <Box className='border-r-borderGrey'>
                 <MySpaceMenu/>
             </Box>
-            <Box sx={{ height: 'vh', flex: 2}}>
-                Calendar Agent
+            <Box className='flex-auto'>
+                <ChatWindow/>
             </Box>
         </Stack>
         </Stack>

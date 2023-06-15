@@ -18,7 +18,7 @@ const data = [
 
 const Sidebar = () => {
     return (
-        <div className='h-screen w-20 overflow-auto mt-8 bg-white'>
+        <div className=' w-20 overflow-auto mt-8 bg-white'>
             {data.map((item, index) => (
                 <div key={index} className='flex mb-2 justify-center'>
                     <button className='flex flex-col justify-center items-center'>
