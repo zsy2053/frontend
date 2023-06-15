@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {
     CheckBoxOutlineBlankOutlined,
@@ -24,14 +24,25 @@ const libraryData = [
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},*/
 ];
 
-const libraryActions = (event) => {
-    switch(event.currentTarget.name) {
-        case 'Add file':
-
-    }
+const mapStatesUpdate = (states, targetName) => {
+    return states.map((item) => {
+        if (item.name === targetName) {
+            item.state = !item.state;
+        } else {
+            item.state = false;
+        }
+        return item
+    });
 }
 
 const MySpaceMenu = () => {
+    let spaceStateInit = [
+        { name: "Add file", state: false},
+        { name: "Add website", state: false },
+    ];
+    const [spaceState, setSpaceState] = useState(spaceStateInit);
+    const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
+
     return (
         <Stack className=' w-72 overflow-auto pb-10 bg-white'>
             <Box className='mt-8 ml-4 text-menuText'>
@@ -52,7 +63,7 @@ const MySpaceMenu = () => {
                 <Stack className='h-40 mt-4'>
                     {libraryData.map((item, index) => (
                         <div key={index}>
-                            <button className='flex h-10 items-center' name={item.name} onClick={libraryActions}>
+                            <button className='flex h-10 items-center' name={item.name} onClick={handleState}>
                                 <span className='mr-2'>{item.icon}</span>
                                 <p className='text-menuText'>{item.name}</p>
                             </button>
