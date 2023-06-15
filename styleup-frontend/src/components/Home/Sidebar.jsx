@@ -4,25 +4,26 @@ import {
     CheckBoxOutlineBlankOutlined,
     HomeOutlined,
     InboxOutlined,
-} from "@material-ui/icons";
-import { useState } from 'react';
+} from "@mui/icons-material";
+import { myspaceIconActive, communityIconInactive, buildIconInactive, learnIconInactive, apikeysIconInactive, settingIconInactive, logoutIconInactive } from "../../assets";
+import { Icon } from '@mui/material';
 
 const data = [
-    { name: "MySpace", icon: <HomeOutlined fontSize='large' /> },
-    { name: "Community", icon: <InboxOutlined fontSize='large' /> },
-    { name: "Build", icon: <CheckBoxOutlineBlankOutlined fontSize='large' /> },
-    { name: "Learn", icon: <CheckBoxOutlineBlankOutlined fontSize='large' /> },
+    { name: "MySpace", icon: <Icon fontSize='large'><img src={myspaceIconActive} /></Icon> },
+    { name: "Community", icon: <Icon fontSize='large'><img src={communityIconInactive} /></Icon> },
+    { name: "Build", icon: <Icon fontSize='large'><img src={buildIconInactive} /></Icon> },
+    { name: "Learn", icon: <Icon fontSize='large'><img src={learnIconInactive} /></Icon> },
+    { name: "API Keys", icon: <Icon fontSize='large'><img src={apikeysIconInactive} /></Icon> },
 ];
 
 const Sidebar = () => {
     return (
-        <div className='h-screen w-24 overflow-auto pb-10 bg-homeInactiveBg'>
+        <div className='h-screen w-20 overflow-auto mt-8 bg-white'>
             {data.map((item, index) => (
-                <div key={index} className='flex h-24 justify-center'>
+                <div key={index} className='flex mb-2 justify-center'>
                     <button className='flex flex-col justify-center items-center'>
                         <span className='text-homeInactiveIcon'>
                             {item.icon}</span>
-                        <p className='text-homeInactiveIcon'>{item.name} </p>
                     </button>
                 </div>
             ))}
