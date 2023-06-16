@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import axios  from 'axios';
 
 import {
     CheckBoxOutlineBlankOutlined,
@@ -24,6 +25,25 @@ const libraryData = [
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},*/
 ];
 
+const fetchData = (setCollectionList) => {
+  axios({
+      method: 'get',
+      url: `${import.meta.env.VITE_API_URL}/api/bots/get_collections`,
+      headers: { "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem('jwt')},
+  }).then((res) => {
+      console.log(res);
+      let resData = []
+      for (let i = 0; i < res.data.data.length; i++) {
+        resData.push({ name: res.data.data[i], icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>})
+      }
+      setCollectionList(resData);
+  }).catch((err) => {
+      console.log(err);
+     // navigate(-1);
+  });
+}
+
 const mapStatesUpdate = (states, targetName) => {
     return states.map((item) => {
         if (item.name === targetName) {
@@ -42,8 +62,11 @@ const MySpaceMenu = ({showUploadFilesModel, showAddWebsiteModel}) => {
         { name: "Add website", state: false, setActiveFunc: showAddWebsiteModel },
     ];
     const [spaceState, setSpaceState] = useState(spaceStateInit);
+    const [collectionList, setCollectionList] = useState([]);
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
-
+    useEffect(() => {
+        fetchData(setCollectionList);
+      });
     return (
         <Stack className=' w-72 overflow-auto pb-10 bg-white'>
             <Box className='mt-8 ml-4 text-menuText'>
@@ -61,8 +84,16 @@ const MySpaceMenu = ({showUploadFilesModel, showAddWebsiteModel}) => {
             </Box>
             <Box className='mt-8 ml-4'>
                 Library
-                <Stack className='h-40 mt-4'>
+                <Stack className='h-50 mt-4'>
                     {libraryData.map((item, index) => (
+                        <div key={index}>
+                            <button className='flex h-10 items-center' name={item.name} onClick={handleState}>
+                                <span className='mr-2'>{item.icon}</span>
+                                <p className='text-menuText'>{item.name}</p>
+                            </button>
+                        </div>
+                    ))}
+                    {collectionList.map((item, index) => (
                         <div key={index}>
                             <button className='flex h-10 items-center' name={item.name} onClick={handleState}>
                                 <span className='mr-2'>{item.icon}</span>

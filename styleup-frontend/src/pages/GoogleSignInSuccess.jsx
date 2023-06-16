@@ -35,7 +35,7 @@ function GoogleSignInSuccess() {
         const code = urlParams.get('code');
         console.log(code);
         getGoogleCred(code, setStatus, navigate);
-      });
+      }, []);
 
     return (
         <div>
