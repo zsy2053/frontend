@@ -27,18 +27,19 @@ const libraryData = [
 const mapStatesUpdate = (states, targetName) => {
     return states.map((item) => {
         if (item.name === targetName) {
-            item.state = !item.state;
+            item.state = true;
         } else {
             item.state = false;
         }
+        item.setActiveFunc(item.state)
         return item
     });
 }
 
-const MySpaceMenu = () => {
+const MySpaceMenu = ({showUploadFilesModel, showAddWebsiteModel}) => {
     let spaceStateInit = [
-        { name: "Add file", state: false},
-        { name: "Add website", state: false },
+        { name: "Add file", state: false, setActiveFunc: showUploadFilesModel},
+        { name: "Add website", state: false, setActiveFunc: showAddWebsiteModel },
     ];
     const [spaceState, setSpaceState] = useState(spaceStateInit);
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
