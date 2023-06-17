@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Stack } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import Input from '@mui/material/Input';
 import axios from 'axios';
 
 const handleLinkCreate = (websiteUrl, crawlLevel) => {
@@ -41,12 +41,14 @@ const AddWebsiteModal = ({ setActive }) => {
                         </button>
                     </Box>
                     <Box className='flex justify-stretch items-stretch'>
-                        <OutlinedInput
-                            className='flex flex-auto mr-6 h-11 rounded-lg border border-gray-200 mb-6'
-                            id="outlined-folder-name-input"
-                            placeholder='https://www.styleup.fun'
-                            onChange={(event) => setWebsiteUrl(event.target.value)}
-                        />
+                        <Box className='flex flex-auto pl-2 mb-6 h-11 rounded-lg border border-gray-300'>
+                            <Input
+                                disableUnderline
+                                id="outlined-folder-name-input"
+                                placeholder='https://www.styleup.fun'
+                                onChange={(event) => setWebsiteUrl(event.target.value)}
+                            />
+                        </Box>
                         {/*<button className='flex w-40 justify-center items-center h-11 bg-[#7f56d9] rounded-lg'>
                             Fetch
                         </button>*/}
@@ -58,7 +60,7 @@ const AddWebsiteModal = ({ setActive }) => {
                             level 1
                         </button>
                         <button onClick={() => setCrawlLevel(2)}
-                            className={'flex flex-auto justify-center items-center h-11 mr-6 rounded-lg border border-gray-300'
+                            className={'flex flex-auto justify-center items-center h-11 rounded-lg border border-gray-300'
                                 + ((crawlLevel == 2) ? ' bg-[#7f56d9]' : '')} >
                             level 2
                         </button>
