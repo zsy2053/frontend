@@ -2,10 +2,11 @@ import { landingNavLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 import { useState } from "react";
 import Button from "../Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LandingNav = () => {
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <nav className='w-full flex py-6 justify-between items-center h-[76px] navbar'>
@@ -21,9 +22,8 @@ const LandingNav = () => {
         {landingNavLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-inter font-medium cursor-pointer text-[20px] ${
-              index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
-            }`}
+            className={`font-inter font-medium cursor-pointer text-[20px] ${index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
+              }`}
           >
             <a href={`${nav.id}`}>{nav.title}</a>
           </li>
@@ -35,6 +35,7 @@ const LandingNav = () => {
           <button
             type='button'
             className={`font-inter font-medium p-2 gap-2 text-[20px] text-white bg-black rounded-[14px] w-40`}
+            onClick={() => navigate("/signin")}
           >
             Sign In
           </button>
@@ -42,7 +43,7 @@ const LandingNav = () => {
       </ul>
 
       {/* Mobile View */}
-      <div className='md:hidden flex flex-1 justify-end items-center'>
+      <div className='md:hidden flex flex-1 justify-end items-center z-50'>
         <img
           src={toggle ? close : menu}
           alt='menu'
@@ -68,17 +69,10 @@ const LandingNav = () => {
             ))}
             <li
               className={
-                "font-inter font-medium cursor-pointer text-[20px] mb-4 text-white"
-              }
-            >
-              <a href='#'>Login</a>
-            </li>
-            <li
-              className={
                 "font-inter font-medium cursor-pointer text-[20px] text-white"
               }
             >
-              <a href='#'>Sign Up</a>
+              <a href='/signin'>Sign In</a>
             </li>
           </ul>
         </div>
