@@ -3,14 +3,33 @@ import React, { useState } from 'react'
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import { SendIcon, CalendarAgentIcon } from "../../assets";
+import { SendIcon, CalendarAgentChatIcon, AITutorChatIcon, ChatWithDataFileChatIcon } from "../../assets";
+import AgentType from './AgentType';
 
-const ChatWindow = () => {
+const ChatWindow = ({ agentType }) => {
+    const metadata = [
+        {
+            type: AgentType.CalendarAgent, icon: CalendarAgentChatIcon, title: "Calendar Agent", chatSuggestions: [
+                "How does my week look like?", "Am I feee at 10am tomorrow?", "What's on my calendar for this week?"
+            ]
+        },
+        {
+            type:AgentType.AITutor, icon: AITutorChatIcon, title: "AI Tutor", chatSuggestions: [
+                "Why is the sky blue?", "Summarize the file", "Quiz me"
+            ]
+        },
+        {
+            type:AgentType.ChatWithDataFile, icon: ChatWithDataFileChatIcon, title: "Chat with your data files", chatSuggestions: [
+                "Why is the sky blue?", "Summarize the file", "Quiz me"
+            ]
+        }
+    ]
+    const {icon, title, chatSuggestions} = metadata.find((e) => e.type == agentType)
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
-                <Box className='h-10 w-10 flex justify-center mr-4'><img src={CalendarAgentIcon} /></Box>
-                <p className='text-[24px]'>Calendar Agent</p>
+                <Box className='h-10 w-10 flex justify-center mr-4'><img src={icon} /></Box>
+                <p className='text-[24px]'>{title}</p>
             </Box>
             <Box className='flex justify-center'>
                 Chat history

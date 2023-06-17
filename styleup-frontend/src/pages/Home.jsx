@@ -6,10 +6,12 @@ import Navbar from '../components/Home/Navbar';
 import ChatWindow from '../components/Home/ChatWindow';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
+import AgentType from '../components/Home/AgentType';
 
 function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
+    const [agentType, setAgentType] = useState(AgentType.AITutor)
     return (
         <Stack className='h-screen flex flex-col'>
             <Navbar />
@@ -23,10 +25,11 @@ function Home() {
                     <MySpaceMenu
                         showUploadFilesModel={setUploadFilesModalActive}
                         showAddWebsiteModel={setAddWebsiteModalActive}
+                        setActiveAgent={setAgentType}
                         />
                 </Box>
                 <Box className='flex-auto'>
-                    <ChatWindow />
+                    <ChatWindow agentType={agentType} />
                 </Box>
             </Stack>
         </Stack>
