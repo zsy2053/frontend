@@ -15,13 +15,13 @@ export { default as communityIconActive } from "./icons/communityIconActive.svg"
 export { default as learnIconActive } from "./icons/learnIconActive.svg";
 export { default as apikeysIconActive } from "./icons/apikeysIconActive.svg";
 export { default as Vector } from "./icons/Vector.svg";
-export { default as Vector1 } from "./icons/Vector-1.svg";
 export { default as books } from "./icons/books.svg";
 export { default as books1 } from "./icons/books-1.svg";
 export { default as books2 } from "./icons/books-2.svg";
 export { default as chatIcon } from "./icons/Icon.svg";
-export { default as Icon1 } from "./icons/Icon-1.svg";
-export { default as Icon2 } from "./icons/Icon-2.svg";
+export { default as refreshIcon } from "./icons/refresh.svg";
+export { default as shareIcon } from "./icons/share.svg";
+export { default as threeDotIcon } from "./icons/three-dot.svg";
 export { default as SendIcon } from "./icons/SendIcon.svg";
 export { default as CalendarAgentChatIcon } from "./icons/CalendarAgent.svg";
 export { default as AITutorChatIcon } from "./icons/books-1.svg";

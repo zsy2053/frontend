@@ -10,7 +10,7 @@ const ChatWindow = ({ agentType }) => {
     const metadata = [
         {
             type: AgentType.CalendarAgent, icon: CalendarAgentChatIcon, title: "Calendar Agent", chatSuggestions: [
-                "How does my week look like?", "Am I feee at 10am tomorrow?", "What's on my calendar for this week?"
+                "How does my week look like?", "Am I free at 10am tomorrow?", "What's on my calendar for this week?"
             ]
         },
         {
