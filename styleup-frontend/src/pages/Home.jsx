@@ -8,7 +8,7 @@ import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 
 function Home() {
-    const [uploadFilesModalActive, setUploadFilesModalActive] = useState(true)
+    const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
     return (
         <Stack className='h-screen flex flex-col'>

@@ -32,7 +32,7 @@ const UploadFilesModal = ({ setActive }) => {
     const [fileName, setFileName] = useState("");
 
     return (
-        <Box className='fixed h-screen w-screen grid place-items-center bg-black/40'>
+        <Box className='fixed h-screen w-screen grid place-items-center bg-black/40 z-50'>
             <Box className='w-[30rem] rounded-xl border bg-white'>
                 <Stack className='flex flex-col p-6'>
                     <Box className='flex justify-between mb-2'>
