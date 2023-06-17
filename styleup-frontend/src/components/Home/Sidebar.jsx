@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { useNavigate } from "react-router-dom";
+import { googleLogout } from '@react-oauth/google';
 import {
     CheckBoxOutlineBlankOutlined,
     HomeOutlined,
@@ -17,16 +18,39 @@ const data = [
 ];
 
 const Sidebar = () => {
+    const navigate = useNavigate()
     return (
-        <div className=' w-20 overflow-auto mt-8 bg-white'>
-            {data.map((item, index) => (
-                <div key={index} className='flex mb-2 justify-center'>
+        <div className=' w-20 overflow-auto mt-8 bg-white flex flex-col justify-between h-full'>
+            <div>
+                {data.map((item, index) => (
+                    <div key={index} className='flex mb-2 justify-center'>
+                        <button className='flex flex-col justify-center items-center'>
+                            <span className='text-homeInactiveIcon'>
+                                {item.icon}</span>
+                        </button>
+                    </div>
+                ))}
+            </div>
+            <div>
+                <div className='flex mb-2 justify-center'>
                     <button className='flex flex-col justify-center items-center'>
                         <span className='text-homeInactiveIcon'>
-                            {item.icon}</span>
+                            <Icon fontSize='large'><img src={settingIconInactive} /></Icon></span>
                     </button>
                 </div>
-            ))}
+                <div className='flex mb-2 justify-center'>
+                    <button className='flex flex-col justify-center items-center'
+                    onClick={()=>{
+                        localStorage.clear();
+                        googleLogout();
+                        navigate('/signin');
+                    }}>
+                        <span className='text-homeInactiveIcon'>
+                            <Icon fontSize='large'><img src={logoutIconInactive} /></Icon></span>
+                    </button>
+                </div>
+            </div>
+
         </div>
     )
 }
