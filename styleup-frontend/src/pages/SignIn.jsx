@@ -3,6 +3,34 @@ import styles from "../style";
 import { LandingNav } from "../components";
 import { rock } from "../assets";
 import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
+import axios from 'axios';
+
+const googleLogin = (idToken, email) => {
+    //get expiry_date 1 hour later
+    const currentDate = new Date();
+    const futureDate = new Date(currentDate.getTime() + 60 * 60 * 1000); // Adding 1 hour (60 minutes * 60 seconds * 1000 milliseconds) to current time
+    const isoString = futureDate.toISOString();
+
+    const data = {
+        "email": email,
+        "token": idToken,
+        "expiry_date": isoString,
+    }
+    axios({
+        method: 'post',
+        url: `${import.meta.env.VITE_API_URL}/api/users/google_sso`,
+        data,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+        console.log(err);
+        // navigate(-1);
+    });
+}
 
 function Sigin() {
     return (
@@ -28,7 +56,7 @@ function Sigin() {
 
                             <GoogleLogin
                                 onSuccess={(credentialResponse) => {
-                                    console.log(credentialResponse);
+                                    googleLogin(credentialResponse.credential, jwt_decode(credentialResponse.credential)['email']);
                                 }}
                                 onError={() => {
                                     console.log("Login Failed");
