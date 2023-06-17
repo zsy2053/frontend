@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import { Landing, Home, GoogleSignInSuccess } from "./pages";
+import { Landing, Home, GoogleSignInSuccess, EarlyAccess } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -14,9 +14,13 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path:"/google_sign_in/:pathParam?",
+    path: "/google_sign_in/:pathParam?",
     element: <GoogleSignInSuccess />,
-  }
+  },
+  {
+    path: "/early-access",
+    element: <EarlyAccess />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

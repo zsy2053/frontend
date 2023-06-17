@@ -2,18 +2,20 @@ import { landingNavLinks } from "../../constants";
 import { logo, menu, close } from "../../assets";
 import { useState } from "react";
 import Button from "../Button";
+import { Link } from "react-router-dom";
 
 const LandingNav = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className='w-full flex py-6 justify-between items-center navbar'>
-      <img
-        src={logo}
-        alt='StyleUp Logo'
-        className='w-[111px] h-[29px] mr-12'
-      ></img>
-
+    <nav className='w-full flex py-6 justify-between items-center h-[76px] navbar'>
+      <Link to='/'>
+        <img
+          src={logo}
+          alt='StyleUp Logo'
+          className='w-[111px] h-[29px] mr-12'
+        ></img>
+      </Link>
       {/* Desktop View */}
       <ul className='list-none md:flex hidden justify-start items-center flex-1'>
         {landingNavLinks.map((nav, index) => (
@@ -29,16 +31,13 @@ const LandingNav = () => {
       </ul>
 
       <ul className='list-none md:flex hidden justify-end items-center flex-shrink'>
-        <li
-          className={"font-inter font-medium cursor-pointer text-[20px] mr-12"}
-        >
-          Log in
-        </li>
         <li>
-          <Button
-            name='Sign Up'
-            className='text-[20px] text-white bg-black rounded-[14px] w-40'
-          ></Button>
+          <button
+            type='button'
+            className={`font-inter font-medium p-2 gap-2 text-[20px] text-white bg-black rounded-[14px] w-40`}
+          >
+            Sign In
+          </button>
         </li>
       </ul>
 

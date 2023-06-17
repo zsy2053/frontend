@@ -26,3 +26,5 @@ export { default as SendIcon } from "./icons/SendIcon.svg";
 export { default as CalendarAgentChatIcon } from "./icons/CalendarAgent.svg";
 export { default as AITutorChatIcon } from "./icons/books-1.svg";
 export { default as ChatWithDataFileChatIcon } from "./icons/ChatWithDataFile.svg";
+export { default as CalendarAgentIcon } from "./icons/CalendarAgent.svg";
+export { default as logoFooter } from "./images/logoFooter.svg";
