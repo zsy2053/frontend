@@ -5,8 +5,9 @@ import { rock } from "../assets";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
-const googleLogin = (idToken, email) => {
+const googleLogin = (idToken, email, navigate) => {
     //get expiry_date 1 hour later
     const currentDate = new Date();
     const futureDate = new Date(currentDate.getTime() + 60 * 60 * 1000); // Adding 1 hour (60 minutes * 60 seconds * 1000 milliseconds) to current time
@@ -25,14 +26,18 @@ const googleLogin = (idToken, email) => {
             "Content-Type": "application/json",
         },
     }).then((res) => {
-        console.log(res);
+        localStorage.setItem('jwt', res.data['access_token']);
+        localStorage.setItem('refresh', res.data['refresh_token']);
+        if(localStorage.getItem('jwt')){
+            navigate("/home");
+        }
     }).catch((err) => {
         console.log(err);
-        // navigate(-1);
     });
 }
 
 function Sigin() {
+    const navigate = useNavigate()
     return (
         <div className="w-full overflow-hidden">
             <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -56,7 +61,7 @@ function Sigin() {
 
                             <GoogleLogin
                                 onSuccess={(credentialResponse) => {
-                                    googleLogin(credentialResponse.credential, jwt_decode(credentialResponse.credential)['email']);
+                                    googleLogin(credentialResponse.credential, jwt_decode(credentialResponse.credential)['email'], navigate);
                                 }}
                                 onError={() => {
                                     console.log("Login Failed");
