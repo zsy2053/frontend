@@ -81,7 +81,7 @@ const MySpaceMenu = ({ showUploadFilesModel, showAddWebsiteModel, setActiveAgent
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
     useEffect(() => {
         fetchData(setCollectionList);
-    });
+    }, []);
     return (
         <Stack className=' w-72 overflow-auto pb-10 bg-white'>
             <Box className='mt-8 ml-4 text-menuText'>
