@@ -11,11 +11,11 @@ export const footerLinks = [
 ];
 
 export const earlyAccessOptions = [
-  { value: "1", text: "Have Fun" },
-  { value: "2", text: "Education" },
-  { value: "3", text: "Marketing" },
-  { value: "4", text: "Shopping & Food" },
-  { value: "5", text: "Developer Tools" },
-  { value: "6", text: "Productivity" },
-  { value: "7", text: "I don't know yet" },
+  { id: "1", text: "Have Fun" },
+  { id: "2", text: "Education" },
+  { id: "3", text: "Marketing" },
+  { id: "4", text: "Shopping & Food" },
+  { id: "5", text: "Developer Tools" },
+  { id: "6", text: "Productivity" },
+  { id: "7", text: "I don't know yet" },
 ];

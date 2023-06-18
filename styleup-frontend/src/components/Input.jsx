@@ -7,8 +7,11 @@ import CustomTooltip from "./CustomTooltip";
 const Input = ({
   label,
   id,
+  onChange,
   required = false,
   tooltipMsg = "Please fill out this field",
+  showTooltip = false,
+  setTooltip,
 }) => {
   return (
     <div className='w-full relative'>
@@ -22,6 +25,8 @@ const Input = ({
         id={id}
         type='text'
         required={required}
+        onChange={(e) => onChange(e.target.value)}
+        onClick={() => setTooltip(false)}
       />
       <label
         class='absolute text-menuText text-opacity-80 duration-300 transform z-10 origin-[0] left-[22px]
@@ -45,7 +50,7 @@ const Input = ({
         title={tooltipMsg}
         placement='bottom-start'
         arrow
-        // className='hidden'
+        className={required && showTooltip ? "visible" : "hidden"}
       >
         <span className='absolute z-10 origin-[0] bottom-1 left-12'></span>
       </CustomTooltip>
