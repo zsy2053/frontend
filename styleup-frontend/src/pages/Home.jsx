@@ -9,6 +9,7 @@ import AgentType from '../components/Home/AgentType';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
+import CommunityMenu from '../components/Home/CommunityMenu';
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
@@ -132,58 +133,70 @@ const mapFocusContext = (focus) => {
 
 
 function Home() {
-    const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
-    const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
-    const [agentType, setAgentType] = useState(AgentType.AITutor)
-    const spaceStateInit = [
-        { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
-        { name: "Add website", state: false, setActiveFunc: setAddWebsiteModalActive },
-    ];
-    const [currentFocus, setCurrentFocus] = useState({ name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books })
-    const [spaceState, setSpaceState] = useState(spaceStateInit);
-    const [collectionList, setCollectionList] = useState([]);
-    const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
-    const [chatMessage, setChatMessage] = useState("");
-    const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
-    useEffect(() => {
-        fetchCollectionData(setCollectionList);
-        fetchChatHistory(setChatHistory, 'calendar_context');
-      }, []);
-    return (
-        <Stack className='h-screen flex flex-col'>
-            <Navbar />
-            {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
-            {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
-            <Stack className='flex flex-auto divide-x' sx={{ flexDirection: 'row' }}>
-                <Sidebar className='flex flex-col' />
-                <Box className='border-r-borderGrey'>
-                    <MySpaceMenu
-                        showUploadFilesModel={setUploadFilesModalActive}
-                        showAddWebsiteModel={setAddWebsiteModalActive}
-                        collectionList={collectionList}
-                        handleState={handleState}
-                        handleFocus={(focus) => {
-                          fetchChatHistory(setChatHistory, mapFocusContext(focus));
-                          setCurrentFocus(focus);
-                        }}
-                        setActiveAgent={setAgentType}
-                        />
-                </Box>
-                <Box className='flex-auto'>
-                    <ChatWindow
-                      agentType={agentType}
-                      chatTitle={currentFocus}
-                      content={chatHistory}
-                      setMessage={setChatMessage}
-                      sendMessage={() => {
-                        addMyChat(setChatHistory, "Human: " + chatMessage)
-                        handleMessageSend(currentFocus, chatMessage, setChatHistory)
-                      }}
-                      />
-                </Box>
-            </Stack>
-        </Stack>
-    );
+  const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
+  const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
+  const [sidebarSelection, setSidebarSelection] = useState('MySpace')
+  const [agentType, setAgentType] = useState(AgentType.AITutor)
+  const spaceStateInit = [
+    { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive },
+    { name: "Add website", state: false, setActiveFunc: setAddWebsiteModalActive },
+  ];
+  const [currentFocus, setCurrentFocus] = useState({ name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books })
+  const [spaceState, setSpaceState] = useState(spaceStateInit);
+  const [collectionList, setCollectionList] = useState([]);
+  const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
+  const [chatMessage, setChatMessage] = useState("");
+  const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
+  useEffect(() => {
+    fetchCollectionData(setCollectionList);
+    fetchChatHistory(setChatHistory, 'calendar_context');
+  }, []);
+  return (
+    <Stack className='h-screen flex flex-col'>
+      <Navbar />
+      {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
+      {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
+      <Stack className='flex flex-auto' sx={{ flexDirection: 'row' }}>
+        <Sidebar className='flex flex-col'
+          sidebarSelection={sidebarSelection}
+          setSidebarSelection={setSidebarSelection}
+        />
+        {sidebarSelection === 'MySpace' &&
+          <Box className='flex flex-auto divide-x' >
+            <Box className='border-r-borderGrey'>
+              <MySpaceMenu
+                showUploadFilesModel={setUploadFilesModalActive}
+                showAddWebsiteModel={setAddWebsiteModalActive}
+                collectionList={collectionList}
+                handleState={handleState}
+                handleFocus={(focus) => {
+                  fetchChatHistory(setChatHistory, mapFocusContext(focus));
+                  setCurrentFocus(focus);
+                }}
+                setActiveAgent={setAgentType}
+              />
+            </Box>
+            <Box className='flex-auto'>
+              <ChatWindow
+                agentType={agentType}
+                chatTitle={currentFocus}
+                content={chatHistory}
+                setMessage={setChatMessage}
+                sendMessage={() => {
+                  addMyChat(setChatHistory, "Human: " + chatMessage)
+                  handleMessageSend(currentFocus, chatMessage, setChatHistory)
+                }}
+              />
+            </Box>
+          </Box>
+        }
+        {
+          sidebarSelection === 'Community' &&
+          <CommunityMenu />
+        }
+      </Stack>
+    </Stack>
+  );
 }
 
 export default Home

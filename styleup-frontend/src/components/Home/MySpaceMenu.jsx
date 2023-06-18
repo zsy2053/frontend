@@ -95,18 +95,6 @@ const MySpaceMenu = ({ showUploadFilesModel, showAddWebsiteModel, setActiveAgent
                 </Stack>
             </Box>
         </Stack>
-
-        // <div className='h-screen w-72 overflow-auto pb-10 bg-white'>
-        //     {data.map((item, index) => (
-        //         <div key={index} className='flex h-24 justify-center'>
-        //             <button className='flex flex-col justify-center items-center'>
-        //                 <span className='text-homeInactiveIcon'>
-        //                     {item.icon}</span>
-        //                 <p className='text-homeInactiveIcon'>{item.name} </p>
-        //             </button>
-        //         </div>
-        //     ))}
-        // </div>
     )
 }
 
