@@ -1,11 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from '@react-oauth/google';
-import {
-    CheckBoxOutlineBlankOutlined,
-    HomeOutlined,
-    InboxOutlined,
-} from "@mui/icons-material";
 import { myspaceIconActive, communityIconInactive, buildIconInactive, learnIconInactive, apikeysIconInactive, settingIconInactive, logoutIconInactive } from "../../assets";
 import { Icon } from '@mui/material';
 
@@ -20,8 +15,8 @@ const data = [
 const Sidebar = () => {
     const navigate = useNavigate()
     return (
-        <div className=' w-20 overflow-auto mt-8 bg-white flex flex-col justify-between h-full'>
-            <div>
+        <div className=' w-20 overflow-auto mt-8 bg-white flex flex-col justify-between'>
+            <div className='flex flex-col'>
                 {data.map((item, index) => (
                     <div key={index} className='flex mb-2 justify-center'>
                         <button className='flex flex-col justify-center items-center'>
@@ -31,7 +26,7 @@ const Sidebar = () => {
                     </div>
                 ))}
             </div>
-            <div>
+            <div className='flex flex-col'>
                 <div className='flex mb-2 justify-center'>
                     <button className='flex flex-col justify-center items-center'>
                         <span className='text-homeInactiveIcon'>
@@ -50,7 +45,6 @@ const Sidebar = () => {
                     </button>
                 </div>
             </div>
-
         </div>
     )
 }

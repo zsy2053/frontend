@@ -155,9 +155,7 @@ function Home() {
             {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
             {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
             <Stack className='flex flex-auto divide-x' sx={{ flexDirection: 'row' }}>
-                <Box className='border-r-borderGrey'>
-                    <Sidebar />
-                </Box>
+                <Sidebar className='flex flex-col' />
                 <Box className='border-r-borderGrey'>
                     <MySpaceMenu
                         showUploadFilesModel={setUploadFilesModalActive}
