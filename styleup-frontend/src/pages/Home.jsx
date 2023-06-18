@@ -15,7 +15,7 @@ const fetchCollectionData = (setCollectionList) => {
       method: 'get',
       url: `${import.meta.env.VITE_API_URL}/api/bots/get_collections`,
       headers: { "Content-Type": "application/json",
-      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+      "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
       let resData = []
       for (let i = 0; i < res.data.data.length; i++) {
@@ -36,7 +36,7 @@ const fetchChatHistory = (setChatHistory, chat_type) => {
       'chat_type': chat_type
     },
     headers: { "Content-Type": "application/json",
-    "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+    "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
     setChatHistory(res.data.data)
   }).catch((err) => console.log(err));
@@ -65,7 +65,7 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
           'input': chatMessage,
         },
         headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => console.log(err));
@@ -78,7 +78,7 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
           'input': chatMessage,
         },
         headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => console.log(err));
@@ -105,7 +105,7 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
           'collection_name': currentFocus['name']
         },
         headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => console.log(err));
