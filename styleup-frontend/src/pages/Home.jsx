@@ -10,6 +10,7 @@ import AgentType from '../components/Home/AgentType';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
+import CommunityMenu from '../components/Home/CommunityMenu';
 
 const fetchCollectionData = (setCollectionList) => {
   axios({

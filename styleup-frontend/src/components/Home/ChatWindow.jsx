@@ -5,10 +5,12 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import { SendIcon, CalendarAgentChatIcon, AITutorChatIcon, ChatWithDataFileChatIcon } from "../../assets";
 import AgentType from './AgentType';
+import MicIcon from '@mui/icons-material/Mic';
+import Divider from '@mui/material/Divider';
 
 const messageMapper = (item, index) => {
     return item.startsWith("Human: ") ?
-        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#7f56d910] rounded-2xl mb-8 max-w-xl'>{item.split(':')[1]}</Box>
+        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-2xl mb-8 max-w-xl'>{item.split(':')[1]}</Box>
         : <Box key={index} className='self-start justify-center px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>{item.split(':')[1]}</Box>
 }
 
@@ -49,7 +51,7 @@ const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) 
                         <p className='text-[#555555]'>Chat Suggestions</p>
                     </Box>
                     <Box className='flex justify-start mb-4'>
-                        <button className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-gray-300'>
+                        <button className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-[#f2eefb]'>
                             {chatSuggestions[0]}
                         </button>
                         <button className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
@@ -77,12 +79,20 @@ const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) 
                                 disableUnderline
                                 id="outlined-adornment-amount"
                                 endAdornment={<InputAdornment position="end">
-                                    <button onClick={() => {
-                                        sendMessage()
-                                        setTextInputValue('')
-                                    }} className='h-10 w-10 mr-4 flex justify-center'>
-                                        <img src={SendIcon} />
-                                    </button>
+                                    <Box className='flex'>
+                                        <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
+                                            <MicIcon fontSize='large' />
+                                        </button>
+                                        <Box className='flex'>
+                                            <Divider orientation='vertical' variant='middle' flexItem />
+                                        </Box>
+                                        <button onClick={() => {
+                                            sendMessage()
+                                            setTextInputValue('')
+                                        }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                            <img src={SendIcon} />
+                                        </button>
+                                    </Box>
                                 </InputAdornment>}
                             />
                         </FormControl>
