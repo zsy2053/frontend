@@ -7,7 +7,7 @@ import { SendIcon, CalendarAgentChatIcon, AITutorChatIcon, ChatWithDataFileChatI
 import AgentType from './AgentType';
 
 const messageMapper = (item, index) => {
-  return item.startsWith("Human: ") ? <div key={index}><Box className='flex justify-center'>{item.split(':')[1]}</Box></div> : <div key={index}><Box className='flex justify-center'>{item.split(':')[1]}</Box></div>
+    return item.startsWith("Human: ") ? <div key={index}><Box className='flex justify-center'>{item.split(':')[1]}</Box></div> : <div key={index}><Box className='flex justify-center'>{item.split(':')[1]}</Box></div>
 }
 
 const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) => {
@@ -60,8 +60,10 @@ const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) 
                                 onChange={(event) => setMessage(event.target.value)}
                                 disableUnderline
                                 id="outlined-adornment-amount"
-                                endAdornment={<InputAdornment position="end" onClick={sendMessage}>
-                                    <Box className='h-10 w-10 mr-4 flex justify-center'><img src={SendIcon} /></Box>
+                                endAdornment={<InputAdornment position="end">
+                                    <button onClick={sendMessage} className='h-10 w-10 mr-4 flex justify-center'>
+                                        <img src={SendIcon} />
+                                    </button>
                                 </InputAdornment>}
                             />
                         </FormControl>
