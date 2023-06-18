@@ -5,6 +5,7 @@ import Sidebar from '../components/Home/Sidebar';
 import MySpaceMenu from '../components/Home/MySpaceMenu';
 import Navbar from '../components/Home/Navbar';
 import ChatWindow from '../components/Home/ChatWindow';
+import AgentType from '../components/Home/AgentType';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
@@ -131,8 +132,9 @@ const mapFocusContext = (focus) => {
 
 
 function Home() {
-    const [uploadFilesModalActive, setUploadFilesModalActive] = useState(true)
+    const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
+    const [agentType, setAgentType] = useState(AgentType.AITutor)
     const spaceStateInit = [
         { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
         { name: "Add website", state: false, setActiveFunc: setAddWebsiteModalActive },
@@ -166,11 +168,13 @@ function Home() {
                           fetchChatHistory(setChatHistory, mapFocusContext(focus));
                           setCurrentFocus(focus);
                         }}
+                        setActiveAgent={setAgentType}
                         />
                 </Box>
                 <Box className='flex-auto'>
                     <ChatWindow
-                      title={currentFocus}
+                      agentType={agentType}
+                      chatTitle={currentFocus}
                       content={chatHistory}
                       setMessage={setChatMessage}
                       sendMessage={() => {

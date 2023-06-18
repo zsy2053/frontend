@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 
 import {
     CheckBoxOutlineBlankOutlined,
@@ -8,23 +9,55 @@ import {
 import { Vector, chatIcon, books, books1, books2 } from "../../assets";
 import { Stack, Icon } from '@mui/material';
 import { Box } from '@mui/system';
+import AgentType from './AgentType';
 
 const agentsData = [
-    { name: "Add agent", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>, icon_raw: Vector},
-    { name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books },
-    { name: "AI tutor", icon: <Icon><img src={books1} /></Icon>, icon_raw: books1 },
-    { name: "Audio agent", icon: <Icon><img src={books2} /></Icon>, icon_raw: books2 },
+    {
+      name: "Add agent",
+      icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>,
+      icon_raw: Vector
+    },
+    {
+      name: "Calendar agent",
+      icon: <Icon><img src={books} /></Icon>,
+      icon_raw: books,
+      type: AgentType.CalendarAgent
+    },
+    {
+      name: "AI tutor",
+      icon: <Icon><img src={books1} /></Icon>,
+      icon_raw: books1,
+      type: AgentType.AITutor
+    },
+    {
+      name: "Audio agent",
+      icon: <Icon><img src={books2} /></Icon>,
+      icon_raw: books2,
+      type: AgentType.AudioAgent
+    }
 ];
 
 const libraryData = [
-    { name: "Add file", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>},
-    { name: "Add website", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>},
+    { name: "Add file", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box> },
+    { name: "Add website", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box> },
     /*{ name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},*/
 ];
 
-const MySpaceMenu = ({showUploadFilesModel, showAddWebsiteModel, collectionList, handleState, handleFocus}) => {
+const mapStatesUpdate = (states, targetName) => {
+    return states.map((item) => {
+        if (item.name === targetName) {
+            item.state = true;
+        } else {
+            item.state = false;
+        }
+        item.setActiveFunc(item.state)
+        return item
+    });
+}
+
+const MySpaceMenu = ({ showUploadFilesModel, showAddWebsiteModel, setActiveAgent, collectionList, handleState, handleFocus }) => {
     return (
         <Stack className=' w-72 overflow-auto pb-10 bg-white'>
             <Box className='mt-8 ml-4 text-menuText'>

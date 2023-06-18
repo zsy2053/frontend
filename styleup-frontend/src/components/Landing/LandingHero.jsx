@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../style";
 import Button from "../Button";
-
+import { Link } from "react-router-dom";
 const LandingHero = () => (
   <section id='home' className={`flex flex-col ${styles.paddingY}`}>
     <div className='flex flex-col justify-between items-center w-full text-black text-center'>
@@ -14,7 +14,14 @@ const LandingHero = () => (
       <span className='flex-1 font-inter font-medium sm:text-[24px] mb-14 px-16 text-[18px]'>
         Revolutionize User Interactions.
       </span>
-      <Button name='Early Access' className={"outline w-72 h-16 text-[24px]"} />
+      <Link to='/early-access'>
+        <button
+          type='button'
+          className={`font-inter text-primary font-medium p-2 gap-2 rounded-xl outline w-72 h-16 bg-white text-[24px] `}
+        >
+          Early Access
+        </button>
+      </Link>
     </div>
   </section>
 );

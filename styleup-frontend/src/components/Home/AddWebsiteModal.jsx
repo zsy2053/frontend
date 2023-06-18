@@ -1,35 +1,37 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Box, Stack } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import axios  from 'axios';
+import Input from '@mui/material/Input';
+import axios from 'axios';
 
 const handleLinkCreate = (websiteUrl, crawlLevel) => {
-  const data ={
-    "collection_content": websiteUrl,
-    "collection_name": websiteUrl,
-    "collection_type": "link",
-    "link_levels": crawlLevel
-  }
-  axios({
-      method: 'post',
-      url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
-      data,
-      headers: { "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem('jwt')},
-  }).then((res) => {
-      console.log(res);
-  }).catch((err) => {
-      console.log(err);
-     // navigate(-1);
-  });
+    const data = {
+        "collection_content": websiteUrl,
+        "collection_name": websiteUrl,
+        "collection_type": "link",
+        "link_levels": crawlLevel
+    }
+    axios({
+        method: 'post',
+        url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
+        data,
+        headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.getItem('jwt')
+        },
+    }).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+        console.log(err);
+        // navigate(-1);
+    });
 }
 
 const AddWebsiteModal = ({ setActive }) => {
     const [websiteUrl, setWebsiteUrl] = useState("");
     const [crawlLevel, setCrawlLevel] = useState(1);
     return (
-        <Box className='fixed h-screen w-screen grid place-items-center bg-black/40'>
+        <Box className='fixed h-screen w-screen grid place-items-center bg-black/40 z-50'>
             <Box className='w-[30rem] rounded-xl border bg-white'>
                 <Stack className='flex flex-col p-6'>
                     <Box className='flex justify-between mb-5'>
@@ -39,26 +41,29 @@ const AddWebsiteModal = ({ setActive }) => {
                         </button>
                     </Box>
                     <Box className='flex justify-stretch items-stretch'>
-                        <OutlinedInput
-                            className='flex flex-auto mr-6 h-11 rounded-lg border border-gray-200 mb-6'
-                            id="outlined-folder-name-input"
-                            placeholder='https://www.styleup.fun'
-                            onChange={(event) => setWebsiteUrl(event.target.value)}
-                        />
+                        <Box className='flex flex-auto pl-2 mb-6 h-11 rounded-lg border border-gray-300'>
+                            <Input
+                                disableUnderline
+                                id="outlined-folder-name-input"
+                                placeholder='https://www.styleup.fun'
+                                onChange={(event) => setWebsiteUrl(event.target.value)}
+                            />
+                        </Box>
                         {/*<button className='flex w-40 justify-center items-center h-11 bg-[#7f56d9] rounded-lg'>
                             Fetch
                         </button>*/}
                     </Box>
                     <Box className='flex justify-stretch items-stretch mb-6'>
-                        <button onClick={() => setCrawlLevel(1)} className='flex flex-auto justify-center items-center h-11 mr-6 rounded-lg border border-gray-300'>
+                        <button onClick={() => setCrawlLevel(1)}
+                            className={'flex flex-auto justify-center items-center h-11 mr-6 rounded-lg border border-gray-300'
+                                + ((crawlLevel == 1) ? ' bg-[#7f56d9]' : '')} >
                             level 1
                         </button>
-                        <button onClick={() => setCrawlLevel(2)} className='flex flex-auto justify-center items-center h-11 mr-6 rounded-lg border border-gray-300'>
+                        <button onClick={() => setCrawlLevel(2)}
+                            className={'flex flex-auto justify-center items-center h-11 rounded-lg border border-gray-300'
+                                + ((crawlLevel == 2) ? ' bg-[#7f56d9]' : '')} >
                             level 2
                         </button>
-                        {/*<button className='flex flex-auto justify-center items-center h-11 rounded-lg border border-gray-300'>
-                            level 3
-                        </button>*/}
                     </Box>
                     <p className='text-lg mb-2'>Included Links</p>
                     <p className='text-sm text-[#1c1c1c60] mb-6 overflow-auto'>
