@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import axios from "axios";
 import styles from "../style";
 import {
   LandingFooter,
@@ -23,8 +24,24 @@ const EarlyAccess = () => {
     // handle form value checks here
     e.preventDefault();
     if (inputOne != "" && inputTwo != "" && selectVal != null) {
-      setSuccess(true);
       //Handle success api call
+      axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/users/early_access`,
+          headers: { "Content-Type": "application/json" },
+          data: {
+            "email": inputTwo,
+            "task": selectVal,
+            "name": inputOne
+          }
+      }).then((res) => {
+          console.log(res);
+          setSuccess(true);
+
+      }).catch((err) => {
+          console.log(err);
+          window.alert(err);
+      });
     }
     if (inputOne == "") {
       setInputOneErr(true);

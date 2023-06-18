@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from '@mui/material';
 import { chatIcon, books } from '../assets';
 import Sidebar from '../components/Home/Sidebar';
@@ -145,9 +146,14 @@ function Home() {
     const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
     const [chatMessage, setChatMessage] = useState("");
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
+    const navigate = useNavigate();
     useEffect(() => {
-        fetchCollectionData(setCollectionList);
-        fetchChatHistory(setChatHistory, 'calendar_context');
+        if (localStorage.getItem("jwt") === null) {
+          navigate("/signin")
+        } else {
+          fetchCollectionData(setCollectionList);
+          fetchChatHistory(setChatHistory, 'calendar_context');
+        }
       }, []);
     return (
         <Stack className='h-screen flex flex-col'>
