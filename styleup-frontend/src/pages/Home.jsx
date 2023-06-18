@@ -44,6 +44,17 @@ const fetchChatHistory = (setChatHistory, chat_type) => {
   }).catch((err) => console.log(err));
 }
 
+const googleCalendarSignIn = () => {
+  axios({
+    method: 'post',
+    url: `${import.meta.env.VITE_API_URL}/api/bots/authenticate_google_calendar`,
+    headers: { "Content-Type": "application/json",
+    "x-access-token": localStorage.getItem('jwt')},
+  }).then((res) => {
+    window.open(res.data.data[0], "_blank", "noreferrer");
+  }).catch((err) => console.log(err));
+}
+
 
 const mapStatesUpdate = (states, targetName) => {
     return states.map((item) => {
@@ -60,11 +71,18 @@ const mapStatesUpdate = (states, targetName) => {
 const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
   switch (currentFocus['name']) {
     case 'Calendar agent':
+      const res = localStorage.getItem('googleCred');
+      if (!res || res == "") {
+        addMyChat(setChatHistory, "AIMessage: Need to login to google");
+        return;
+      }
+
       axios({
         method: 'post',
         url: `${import.meta.env.VITE_API_URL}/api/bots/get_google_calendars`,
         data: {
           'input': chatMessage,
+          'user_info': res
         },
         headers: { "Content-Type": "application/json",
         "x-access-token": localStorage.getItem('jwt')},
@@ -182,9 +200,16 @@ function Home() {
                       chatTitle={currentFocus}
                       content={chatHistory}
                       setMessage={setChatMessage}
-                      sendMessage={() => {
-                        addMyChat(setChatHistory, "Human: " + chatMessage)
-                        handleMessageSend(currentFocus, chatMessage, setChatHistory)
+                      chatMessage={chatMessage}
+                      googleCalendarSignIn={googleCalendarSignIn}
+                      sendMessage={(tip="") => {
+                        if (tip == "") {
+                          addMyChat(setChatHistory, "Human: " + chatMessage);
+                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                        } else {
+                          addMyChat(setChatHistory, "Human: " + tip);
+                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                        }
                       }}
                       />
                 </Box>
