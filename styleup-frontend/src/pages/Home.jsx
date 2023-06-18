@@ -142,7 +142,7 @@ function Home() {
     const [currentFocus, setCurrentFocus] = useState({ name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books })
     const [spaceState, setSpaceState] = useState(spaceStateInit);
     const [collectionList, setCollectionList] = useState([]);
-    const [chatHistory, setChatHistory] = useState([]);
+    const [chatHistory, setChatHistory] = useState(["Agent: how can I help you? vasdf asdfa asdf asdf asdf asdf asdfa sdaf asdfaf sdf asdfasd asdf"]);
     const [chatMessage, setChatMessage] = useState("");
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
     useEffect(() => {

@@ -7,11 +7,13 @@ import { SendIcon, CalendarAgentChatIcon, AITutorChatIcon, ChatWithDataFileChatI
 import AgentType from './AgentType';
 
 const messageMapper = (item, index) => {
-    return item.startsWith("Human: ") ? <div key={index}><Box className='flex justify-center'>{item.split(':')[1]}</Box></div> : <div key={index}><Box className='flex justify-center'>{item.split(':')[1]}</Box></div>
+    return item.startsWith("Human: ") ?
+        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#7f56d910] rounded-2xl mb-8 max-w-xl'>{item.split(':')[1]}</Box>
+        : <Box key={index} className='self-start justify-center px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>{item.split(':')[1]}</Box>
 }
 
 const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) => {
-    const [showPlaceholder, setShowPlaceholder] = useState(true);
+    const [textInputValue, setTextInputValue] = useState('')
     const metadata = [
         {
             type: AgentType.CalendarAgent, icon: CalendarAgentChatIcon, title: "Calendar Agent", chatSuggestions: [
@@ -36,7 +38,11 @@ const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) 
                 <Box className='h-10 w-10 flex justify-center mr-4'><img src={chatTitle.icon_raw} /></Box>
                 <p className='text-[24px]'>{chatTitle.name}</p>
             </Box>
-            {content && content.length > 0 ? content.map((item, index) => messageMapper(item, index)) : <Box className='flex justify-center'>Chat History</Box>}
+            <Box className='flex flex-col self-center w-5/6 justify-start flex-grow'>
+                {content && content.length > 0 ?
+                    content.map((item, index) => messageMapper(item, index))
+                    : <Box className='flex justify-center'>Chat History</Box>}
+            </Box>
             <Box className='flex justify-center'>
                 <Box className='flex-col w-5/6 justify-center' >
                     <Box className='flex justify-start mb-4'>
@@ -57,11 +63,24 @@ const ChatWindow = ({ agentType, chatTitle, content, setMessage, sendMessage }) 
                         <FormControl fullWidth sx={{ m: 1 }}>
                             <Input
                                 placeholder='Type new question'
-                                onChange={(event) => setMessage(event.target.value)}
+                                value={textInputValue}
+                                onChange={(event) => {
+                                    setTextInputValue(event.target.value)
+                                    setMessage(event.target.value)
+                                }}
+                                onKeyDown={(event) => {
+                                    if (event.key == "Enter") {
+                                        sendMessage()
+                                        setTextInputValue('')
+                                    }
+                                }}
                                 disableUnderline
                                 id="outlined-adornment-amount"
                                 endAdornment={<InputAdornment position="end">
-                                    <button onClick={sendMessage} className='h-10 w-10 mr-4 flex justify-center'>
+                                    <button onClick={() => {
+                                        sendMessage()
+                                        setTextInputValue('')
+                                    }} className='h-10 w-10 mr-4 flex justify-center'>
                                         <img src={SendIcon} />
                                     </button>
                                 </InputAdornment>}
