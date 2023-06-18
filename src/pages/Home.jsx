@@ -11,6 +11,7 @@ import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
 import CommunityMenu from '../components/Home/CommunityMenu';
+import CommunityWindow from '../components/Home/CommunityWindow';
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
@@ -187,19 +188,17 @@ function Home() {
               />
               {sidebarSelection === 'MySpace' &&
                 <Box className='flex flex-auto divide-x' >
-                  <Box className='border-r-borderGrey'>
-                    <MySpaceMenu
-                        showUploadFilesModel={setUploadFilesModalActive}
-                        showAddWebsiteModel={setAddWebsiteModalActive}
-                        collectionList={collectionList}
-                        handleState={handleState}
-                        handleFocus={(focus) => {
-                          fetchChatHistory(setChatHistory, mapFocusContext(focus));
-                          setCurrentFocus(focus);
-                        }}
-                        setActiveAgent={setAgentType}
-                        />
-                </Box>
+                  <MySpaceMenu
+                    showUploadFilesModel={setUploadFilesModalActive}
+                    showAddWebsiteModel={setAddWebsiteModalActive}
+                    collectionList={collectionList}
+                    handleState={handleState}
+                    handleFocus={(focus) => {
+                      fetchChatHistory(setChatHistory, mapFocusContext(focus));
+                      setCurrentFocus(focus);
+                    }}
+                    setActiveAgent={setAgentType}
+                  />
                 <Box className='flex-auto'>
                     <ChatWindow
                       agentType={agentType}
@@ -223,7 +222,10 @@ function Home() {
               }
               {
                 sidebarSelection === 'Community' &&
-                <CommunityMenu />
+                <Box className='flex flex-auto divide-x'>
+                  <CommunityMenu />
+                  <CommunityWindow />
+                </Box>
               }
             </Stack>
         </Stack>
