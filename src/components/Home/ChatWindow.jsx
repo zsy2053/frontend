@@ -8,8 +8,13 @@ import agentsData from './Agents';
 import MicIcon from '@mui/icons-material/Mic';
 import Divider from '@mui/material/Divider';
 
-const checkAIMessage = (message, googleCalendarSignIn) => {
-    return message === " Need to login to google" ? <div><p>{message}</p><button onClick={googleCalendarSignIn}>Google Signin</button></div> : message
+const GoogleCalendarSignInButton = ({ googleCalendarSignIn }) => {
+    return (
+        <button onClick={googleCalendarSignIn}
+            className='border border-styleupPurple text-styleupPurple rounded-full px-5 py-2.5 mb-8'>
+            Access Calendar
+        </button>
+    )
 }
 
 const messageMapper = (item, index, googleCalendarSignIn) => {
@@ -19,10 +24,17 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
                 {item.substring(item.indexOf(':') + 1)}
             </span>
         </Box>
-        : <Box key={index} className='self-start justify-center px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
-            <span style={{ whiteSpace: 'pre-line' }}>
-                {checkAIMessage(item.substring(item.indexOf(':') + 1), googleCalendarSignIn)}
-            </span>
+        :
+        <Box key={index} className='self-start flex-col'>
+            <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+                <span style={{ whiteSpace: 'pre-line' }}>
+                    {item.substring(item.indexOf(':') + 1)}
+                </span>
+            </Box>
+            {
+                item.includes("Need to login to google")
+                && <GoogleCalendarSignInButton googleCalendarSignIn={googleCalendarSignIn} />
+            }
         </Box>
 }
 

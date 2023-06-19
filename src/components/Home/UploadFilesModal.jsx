@@ -45,7 +45,7 @@ const UploadFilesModal = ({ setActive }) => {
                     <label htmlFor="file" className='flex flex-col justify-center items-center h-32 mb-4 rounded-lg border border-gray-200'>
                         <input type="file" onChange={(event) => handleFileUpload(event, fileName)} id="file" name="file" hidden multiple />
                         <Box className='flex'>
-                            <p className='text-[#6941c6] font-semibold mr-1'>Click to upload</p>
+                            <p className='text-styleupPurple font-semibold mr-1'>Click to upload</p>
                             <p className='text-[#555555]'>or drag and drop</p>
                         </Box>
                         <p className='text-[#555555]'>XLS or CSV or PDF</p>
@@ -62,7 +62,7 @@ const UploadFilesModal = ({ setActive }) => {
                             className='flex flex-auto justify-center items-center h-11 mr-3 rounded-lg border border-gray-300'>
                             Cancel
                         </button>
-                        <button className='flex flex-auto justify-center items-center h-11 bg-[#7f56d9] rounded-lg'>
+                        <button className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg'>
                             Upload
                         </button>
                     </Box>
