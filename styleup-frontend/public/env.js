@@ -46,5 +46,5 @@ window.env = {
   "HOMEBREW_CELLAR": "/opt/homebrew/Cellar",
   "npm_node_execpath": "/usr/local/bin/node",
   "npm_config_prefix": "/usr/local",
-  "API_URL": "http://localhost:3000"
+  "API_URL": "https://www.styleup.fun"
 };
