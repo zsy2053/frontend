@@ -22,7 +22,13 @@ const fetchCollectionData = (setCollectionList) => {
   }).then((res) => {
       let resData = []
       for (let i = 0; i < res.data.data.length; i++) {
-        resData.push({ name: res.data.data[i], icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>, icon_raw: chatIcon })
+        resData.push(
+          {
+            name: res.data.data[i],
+            icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>,
+            chatWindowIcon: chatIcon
+          }
+        )
       }
       setCollectionList(resData);
   }).catch((err) => {
@@ -198,7 +204,9 @@ function Home() {
                   />
                 <Box className='flex-auto'>
                     <ChatWindow
-                      agent={currentFocus}
+                      chatTitle={currentFocus.name}
+                      chatWindowIcon={currentFocus.chatWindowIcon}
+                      chatSuggestions={currentFocus.chatSuggestions}
                       content={chatHistory}
                       setMessage={setChatMessage}
                       chatMessage={chatMessage}

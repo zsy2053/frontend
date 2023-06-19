@@ -26,25 +26,7 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
         </Box>
 }
 
-const ChatWindow = ({ agent, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn }) => {
-    // const metadata = [
-    //     {
-    //         chatWindowIcon: CalendarAgentChatIcon, chatTitle: "Calendar Agent", chatSuggestions: [
-    //             "How does my week look like?", "Am I free at 10am tomorrow?", "What's on my calendar for this week?"
-    //         ]
-    //     },
-    //     {
-    //         chatWindowIcon: AITutorChatIcon, chatTitle: "AI Tutor", chatSuggestions: [
-    //             "Why is the sky blue?", "Explain more", "Quiz me"
-    //         ]
-    //     },
-    //     {
-    //         chatWindowIcon: ChatWithDataFileChatIcon, chatTitle: "Chat with your data files", chatSuggestions: [
-    //             "Summarize the file", "Explain more", "Quiz me"
-    //         ]
-    //     }
-    // ]
-    const { chatWindowIcon, chatTitle, chatSuggestions } = agentsData.find((e) => e.name == agent.name)
+const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn }) => {
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
@@ -58,27 +40,27 @@ const ChatWindow = ({ agent, content, chatMessage, setMessage, sendMessage, goog
             </Box>
             <Box className='flex justify-center'>
                 <Box className='flex-col w-5/6 justify-center' >
-                    {chatSuggestions.length > 0 &&
+                    {chatSuggestions && chatSuggestions.length > 0 &&
                         <Box className='flex justify-start mb-4'>
                             <p className='text-[#555555]'>Chat Suggestions</p>
                         </Box>
                     }
                     <Box className='flex justify-start mb-4'>
-                        {chatSuggestions.length > 0 &&
+                        {chatSuggestions && chatSuggestions.length > 0 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[0]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-[#f2eefb]'>
                                 {chatSuggestions[0]}
                             </button>
                         }
-                        {chatSuggestions.length > 1 &&
+                        {chatSuggestions && chatSuggestions.length > 1 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[1]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
                                 {chatSuggestions[1]}
                             </button>
                         }
-                        {chatSuggestions.length > 2 &&
+                        {chatSuggestions && chatSuggestions.length > 2 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[2]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
