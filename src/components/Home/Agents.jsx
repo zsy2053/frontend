@@ -1,4 +1,4 @@
-import { Vector, books, books1, books2 } from "../../assets";
+import { AITutorMenuIcon, AudioAgentMenuIcon, CalendarAgentMenuIcon, PlusIcon } from "../../assets";
 import { CalendarAgentChatIcon, AITutorChatIcon, ChatWithDataFileChatIcon } from "../../assets";
 import { Box } from '@mui/system';
 import { Icon } from '@mui/material';
@@ -6,14 +6,14 @@ import { Icon } from '@mui/material';
 const agentsData = [
 	{
 		name: "Add agent",
-		menuIcon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box>,
-		chatWindowIcon: Vector,
+		menuIcon: <Box className='h-6 w-6 flex justify-center'><img src={PlusIcon} className='place-self-center' /></Box>,
+		chatWindowIcon: PlusIcon,
 		chatTitle: "Add Agent",
 		chatSuggestions: []
 	},
 	{
 		name: "Calendar agent",
-		menuIcon: <Icon><img src={books} /></Icon>,
+		menuIcon: <Icon><img src={CalendarAgentMenuIcon} /></Icon>,
 		chatWindowIcon: CalendarAgentChatIcon,
 		chatTitle: "Calendar Agent",
 		chatSuggestions: [
@@ -22,7 +22,7 @@ const agentsData = [
 	},
 	{
 		name: "AI tutor",
-		menuIcon: <Icon><img src={books1} /></Icon>,
+		menuIcon: <Icon><img src={AITutorMenuIcon} /></Icon>,
 		chatWindowIcon: AITutorChatIcon,
 		chatTitle: "AI Tutor",
 		chatSuggestions: [
@@ -31,7 +31,7 @@ const agentsData = [
 	},
 	{
 		name: "Audio agent",
-		menuIcon: <Icon><img src={books2} /></Icon>,
+		menuIcon: <Icon><img src={AudioAgentMenuIcon} /></Icon>,
 		chatWindowIcon: ChatWithDataFileChatIcon,
 		chatTitle: "Audio Agent",
 		chatSuggestions: [

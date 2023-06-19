@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
-import { Vector } from "../../assets";
+import { PlusIcon } from "../../assets";
 import { Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import agentsData from './Agents';
 
 const libraryData = [
-    { name: "Add file", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box> },
-    { name: "Add website", icon: <Box className='h-6 w-6 flex justify-center'><img src={Vector} className='place-self-center' /></Box> },
+    { name: "Add file", icon: <Box className='h-6 w-6 flex justify-center'><img src={PlusIcon} className='place-self-center' /></Box> },
+    { name: "Add website", icon: <Box className='h-6 w-6 flex justify-center'><img src={PlusIcon} className='place-self-center' /></Box> },
     /*{ name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},
     { name: "datafile_work.csv", icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>},*/
