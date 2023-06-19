@@ -25,12 +25,14 @@ const fetchCollectionData = (setCollectionList) => {
       }
       setCollectionList(resData);
   }).catch((err) => {
+      window.alert(err.message);
       console.log(err);
      // navigate(-1);
   });
 }
 
 const fetchChatHistory = (setChatHistory, chat_type) => {
+  console.log(chat_type);
   axios({
     method: 'get',
     url: `${import.meta.env.VITE_API_URL}/api/bots/get_chat_history`,
@@ -40,8 +42,12 @@ const fetchChatHistory = (setChatHistory, chat_type) => {
     headers: { "Content-Type": "application/json",
     "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
+    console.log(res);
     setChatHistory(res.data.data)
-  }).catch((err) => console.log(err));
+  }).catch((err) => {
+    window.alert(err.message);
+    console.log(err)
+  });
 }
 
 const googleCalendarSignIn = () => {
@@ -52,7 +58,10 @@ const googleCalendarSignIn = () => {
     "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
     window.open(res.data.data[0], "_blank", "noreferrer");
-  }).catch((err) => console.log(err));
+  }).catch((err) => {
+    window.alert(err.message);
+    console.log(err)
+  });
 }
 
 
@@ -88,7 +97,10 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-      }).catch((err) => console.log(err));
+      }).catch((err) => {
+        window.alert(err.message);
+        console.log(err)
+      });
       break;
     case 'AI tutor':
       axios({
@@ -101,7 +113,10 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-      }).catch((err) => console.log(err));
+      }).catch((err) => {
+        window.alert(err.message);
+        console.log(err)
+      });
       break;
     case 'Audio agent':
       /*var formData = new FormData();
@@ -128,7 +143,10 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-      }).catch((err) => console.log(err));
+      }).catch((err) => {
+        window.alert(err.message);
+        console.log(err)
+      });
       break;
   }
 }
@@ -188,6 +206,7 @@ function Home() {
                         collectionList={collectionList}
                         handleState={handleState}
                         handleFocus={(focus) => {
+                          console.log(focus);
                           fetchChatHistory(setChatHistory, mapFocusContext(focus));
                           setCurrentFocus(focus);
                         }}

@@ -32,6 +32,7 @@ const googleLogin = (idToken, email, navigate) => {
             navigate("/home");
         }
     }).catch((err) => {
+        window.alert(err.message);
         console.log(err);
     });
 }

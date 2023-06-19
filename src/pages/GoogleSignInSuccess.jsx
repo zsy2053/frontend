@@ -12,6 +12,7 @@ const getGoogleCred = (code, setStatus, navigate) => {
         setStatus(true);
         navigate("/home");
     }).catch((err) => {
+        window.alert(err.message);
         setStatus(false);
         console.log(err);
        // navigate(-1);
