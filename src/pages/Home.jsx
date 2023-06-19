@@ -154,6 +154,7 @@ const mapFocusContext = (focus) => {
 function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
+    const [sidebarSelection, setSidebarSelection] = useState('MySpace')
     const [agentType, setAgentType] = useState(AgentType.AITutor)
     const spaceStateInit = [
         { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
@@ -179,9 +180,14 @@ function Home() {
             <Navbar />
             {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
             {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
-            <Stack className='flex flex-auto divide-x' sx={{ flexDirection: 'row' }}>
-                <Sidebar className='flex flex-col' />
-                <Box className='border-r-borderGrey'>
+            <Stack className='flex flex-auto' sx={{ flexDirection: 'row' }}>
+              <Sidebar className='flex flex-col'
+                sidebarSelection={sidebarSelection}
+                setSidebarSelection={setSidebarSelection}
+              />
+              {sidebarSelection === 'MySpace' &&
+                <Box className='flex flex-auto divide-x' >
+                  <Box className='border-r-borderGrey'>
                     <MySpaceMenu
                         showUploadFilesModel={setUploadFilesModalActive}
                         showAddWebsiteModel={setAddWebsiteModalActive}
@@ -212,7 +218,13 @@ function Home() {
                         }
                       }}
                       />
+                  </Box>
                 </Box>
+              }
+              {
+                sidebarSelection === 'Community' &&
+                <CommunityMenu />
+              }
             </Stack>
         </Stack>
     );
