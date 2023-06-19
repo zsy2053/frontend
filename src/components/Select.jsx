@@ -11,7 +11,7 @@ const Select = ({
   required = false,
   tooltipMsg = "Please fill out this field",
   showTooltip = false,
-  setTooltip,
+  // setTooltip,
 }) => {
   const [phText, setPhText] = useState(placeholder);
   const [open, setOpen] = useState(false);
@@ -39,7 +39,7 @@ const Select = ({
             type='button'
             onClick={() => {
               setOpen((prev) => !prev);
-              setTooltip(false);
+              //setTooltip(false);
             }}
           >
             {phText}
