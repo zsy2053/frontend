@@ -8,6 +8,8 @@ import {
   GoogleSignInSuccess,
   EarlyAccess,
   SignIn,
+  About,
+  Error,
 } from "./pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Landing />,
+    errorElement: <Error />,
   },
   {
     path: "/home",
@@ -31,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/signin",
     element: <SignIn />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
 ]);
 

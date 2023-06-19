@@ -11,6 +11,7 @@ import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
 import CommunityMenu from '../components/Home/CommunityMenu';
+import CommunityWindow from '../components/Home/CommunityWindow';
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
@@ -154,6 +155,7 @@ const mapFocusContext = (focus) => {
 function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
+    const [sidebarSelection, setSidebarSelection] = useState('MySpace')
     const [agentType, setAgentType] = useState(AgentType.AITutor)
     const spaceStateInit = [
         { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
@@ -179,21 +181,24 @@ function Home() {
             <Navbar />
             {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
             {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
-            <Stack className='flex flex-auto divide-x' sx={{ flexDirection: 'row' }}>
-                <Sidebar className='flex flex-col' />
-                <Box className='border-r-borderGrey'>
-                    <MySpaceMenu
-                        showUploadFilesModel={setUploadFilesModalActive}
-                        showAddWebsiteModel={setAddWebsiteModalActive}
-                        collectionList={collectionList}
-                        handleState={handleState}
-                        handleFocus={(focus) => {
-                          fetchChatHistory(setChatHistory, mapFocusContext(focus));
-                          setCurrentFocus(focus);
-                        }}
-                        setActiveAgent={setAgentType}
-                        />
-                </Box>
+            <Stack className='flex flex-auto' sx={{ flexDirection: 'row' }}>
+              <Sidebar className='flex flex-col'
+                sidebarSelection={sidebarSelection}
+                setSidebarSelection={setSidebarSelection}
+              />
+              {sidebarSelection === 'MySpace' &&
+                <Box className='flex flex-auto divide-x' >
+                  <MySpaceMenu
+                    showUploadFilesModel={setUploadFilesModalActive}
+                    showAddWebsiteModel={setAddWebsiteModalActive}
+                    collectionList={collectionList}
+                    handleState={handleState}
+                    handleFocus={(focus) => {
+                      fetchChatHistory(setChatHistory, mapFocusContext(focus));
+                      setCurrentFocus(focus);
+                    }}
+                    setActiveAgent={setAgentType}
+                  />
                 <Box className='flex-auto'>
                     <ChatWindow
                       agentType={agentType}
@@ -212,7 +217,16 @@ function Home() {
                         }
                       }}
                       />
+                  </Box>
                 </Box>
+              }
+              {
+                sidebarSelection === 'Community' &&
+                <Box className='flex flex-auto divide-x'>
+                  <CommunityMenu />
+                  <CommunityWindow />
+                </Box>
+              }
             </Stack>
         </Stack>
     );

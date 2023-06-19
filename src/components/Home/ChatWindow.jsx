@@ -14,8 +14,16 @@ const checkAIMessage = (message, googleCalendarSignIn) => {
 
 const messageMapper = (item, index, googleCalendarSignIn) => {
     return item.startsWith("Human: ") ?
-        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-2xl mb-8 max-w-xl'>{item.split(':')[1]}</Box>
-        : <Box key={index} className='self-start justify-center px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>{checkAIMessage(item.split(':')[1], googleCalendarSignIn)}</Box>
+        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-2xl mb-8 max-w-xl'>
+            <span style={{ whiteSpace: 'pre-line' }}>
+                {item.substring(item.indexOf(':') + 1)}
+            </span>
+        </Box>
+        : <Box key={index} className='self-start justify-center px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+            <span style={{ whiteSpace: 'pre-line' }}>
+                {checkAIMessage(item.substring(item.indexOf(':') + 1), googleCalendarSignIn)}
+            </span>
+        </Box>
 }
 
 const ChatWindow = ({ agentType, chatTitle, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn }) => {

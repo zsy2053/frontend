@@ -10,6 +10,7 @@ import {
 } from "../components";
 import { earlyAccessOptions } from "../constants";
 import CustomizedCheckbox from "../components/CustomCheckbox";
+import { ClickAwayListener } from "@mui/base";
 const EarlyAccess = () => {
   const [inputOne, setInputOne] = useState("");
   const [inputTwo, setInputTwo] = useState("");
@@ -26,22 +27,23 @@ const EarlyAccess = () => {
     if (inputOne != "" && inputTwo != "" && selectVal != null) {
       //Handle success api call
       axios({
-          method: 'post',
-          url: `${import.meta.env.VITE_API_URL}/api/users/early_access`,
-          headers: { "Content-Type": "application/json" },
-          data: {
-            "email": inputTwo,
-            "task": selectVal,
-            "name": inputOne
-          }
-      }).then((res) => {
+        method: "post",
+        url: `${import.meta.env.VITE_API_URL}/api/users/early_access`,
+        headers: { "Content-Type": "application/json" },
+        data: {
+          email: inputTwo,
+          task: selectVal,
+          name: inputOne,
+        },
+      })
+        .then((res) => {
           console.log(res);
           setSuccess(true);
-
-      }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
           window.alert(err);
-      });
+        });
     }
     if (inputOne == "") {
       setInputOneErr(true);
@@ -52,6 +54,13 @@ const EarlyAccess = () => {
     if (selectVal == null) {
       setSelectValErr(true);
     }
+  };
+
+  const hideTooltip = () => {
+    console.log("hit");
+    setInputOneErr(false);
+    setInputTwoErr(false);
+    setSelectValErr(false);
   };
   return (
     <div className='w-full overflow-hidden flex flex-col min-h-screen'>
@@ -138,12 +147,16 @@ const EarlyAccess = () => {
                     Privacy Policy
                   </a>
                 </span>
-                <Button
-                  className='w-[103px]'
-                  type='submit'
-                  name='Submit'
-                  onClick={(e) => onSubmit(e)}
-                />
+                <ClickAwayListener onClickAway={hideTooltip}>
+                  <div>
+                    <Button
+                      className='w-[103px]'
+                      type='submit'
+                      name='Submit'
+                      onClick={(e) => onSubmit(e)}
+                    />
+                  </div>
+                </ClickAwayListener>
               </div>
             </form>
           )}

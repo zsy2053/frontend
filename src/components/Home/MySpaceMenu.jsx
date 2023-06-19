@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 
-import {
-    CheckBoxOutlineBlankOutlined,
-    HomeOutlined,
-    InboxOutlined,
-} from "@mui/icons-material";
 import { Vector, chatIcon, books, books1, books2 } from "../../assets";
 import { Stack, Icon } from '@mui/material';
 import { Box } from '@mui/system';

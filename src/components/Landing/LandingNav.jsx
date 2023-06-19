@@ -22,10 +22,11 @@ const LandingNav = () => {
         {landingNavLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-inter font-medium cursor-pointer text-[20px] ${index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
-              }`}
+            className={`font-inter font-medium cursor-pointer text-[20px] ${
+              index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
+            }`}
           >
-            <a href={`${nav.id}`}>{nav.title}</a>
+            <a onClick={() => navigate(`${nav.id}`)}>{nav.title}</a>
           </li>
         ))}
       </ul>
@@ -64,7 +65,7 @@ const LandingNav = () => {
                   "font-inter font-medium cursor-pointer text-[20px] mb-4 text-white"
                 }
               >
-                <a href={`${nav.id}`}>{nav.title}</a>
+                <a onClick={() => navigate(`${nav.id}`)}>{nav.title}</a>
               </li>
             ))}
             <li
@@ -72,7 +73,7 @@ const LandingNav = () => {
                 "font-inter font-medium cursor-pointer text-[20px] text-white"
               }
             >
-              <a href='/signin'>Sign In</a>
+              <a onClick={() => navigate("/signin")}>Sign In</a>
             </li>
           </ul>
         </div>
