@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import CustomTooltip from "./CustomTooltip";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
+import { check } from "../assets";
 
 const Select = ({
   id,
@@ -62,7 +63,13 @@ const Select = ({
                 }
                 onClick={() => handleSelect(op.id, op.text)}
               >
-                <p>{op.text}</p>
+                <div className='flex'>
+                  <p className='flex-grow'>{op.text}</p>
+                  <img
+                    src={check}
+                    className={phText === op.text ? `visible` : "hidden"}
+                  ></img>
+                </div>
               </li>
             ))}
           </ul>
