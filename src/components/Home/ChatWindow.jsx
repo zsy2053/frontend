@@ -4,7 +4,6 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import { SendIcon } from "../../assets";
-import agentsData from './Agents';
 import MicIcon from '@mui/icons-material/Mic';
 import Divider from '@mui/material/Divider';
 
