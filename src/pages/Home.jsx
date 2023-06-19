@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from '@mui/material';
-import { chatIcon, books } from '../assets';
+import { chatIcon } from '../assets';
 import Sidebar from '../components/Home/Sidebar';
 import MySpaceMenu from '../components/Home/MySpaceMenu';
 import Navbar from '../components/Home/Navbar';
 import ChatWindow from '../components/Home/ChatWindow';
-import AgentType from '../components/Home/AgentType';
+import agentsData from '../components/Home/Agents';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
@@ -156,12 +156,11 @@ function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
     const [sidebarSelection, setSidebarSelection] = useState('MySpace')
-    const [agentType, setAgentType] = useState(AgentType.AITutor)
     const spaceStateInit = [
         { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
         { name: "Add website", state: false, setActiveFunc: setAddWebsiteModalActive },
     ];
-    const [currentFocus, setCurrentFocus] = useState({ name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books })
+    const [currentFocus, setCurrentFocus] = useState(agentsData[1])
     const [spaceState, setSpaceState] = useState(spaceStateInit);
     const [collectionList, setCollectionList] = useState([]);
     const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
@@ -189,20 +188,17 @@ function Home() {
               {sidebarSelection === 'MySpace' &&
                 <Box className='flex flex-auto divide-x' >
                   <MySpaceMenu
-                    showUploadFilesModel={setUploadFilesModalActive}
-                    showAddWebsiteModel={setAddWebsiteModalActive}
                     collectionList={collectionList}
                     handleState={handleState}
                     handleFocus={(focus) => {
                       fetchChatHistory(setChatHistory, mapFocusContext(focus));
                       setCurrentFocus(focus);
                     }}
-                    setActiveAgent={setAgentType}
+                    setActiveAgent={setCurrentFocus}
                   />
                 <Box className='flex-auto'>
                     <ChatWindow
-                      agentType={agentType}
-                      chatTitle={currentFocus}
+                      agent={currentFocus}
                       content={chatHistory}
                       setMessage={setChatMessage}
                       chatMessage={chatMessage}
