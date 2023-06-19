@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from '@mui/material';
 import { chatIcon, books } from '../assets';
 import Sidebar from '../components/Home/Sidebar';
@@ -9,13 +10,14 @@ import AgentType from '../components/Home/AgentType';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
+import CommunityMenu from '../components/Home/CommunityMenu';
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
       method: 'get',
       url: `${import.meta.env.VITE_API_URL}/api/bots/get_collections`,
       headers: { "Content-Type": "application/json",
-      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+      "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
       let resData = []
       for (let i = 0; i < res.data.data.length; i++) {
@@ -36,9 +38,20 @@ const fetchChatHistory = (setChatHistory, chat_type) => {
       'chat_type': chat_type
     },
     headers: { "Content-Type": "application/json",
-    "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+    "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
     setChatHistory(res.data.data)
+  }).catch((err) => console.log(err));
+}
+
+const googleCalendarSignIn = () => {
+  axios({
+    method: 'post',
+    url: `${import.meta.env.VITE_API_URL}/api/bots/authenticate_google_calendar`,
+    headers: { "Content-Type": "application/json",
+    "x-access-token": localStorage.getItem('jwt')},
+  }).then((res) => {
+    window.open(res.data.data[0], "_blank", "noreferrer");
   }).catch((err) => console.log(err));
 }
 
@@ -58,14 +71,21 @@ const mapStatesUpdate = (states, targetName) => {
 const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
   switch (currentFocus['name']) {
     case 'Calendar agent':
+      const res = localStorage.getItem('googleCred');
+      if (!res || res == "") {
+        addMyChat(setChatHistory, "AIMessage: Need to login to google");
+        return;
+      }
+
       axios({
         method: 'post',
         url: `${import.meta.env.VITE_API_URL}/api/bots/get_google_calendars`,
         data: {
           'input': chatMessage,
+          'user_info': res
         },
         headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => console.log(err));
@@ -78,7 +98,7 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
           'input': chatMessage,
         },
         headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => console.log(err));
@@ -105,7 +125,7 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
           'collection_name': currentFocus['name']
         },
         headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => console.log(err));
@@ -142,12 +162,17 @@ function Home() {
     const [currentFocus, setCurrentFocus] = useState({ name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books })
     const [spaceState, setSpaceState] = useState(spaceStateInit);
     const [collectionList, setCollectionList] = useState([]);
-    const [chatHistory, setChatHistory] = useState([]);
+    const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
     const [chatMessage, setChatMessage] = useState("");
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
+    const navigate = useNavigate();
     useEffect(() => {
-        fetchCollectionData(setCollectionList);
-        fetchChatHistory(setChatHistory, 'calendar_context');
+        if (localStorage.getItem("jwt") === null) {
+          navigate("/signin")
+        } else {
+          fetchCollectionData(setCollectionList);
+          fetchChatHistory(setChatHistory, 'calendar_context');
+        }
       }, []);
     return (
         <Stack className='h-screen flex flex-col'>
@@ -155,9 +180,7 @@ function Home() {
             {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
             {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
             <Stack className='flex flex-auto divide-x' sx={{ flexDirection: 'row' }}>
-                <Box className='border-r-borderGrey'>
-                    <Sidebar />
-                </Box>
+                <Sidebar className='flex flex-col' />
                 <Box className='border-r-borderGrey'>
                     <MySpaceMenu
                         showUploadFilesModel={setUploadFilesModalActive}
@@ -177,9 +200,16 @@ function Home() {
                       chatTitle={currentFocus}
                       content={chatHistory}
                       setMessage={setChatMessage}
-                      sendMessage={() => {
-                        addMyChat(setChatHistory, "Human: " + chatMessage)
-                        handleMessageSend(currentFocus, chatMessage, setChatHistory)
+                      chatMessage={chatMessage}
+                      googleCalendarSignIn={googleCalendarSignIn}
+                      sendMessage={(tip="") => {
+                        if (tip == "") {
+                          addMyChat(setChatHistory, "Human: " + chatMessage);
+                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                        } else {
+                          addMyChat(setChatHistory, "Human: " + tip);
+                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                        }
                       }}
                       />
                 </Box>

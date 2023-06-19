@@ -28,3 +28,4 @@ export { default as AITutorChatIcon } from "./icons/books-1.svg";
 export { default as ChatWithDataFileChatIcon } from "./icons/ChatWithDataFile.svg";
 export { default as CalendarAgentIcon } from "./icons/CalendarAgent.svg";
 export { default as logoFooter } from "./images/logoFooter.svg";
+export { default as checkboxInternal } from "./icons/checkboxInternal.svg";
