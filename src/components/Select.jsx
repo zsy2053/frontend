@@ -15,10 +15,8 @@ const Select = ({
 }) => {
   const [phText, setPhText] = useState(placeholder);
   const [open, setOpen] = useState(false);
-  const [valid, setValid] = useState(true);
 
   const handleSelect = (id, ph) => {
-    // will run onSelect after setOpen
     setOpen(false);
     setPhText(ph);
     onChange(id);
@@ -31,11 +29,10 @@ const Select = ({
           <button
             className={`block px-5 py-4 w-full h-[56px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none
         text-left 
-      border-styleupPurple border-opacity-60 border-[2px]
       ${
         phText === placeholder && !open
           ? "border-primary border-opacity-10 border-[1px]"
-          : ""
+          : "border-styleupPurple border-opacity-60 border-[2px]"
       }
         `}
             id={id}
