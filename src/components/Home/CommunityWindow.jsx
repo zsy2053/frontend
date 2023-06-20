@@ -132,7 +132,7 @@ const CommunityWindow = () => {
         <Label text='Health' />
         <Label text='Travel' />
       </Box>
-      <Box className='flex overflow-auto mx-20 flex-wrap justify-center'>
+      <Box className='flex overflow-auto mx-20 flex-wrap justify-center max-w-7xl'>
         {agentCards.map((item, index) => (
           <AgentCard item={item}/>
         ))}
