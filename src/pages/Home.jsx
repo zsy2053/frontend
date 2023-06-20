@@ -228,7 +228,9 @@ function Home() {
                 sidebarSelection === 'Community' &&
                 <Box className='flex flex-auto divide-x'>
                   <CommunityMenu />
-                  <CommunityWindow />
+                  <Box className='flex-auto'>
+                    <CommunityWindow />
+                  </Box>
                 </Box>
               }
             </Stack>
