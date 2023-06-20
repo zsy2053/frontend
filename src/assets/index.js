@@ -56,3 +56,7 @@ export { default as card7 } from "./images/card7.png";
 export { default as card8 } from "./images/card8.png";
 export { default as card9 } from "./images/card9.png";
 export { default as Female06 } from "./icons/Female06.svg";
+export { default as handshake } from "./images/handshake.svg";
+export { default as magnet } from "./images/magnet.svg";
+export { default as lightbulb } from "./images/lightbulb.svg";
+export { default as fillerAbout } from "./images/fillerAbout.jpg";
