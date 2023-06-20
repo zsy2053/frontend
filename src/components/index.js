@@ -6,3 +6,8 @@ export { default as Input } from "./Input";
 export { default as Select } from "./Select";
 export { default as CustomTooltip } from "./CustomTooltip";
 export { default as CustomCheckbox } from "./CustomCheckbox";
+export { default as AboutHero } from "./Landing/AboutHero";
+export { default as AboutCore } from "./Landing/AboutCore";
+export { default as AboutCEO } from "./Landing/AboutCEO";
+export { default as AboutStyleUp } from "./Landing/AboutStyleUp";
+export { default as AboutTeam } from "./Landing/AboutTeam";
