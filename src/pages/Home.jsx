@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from '@mui/material';
-import { chatIcon, books } from '../assets';
+import { chatIcon } from '../assets';
 import Sidebar from '../components/Home/Sidebar';
 import MySpaceMenu from '../components/Home/MySpaceMenu';
 import Navbar from '../components/Home/Navbar';
 import ChatWindow from '../components/Home/ChatWindow';
-import AgentType from '../components/Home/AgentType';
+import agentsData from '../components/Home/Agents';
 import UploadFilesModal from '../components/Home/UploadFilesModal';
 import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
@@ -22,7 +22,13 @@ const fetchCollectionData = (setCollectionList) => {
   }).then((res) => {
       let resData = []
       for (let i = 0; i < res.data.data.length; i++) {
-        resData.push({ name: res.data.data[i], icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>, icon_raw: chatIcon })
+        resData.push(
+          {
+            name: res.data.data[i],
+            icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>,
+            chatWindowIcon: chatIcon
+          }
+        )
       }
       setCollectionList(resData);
   }).catch((err) => {
@@ -172,12 +178,11 @@ function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
     const [sidebarSelection, setSidebarSelection] = useState('MySpace')
-    const [agentType, setAgentType] = useState(AgentType.AITutor)
     const spaceStateInit = [
         { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
         { name: "Add website", state: false, setActiveFunc: setAddWebsiteModalActive },
     ];
-    const [currentFocus, setCurrentFocus] = useState({ name: "Calendar agent", icon: <Icon><img src={books} /></Icon>, icon_raw: books })
+    const [currentFocus, setCurrentFocus] = useState(agentsData[1])
     const [spaceState, setSpaceState] = useState(spaceStateInit);
     const [collectionList, setCollectionList] = useState([]);
     const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
@@ -205,20 +210,19 @@ function Home() {
               {sidebarSelection === 'MySpace' &&
                 <Box className='flex flex-auto divide-x' >
                   <MySpaceMenu
-                    showUploadFilesModel={setUploadFilesModalActive}
-                    showAddWebsiteModel={setAddWebsiteModalActive}
                     collectionList={collectionList}
                     handleState={handleState}
                     handleFocus={(focus) => {
                       fetchChatHistory(setChatHistory, mapFocusContext(focus));
                       setCurrentFocus(focus);
                     }}
-                    setActiveAgent={setAgentType}
+                    setActiveAgent={setCurrentFocus}
                   />
                 <Box className='flex-auto'>
                     <ChatWindow
-                      agentType={agentType}
-                      chatTitle={currentFocus}
+                      chatTitle={currentFocus.name}
+                      chatWindowIcon={currentFocus.chatWindowIcon}
+                      chatSuggestions={currentFocus.chatSuggestions}
                       content={chatHistory}
                       setMessage={setChatMessage}
                       chatMessage={chatMessage}

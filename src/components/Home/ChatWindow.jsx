@@ -3,13 +3,17 @@ import React, { useState } from 'react'
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import { SendIcon, CalendarAgentChatIcon, AITutorChatIcon, ChatWithDataFileChatIcon } from "../../assets";
-import AgentType from './AgentType';
+import { SendIcon } from "../../assets";
 import MicIcon from '@mui/icons-material/Mic';
 import Divider from '@mui/material/Divider';
 
-const checkAIMessage = (message, googleCalendarSignIn) => {
-   return message === " Need to login to google" ? <div><p>{message}</p><button onClick={googleCalendarSignIn}>Google Signin</button></div> : message
+const GoogleCalendarSignInButton = ({ googleCalendarSignIn }) => {
+    return (
+        <button onClick={googleCalendarSignIn}
+            className='border border-styleupPurple text-styleupPurple rounded-full px-5 py-2.5 mb-8'>
+            Access Calendar
+        </button>
+    )
 }
 
 const messageMapper = (item, index, googleCalendarSignIn) => {
@@ -19,37 +23,26 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
                 {item.substring(item.indexOf(':') + 1)}
             </span>
         </Box>
-        : <Box key={index} className='self-start justify-center px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
-            <span style={{ whiteSpace: 'pre-line' }}>
-                {checkAIMessage(item.substring(item.indexOf(':') + 1), googleCalendarSignIn)}
-            </span>
+        :
+        <Box key={index} className='self-start flex-col'>
+            <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+                <span style={{ whiteSpace: 'pre-line' }}>
+                    {item.substring(item.indexOf(':') + 1)}
+                </span>
+            </Box>
+            {
+                item.includes("Need to login to google")
+                && <GoogleCalendarSignInButton googleCalendarSignIn={googleCalendarSignIn} />
+            }
         </Box>
 }
 
-const ChatWindow = ({ agentType, chatTitle, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn }) => {
-    const metadata = [
-        {
-            type: AgentType.CalendarAgent, icon: CalendarAgentChatIcon, title: "Calendar Agent", chatSuggestions: [
-                "How does my week look like?", "Am I free at 10am tomorrow?", "What's on my calendar for this week?"
-            ]
-        },
-        {
-            type: AgentType.AITutor, icon: AITutorChatIcon, title: "AI Tutor", chatSuggestions: [
-                "Why is the sky blue?", "Explain more", "Quiz me"
-            ]
-        },
-        {
-            type: AgentType.ChatWithDataFile, icon: ChatWithDataFileChatIcon, title: "Chat with your data files", chatSuggestions: [
-                "Summarize the file", "Explain more", "Quiz me"
-            ]
-        }
-    ]
-    const { icon, title, chatSuggestions } = metadata.find((e) => e.type == agentType)
+const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn }) => {
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
-                <Box className='h-10 w-10 flex justify-center mr-4'><img src={chatTitle.icon_raw} /></Box>
-                <p className='text-[24px]'>{chatTitle.name}</p>
+                <Box className='h-10 w-10 flex justify-center mr-4'><img src={chatWindowIcon} /></Box>
+                <p className='text-[24px]'>{chatTitle}</p>
             </Box>
             <Box className='flex flex-col self-center w-5/6 justify-start flex-grow'>
                 {content && content.length > 0 ?
@@ -58,25 +51,33 @@ const ChatWindow = ({ agentType, chatTitle, content, chatMessage, setMessage, se
             </Box>
             <Box className='flex justify-center'>
                 <Box className='flex-col w-5/6 justify-center' >
+                    {chatSuggestions && chatSuggestions.length > 0 &&
+                        <Box className='flex justify-start mb-4'>
+                            <p className='text-[#555555]'>Chat Suggestions</p>
+                        </Box>
+                    }
                     <Box className='flex justify-start mb-4'>
-                        <p className='text-[#555555]'>Chat Suggestions</p>
-                    </Box>
-                    <Box className='flex justify-start mb-4'>
-                        <button onClick={() => {
-                          sendMessage(chatSuggestions[0]);
-                        }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-[#f2eefb]'>
-                            {chatSuggestions[0]}
-                        </button>
-                        <button onClick={() => {
-                          sendMessage(chatSuggestions[1]);
-                        }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
-                            {chatSuggestions[1]}
-                        </button>
-                        <button onClick={() => {
-                          sendMessage(chatSuggestions[2]);
-                        }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
-                            {chatSuggestions[2]}
-                        </button>
+                        {chatSuggestions && chatSuggestions.length > 0 &&
+                            <button onClick={() => {
+                                sendMessage(chatSuggestions[0]);
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-[#f2eefb]'>
+                                {chatSuggestions[0]}
+                            </button>
+                        }
+                        {chatSuggestions && chatSuggestions.length > 1 &&
+                            <button onClick={() => {
+                                sendMessage(chatSuggestions[1]);
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
+                                {chatSuggestions[1]}
+                            </button>
+                        }
+                        {chatSuggestions && chatSuggestions.length > 2 &&
+                            <button onClick={() => {
+                                sendMessage(chatSuggestions[2]);
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
+                                {chatSuggestions[2]}
+                            </button>
+                        }
                     </Box>
                     <Box className='border border-[#b09ae2] rounded-xl mb-4'>
                         <FormControl fullWidth sx={{ m: 1 }}>

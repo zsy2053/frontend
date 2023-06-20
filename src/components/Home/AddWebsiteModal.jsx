@@ -49,19 +49,19 @@ const AddWebsiteModal = ({ setActive }) => {
                                 onChange={(event) => setWebsiteUrl(event.target.value)}
                             />
                         </Box>
-                        {/*<button className='flex w-40 justify-center items-center h-11 bg-[#7f56d9] rounded-lg'>
+                        {/*<button className='flex w-40 justify-center items-center h-11 bg-styleupPurple rounded-lg'>
                             Fetch
                         </button>*/}
                     </Box>
                     <Box className='flex justify-stretch items-stretch mb-6'>
                         <button onClick={() => setCrawlLevel(1)}
                             className={'flex flex-auto justify-center items-center h-11 mr-6 rounded-lg border border-gray-300'
-                                + ((crawlLevel == 1) ? ' bg-[#7f56d9]' : '')} >
+                                + ((crawlLevel == 1) ? ' bg-styleupPurple' : '')} >
                             level 1
                         </button>
                         <button onClick={() => setCrawlLevel(2)}
                             className={'flex flex-auto justify-center items-center h-11 rounded-lg border border-gray-300'
-                                + ((crawlLevel == 2) ? ' bg-[#7f56d9]' : '')} >
+                                + ((crawlLevel == 2) ? ' bg-styleupPurple' : '')} >
                             level 2
                         </button>
                     </Box>
@@ -105,7 +105,7 @@ const AddWebsiteModal = ({ setActive }) => {
                             className='flex flex-auto justify-center items-center h-11 mr-3 rounded-lg border border-gray-300'>
                             Cancel
                         </button>
-                        <button onClick={() => handleLinkCreate(websiteUrl, crawlLevel)} className='flex flex-auto justify-center items-center h-11 bg-[#7f56d9] rounded-lg'>
+                        <button onClick={() => handleLinkCreate(websiteUrl, crawlLevel)} className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg'>
                             Create
                         </button>
                     </Box>
