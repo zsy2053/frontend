@@ -1,7 +1,7 @@
 export const landingNavLinks = [
-  { id: "#about", title: "About" },
-  { id: "#works", title: "How it Works" },
-  { id: "#discord", title: "Join our Discord" },
+  { id: "/about", title: "About" },
+  { id: "/how", title: "How it Works" },
+  { id: "/join", title: "Join our Discord" },
 ];
 
 export const footerContact = "Contact: support@styleup.fun";

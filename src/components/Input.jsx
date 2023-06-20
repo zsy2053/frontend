@@ -11,12 +11,12 @@ const Input = ({
   required = false,
   tooltipMsg = "Please fill out this field",
   showTooltip = false,
-  setTooltip,
+  // setTooltip
 }) => {
   return (
     <div className='w-full relative'>
       <input
-        class='block px-5 pt-4 pb-1 w-full h-[54px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none 
+        className='block px-5 pt-4 pb-1 w-full h-[54px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none 
       border-styleupPurple border-opacity-60 border-[2px]
       focus:border-styleupPurple focus:border-opacity-60 focus:border-[2px] 
       placeholder-shown:border-primary placeholder-shown:border-opacity-10 placeholder-shown:border-[1px]
@@ -26,15 +26,15 @@ const Input = ({
         type='text'
         required={required}
         onChange={(e) => onChange(e.target.value)}
-        onClick={() => setTooltip(false)}
+        // onClick={() => setTooltip(false)}
       />
       <label
-        class='absolute text-menuText text-opacity-80 duration-300 transform z-10 origin-[0] left-[22px]
+        className='absolute text-menuText text-opacity-80 duration-300 transform z-10 origin-[0] left-[22px]
         peer-focus:scale-75 peer-focus:-translate-y-2 peer-focus:top-3
         scale-75 -translate-y-2 top-3
         peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2
         '
-        for={id}
+        htmlFor={id}
       >
         {label}
       </label>

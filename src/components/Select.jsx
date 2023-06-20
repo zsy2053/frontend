@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import CustomTooltip from "./CustomTooltip";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
+import { check } from "../assets";
 
 const Select = ({
   id,
@@ -11,14 +12,12 @@ const Select = ({
   required = false,
   tooltipMsg = "Please fill out this field",
   showTooltip = false,
-  setTooltip,
+  // setTooltip,
 }) => {
   const [phText, setPhText] = useState(placeholder);
   const [open, setOpen] = useState(false);
-  const [valid, setValid] = useState(true);
 
   const handleSelect = (id, ph) => {
-    // will run onSelect after setOpen
     setOpen(false);
     setPhText(ph);
     onChange(id);
@@ -31,18 +30,17 @@ const Select = ({
           <button
             className={`block px-5 py-4 w-full h-[56px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none
         text-left 
-      border-styleupPurple border-opacity-60 border-[2px]
       ${
         phText === placeholder && !open
           ? "border-primary border-opacity-10 border-[1px]"
-          : ""
+          : "border-styleupPurple border-opacity-60 border-[2px]"
       }
         `}
             id={id}
             type='button'
             onClick={() => {
               setOpen((prev) => !prev);
-              setTooltip(false);
+              //setTooltip(false);
             }}
           >
             {phText}
@@ -65,7 +63,13 @@ const Select = ({
                 }
                 onClick={() => handleSelect(op.id, op.text)}
               >
-                <p>{op.text}</p>
+                <div className='flex'>
+                  <p className='flex-grow'>{op.text}</p>
+                  <img
+                    src={check}
+                    className={phText === op.text ? `visible` : "hidden"}
+                  ></img>
+                </div>
               </li>
             ))}
           </ul>
