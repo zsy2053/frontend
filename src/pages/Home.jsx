@@ -82,7 +82,7 @@ const mapStatesUpdate = (states, targetName) => {
     });
 }
 
-const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
+const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=None) => {
   switch (currentFocus['name']) {
     case 'Calendar agent':
       const res = localStorage.getItem('googleCred');
@@ -124,17 +124,18 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory) => {
       });
       break;
     case 'Audio agent':
-      /*var formData = new FormData();
-      formData.append("audio_file", imagefile.files[0]);
+      var formData = new FormData();
+      formData.append("audio_file", audioFile);
       axios({
         method: 'post',
         url: `${import.meta.env.VITE_API_URL}/api/bots/audio_agent`,
         data: formData,
-        headers: { "Content-Type": "application/json",
-        "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzkzN2ExZTMtNDQ4MC00OGU0LWE0MDctMzAyMWFjYTNmOWYwIiwiZXhwIjoxNjg3NjQyMzQ0fQ.1Tx0eAuNAqu9hfZ2dXSxIPNX7fSgAOwqOpQDVw_cG9M"},
+        headers: { "Content-Type": "multipart/form-data",
+        "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
+        addMyChat(setChatHistory, "AIMessage: " + res.data.data);
         console.log(res);
-      }).catch((err) => console.log(err));*/
+      }).catch((err) => console.log(err));
       break;
     default:
       axios({
@@ -173,6 +174,15 @@ const mapFocusContext = (focus) => {
     }
 }
 
+const audioChat = (e, setAudioStatus) => {
+    console.log("Audio")
+    window.alert("Audio recording started!");
+    setAudioStatus("recording");
+    setTimeout(function () {
+      setAudioStatus("inactive");
+    }, 10000);
+}
+
 
 function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
@@ -187,6 +197,35 @@ function Home() {
     const [collectionList, setCollectionList] = useState([]);
     const [chatHistory, setChatHistory] = useState(["Agent: how can I help you?"]);
     const [chatMessage, setChatMessage] = useState("");
+    const [audioStatus, setAudioStatus] = useState("inactive")
+    const [audioSrc, setAudioSrc] = useState("")
+    const audioProps = {
+      audioType: "audio/wav",
+      // audioOptions: {sampleRate: 30000}, // 设置输出音频采样率
+      status: audioStatus,
+      audioSrc,
+      timeslice: 1000, // timeslice（https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/start#Parameters）
+      startCallback: e => {
+        console.log("succ start", e);
+      },
+      pauseCallback: e => {
+        console.log("succ pause", e);
+      },
+      stopCallback: e => {
+        setAudioSrc(window.URL.createObjectURL(e));
+        console.log(window.URL.createObjectURL(e));
+        const audioFile = new File([e], "myaudio.wav");
+        addMyChat(setChatHistory, "Human: Audio file sent(Style this part with a button)");
+        handleMessageSend(currentFocus, chatMessage, setChatHistory, audioFile);
+        console.log("succ stop", audioFile);
+      },
+      onRecordCallback: e => {
+        console.log("recording", e);
+      },
+      errorCallback: err => {
+        console.log("error", err);
+      }
+    };
     const handleState = (event) => setSpaceState(mapStatesUpdate(spaceState, event.currentTarget.name));
     const navigate = useNavigate();
     useEffect(() => {
@@ -227,6 +266,8 @@ function Home() {
                       setMessage={setChatMessage}
                       chatMessage={chatMessage}
                       googleCalendarSignIn={googleCalendarSignIn}
+                      audioChat={(e) => audioChat(e, setAudioStatus)}
+                      audioProps={audioProps}
                       sendMessage={(tip="") => {
                         if (tip == "") {
                           addMyChat(setChatHistory, "Human: " + chatMessage);
@@ -244,9 +285,7 @@ function Home() {
                 sidebarSelection === 'Community' &&
                 <Box className='flex flex-auto divide-x'>
                   <CommunityMenu />
-                  <Box className='flex-auto'>
-                    <CommunityWindow />
-                  </Box>
+                  <CommunityWindow />
                 </Box>
               }
             </Stack>

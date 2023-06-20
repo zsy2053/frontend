@@ -6,6 +6,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { SendIcon } from "../../assets";
 import MicIcon from '@mui/icons-material/Mic';
 import Divider from '@mui/material/Divider';
+import AudioAnalyser from "react-audio-analyser";
+
 
 const GoogleCalendarSignInButton = ({ googleCalendarSignIn }) => {
     return (
@@ -37,7 +39,7 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
         </Box>
 }
 
-const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn }) => {
+const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioChat, audioProps }) => {
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
@@ -96,7 +98,7 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                                 endAdornment={<InputAdornment position="end">
                                     <Box className='flex'>
                                         <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
-                                            <MicIcon fontSize='large' />
+                                            <MicIcon fontSize='large' onClick={audioChat}/>
                                         </button>
                                         <Box className='flex'>
                                             <Divider orientation='vertical' variant='middle' flexItem />
@@ -115,6 +117,7 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                     <p className='flex justify-center mb-5'>Build with StyleUp</p>
                 </Box>
             </Box>
+            <div style={{display: "none"}}><AudioAnalyser {...audioProps} /></div>
         </Stack>
     )
 }
