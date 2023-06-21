@@ -11,6 +11,7 @@ import AddWebsiteModal from '../components/Home/AddWebsiteModal';
 import axios from 'axios';
 import CommunityMenu from '../components/Home/CommunityMenu';
 import CommunityWindow from '../components/Home/CommunityWindow';
+import BuildWindow from '../components/Home/BuildWindow';
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
@@ -284,6 +285,12 @@ function Home() {
                 <Box className='flex flex-auto divide-x'>
                   <CommunityMenu />
                   <CommunityWindow />
+                </Box>
+              }
+              {
+                sidebarSelection === 'Build' &&
+                <Box className='flex flex-col flex-grow'>
+                  <BuildWindow />
                 </Box>
               }
             </Stack>
