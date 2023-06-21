@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack, Box } from '@mui/system'
 
-const Navbar = () => {
+const Navbar = ({resetContext}) => {
   return (
     <Stack direction='row' alignItems='center' py={2} sx={{
       height: '44px',
@@ -12,7 +12,7 @@ const Navbar = () => {
       borderBottom: '1px solid #eaecf0',
     }}>
       <Box className='flex'>
-        <button className='mr-5'>
+        <button className='mr-5' onClick={resetContext}>
           <img src='/icons/refresh.svg' />
         </button>
         <button className='mr-5'>

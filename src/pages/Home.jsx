@@ -37,7 +37,26 @@ const fetchCollectionData = (setCollectionList) => {
   });
 }
 
-const fetchChatHistory = (setChatHistory, chat_type) => {
+const resetContext = (currentFocus, mapFocusContext, setChatHistory) => {
+  axios({
+      method: 'post',
+      url: `${import.meta.env.VITE_API_URL}/api/bots/reset_context`,
+      data: {
+        'context': mapFocusContext(currentFocus['name'])
+      },
+      headers: { "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem('jwt')},
+  }).then((res) => {
+      console.log(res)
+      setChatHistory([]);
+  }).catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+     // navigate(-1);
+  });
+}
+
+const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
   axios({
     method: 'get',
     url: `${import.meta.env.VITE_API_URL}/api/bots/get_chat_history`,
@@ -47,7 +66,8 @@ const fetchChatHistory = (setChatHistory, chat_type) => {
     headers: { "Content-Type": "application/json",
     "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
-    setChatHistory(res.data.data)
+    console.log(res)
+    setChatHistory(res.data.data);
   }).catch((err) => {
     window.alert(err.message);
     console.log(err)
@@ -84,12 +104,7 @@ const mapStatesUpdate = (states, targetName) => {
 const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=null) => {
   switch (currentFocus['name']) {
     case 'Calendar agent':
-      const res = localStorage.getItem('googleCred');
-      if (!res || res == "") {
-        addMyChat(setChatHistory, "AIMessage: Need to login to google");
-        return;
-      }
-
+      const res = localStorage.getItem('googleCred') || "";
       axios({
         method: 'post',
         url: `${import.meta.env.VITE_API_URL}/api/bots/get_google_calendars`,
@@ -174,7 +189,6 @@ const mapFocusContext = (focus) => {
 }
 
 const audioChat = (e, setAudioStatus) => {
-    console.log("Audio")
     window.alert("Audio recording started!");
     setAudioStatus("recording");
     setTimeout(function () {
@@ -214,7 +228,7 @@ function Home() {
         setAudioSrc(window.URL.createObjectURL(e));
         const audioFile = new File([e], "myaudio.wav");
         addMyChat(setChatHistory, "Human: Audio file sent(Style this part with a button)");
-        handleMessageSend(currentFocus, chatMessage, setChatHistory, audioFile);
+        handleMessageSend(currentFocus, "Human:" + chatMessage, setChatHistory, audioFile);
         console.log("succ stop", audioFile);
       },
       onRecordCallback: e => {
@@ -236,7 +250,7 @@ function Home() {
       }, []);
     return (
         <Stack className='h-screen flex flex-col'>
-            <Navbar />
+            <Navbar resetContext={() => resetContext(currentFocus, mapFocusContext, setChatHistory)} />
             {uploadFilesModalActive && <UploadFilesModal setActive={setUploadFilesModalActive} />}
             {addWebsiteModalActive && <AddWebsiteModal setActive={setAddWebsiteModalActive} />}
             <Stack className='flex flex-auto' sx={{ flexDirection: 'row' }}>
@@ -250,7 +264,12 @@ function Home() {
                     collectionList={collectionList}
                     handleState={handleState}
                     handleFocus={(focus) => {
-                      fetchChatHistory(setChatHistory, mapFocusContext(focus));
+                      const focusType = mapFocusContext(focus);
+                      if (focusType !== 'context') {
+                        fetchChatHistory(setChatHistory, focusType);
+                      } else {
+                        fetchChatHistory(setChatHistory, focusType, focus['name']);
+                      }
                       setCurrentFocus(focus);
                     }}
                     setActiveAgent={setCurrentFocus}
@@ -269,10 +288,10 @@ function Home() {
                       sendMessage={(tip="") => {
                         if (tip == "") {
                           addMyChat(setChatHistory, "Human: " + chatMessage);
-                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                          handleMessageSend(currentFocus, "Human: " + chatMessage, setChatHistory);
                         } else {
                           addMyChat(setChatHistory, "Human: " + tip);
-                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                          handleMessageSend(currentFocus, "Human: " + chatMessage, setChatHistory);
                         }
                       }}
                       />
