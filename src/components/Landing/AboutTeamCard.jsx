@@ -6,10 +6,19 @@ const AboutTeamCard = () => {
 
   return (
     <div className='w-full h-full'>
-      <div className='w-[280px] h-[440px] bg-slate-300'>
-        {checked ? <h1>hi</h1> : <h1>bye</h1>}
+      <div
+        className={`relative w-[280px] h-[440px] bg-slate-300 card-inner ${
+          checked ? "card-flip" : ""
+        }`}
+      >
+        <div className='backface-hidden absolute inset-0 w-full h-full flexbg-gray-900 transition-all duration-100 delay-200'>
+          FRONT OF CARD
+        </div>
+        <div className='backface-hidden absolute inset-0 w-full h-full flexbg-gray-900 transition-all duration-100 delay-200 card-back'>
+          Back OF CARD
+        </div>
       </div>
-      <div className='w-full h-[20px]'>
+      <div className='w-full flex justify-end'>
         <Switch
           slots={{
             root: Root,

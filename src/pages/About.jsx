@@ -8,6 +8,7 @@ import {
   AboutCore,
   AboutStyleUp,
   AboutTeam,
+  LandingChatbot,
 } from "../components";
 const About = () => {
   return (
@@ -43,6 +44,11 @@ const About = () => {
         </div>
       </div>
 
+      <div className={`${styles.paddingX} flex justify-center`}>
+        <div className={`flex-1 xl:max-w-[1920px]`}>
+          <LandingChatbot />
+        </div>
+      </div>
       {/* footer */}
       <div className='w-full'>
         <LandingFooter />

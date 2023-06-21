@@ -1,4 +1,21 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require("tailwindcss/plugin");
+const backfaceVisibility = plugin(function ({ addUtilities }) {
+  addUtilities({
+    ".backface-visible": {
+      "backface-visibility": "visible",
+      "-moz-backface-visibility": "visible",
+      "-webkit-backface-visibility": "visible",
+      "-ms-backface-visibility": "visible",
+    },
+    ".backface-hidden": {
+      "backface-visibility": "hidden",
+      "-moz-backface-visibility": "hidden",
+      "-webkit-backface-visibility": "hidden",
+      "-ms-backface-visibility": "hidden",
+    },
+  });
+});
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   mode: "jit",
@@ -24,9 +41,11 @@ module.exports = {
       ss: "620px",
       sm: "768px",
       md: "1060px",
+      threeCol: "1139px",
       lg: "1200px",
+      fourCol: "1453px",
       xl: "1700px",
     },
   },
-  plugins: [],
+  plugins: [backfaceVisibility],
 };

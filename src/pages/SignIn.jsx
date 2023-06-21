@@ -6,14 +6,16 @@ import jwt_decode from "jwt-decode";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-const googleLogin = (idToken, email, navigate) => {
+const googleLogin = (idToken, navigate) => {
     //get expiry_date 1 hour later
     const currentDate = new Date();
     const futureDate = new Date(currentDate.getTime() + 60 * 60 * 1000); // Adding 1 hour (60 minutes * 60 seconds * 1000 milliseconds) to current time
     const isoString = futureDate.toISOString();
 
+    var userDetails = jwt_decode(idToken);
+
     const data = {
-        "email": email,
+        "email": userDetails['email'],
         "token": idToken,
         "expiry_date": isoString,
     }
@@ -27,7 +29,10 @@ const googleLogin = (idToken, email, navigate) => {
     }).then((res) => {
         localStorage.setItem('jwt', res.data['access_token']);
         localStorage.setItem('refresh', res.data['refresh_token']);
-        if(localStorage.getItem('jwt')){
+        localStorage.setItem('user_email', userDetails['email']);
+        localStorage.setItem('user_name', userDetails['name']);
+        localStorage.setItem('user_avatar', userDetails['picture']);
+        if (localStorage.getItem('jwt')) {
             navigate("/home");
         }
     }).catch((err) => {
@@ -61,7 +66,7 @@ function Sigin() {
 
                             <GoogleLogin
                                 onSuccess={(credentialResponse) => {
-                                    googleLogin(credentialResponse.credential, jwt_decode(credentialResponse.credential)['email'], navigate);
+                                    googleLogin(credentialResponse.credential, navigate);
                                 }}
                                 onError={() => {
                                     console.log("Login Failed");

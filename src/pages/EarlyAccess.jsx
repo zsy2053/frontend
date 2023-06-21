@@ -4,12 +4,12 @@ import styles from "../style";
 import {
   LandingFooter,
   LandingNav,
-  Input,
-  Button,
-  Select,
+  EAInput,
+  EAButton,
+  EASelect,
 } from "../components";
 import { earlyAccessOptions } from "../constants";
-import CustomizedCheckbox from "../components/CustomCheckbox";
+import CustomizedCheckbox from "../components/Landing/CustomCheckbox";
 import { ClickAwayListener } from "@mui/base";
 const EarlyAccess = () => {
   const [inputOne, setInputOne] = useState("");
@@ -95,7 +95,7 @@ const EarlyAccess = () => {
             <form className='w-full flex flex-col max-w-xl' noValidate>
               <div className='flex mb-9'>
                 <div className='flex-1 mr-[18px]'>
-                  <Input
+                  <EAInput
                     label='Name'
                     id='name'
                     onChange={setInputOne}
@@ -105,7 +105,7 @@ const EarlyAccess = () => {
                   />
                 </div>
                 <div className='flex-1'>
-                  <Input
+                  <EAInput
                     label='Email Address'
                     id='email'
                     onChange={setInputTwo}
@@ -116,7 +116,7 @@ const EarlyAccess = () => {
                 </div>
               </div>
               <div className='mb-24'>
-                <Select
+                <EASelect
                   options={earlyAccessOptions}
                   placeholder='What tasks do you want to use StyleUp to help you with?'
                   id='email'
@@ -149,7 +149,7 @@ const EarlyAccess = () => {
                 </span>
                 <ClickAwayListener onClickAway={hideTooltip}>
                   <div>
-                    <Button
+                    <EAButton
                       className='w-[103px]'
                       type='submit'
                       name='Submit'

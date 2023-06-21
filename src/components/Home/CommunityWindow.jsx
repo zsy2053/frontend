@@ -4,14 +4,7 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardCommandKeyIcon from '@mui/icons-material/KeyboardCommandKey';
-
-const Label = ({ text }) => {
-  return (
-    <Box className='bg-[#e5ecf6] text-gray-600 rounded px-1 mr-2 mb-2 text-sm'>
-      {text}
-    </Box>
-  )
-}
+import Label from './Label';
 
 const AgentCard = ({ item }) => {
   return (
@@ -38,7 +31,7 @@ const AgentCard = ({ item }) => {
 const agentCards = [
   {
     image: '/images/card1.png',
-    title: '',
+    title: '聊天学红楼',
     desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
     labels: ['Calendar', 'Time Management', 'Event']
   },
