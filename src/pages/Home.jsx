@@ -81,7 +81,7 @@ const mapStatesUpdate = (states, targetName) => {
     });
 }
 
-const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=None) => {
+const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=null) => {
   switch (currentFocus['name']) {
     case 'Calendar agent':
       const res = localStorage.getItem('googleCred');
