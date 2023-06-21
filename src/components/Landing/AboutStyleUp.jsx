@@ -1,5 +1,5 @@
 import React from "react";
-import { handshake, lightbulb, magnet, fillerAbout } from "../../assets";
+import { handshake, lightbulb, magnet } from "../../assets";
 const AboutStyleUp = () => (
   <section id='styleup' className={`flex flex-col w-full h-full`}>
     <div className=' mb-28'>
@@ -34,7 +34,7 @@ const AboutStyleUp = () => (
           <img src={lightbulb}></img>
         </div>
         <div>
-          <img src={fillerAbout} className='object-fill w-full h-full'></img>
+          <img src='/images/fillerAbout.jpg' className='object-fill w-full h-full'></img>
         </div>
         <div className='px-16 pt-8 flex flex-col'>
           <span className='font-bold text-[18px] leading-[20px]'>AUG 2021</span>
