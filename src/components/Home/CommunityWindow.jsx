@@ -31,7 +31,7 @@ const AgentCard = ({ item }) => {
 const agentCards = [
   {
     image: '/images/card1.png',
-    title: '',
+    title: '聊天学红楼',
     desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
     labels: ['Calendar', 'Time Management', 'Event']
   },
