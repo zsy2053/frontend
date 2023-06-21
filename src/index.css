@@ -137,3 +137,14 @@
   background: rgba(255, 255, 255, 0.6);
   filter: blur(750px);
 }
+
+.card-inner {
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.card-flip {
+  transform: rotateY(180deg);
+}
+.card-back {
+  transform: rotateY(180deg);
+}
