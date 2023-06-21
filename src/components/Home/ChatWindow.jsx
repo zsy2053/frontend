@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import { SendIcon } from "../../assets";
 import MicIcon from '@mui/icons-material/Mic';
 import Divider from '@mui/material/Divider';
 import AudioAnalyser from "react-audio-analyser";
@@ -107,7 +106,7 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                                             sendMessage();
                                             setMessage('');
                                         }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                            <img src={SendIcon} />
+                                            <img src='/icons/SendIcon.svg' />
                                         </button>
                                     </Box>
                                 </InputAdornment>}

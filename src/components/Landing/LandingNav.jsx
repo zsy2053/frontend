@@ -1,5 +1,4 @@
 import { landingNavLinks } from "../../constants";
-import { logo, menu, close } from "../../assets";
 import { useState } from "react";
 import Button from "../Button";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,7 +11,7 @@ const LandingNav = () => {
     <nav className='w-full flex py-6 justify-between items-center h-[76px] navbar'>
       <Link to='/'>
         <img
-          src={logo}
+          src='/images/logo.svg'
           alt='StyleUp Logo'
           className='w-[111px] h-[29px] mr-12'
         ></img>
@@ -46,15 +45,15 @@ const LandingNav = () => {
       {/* Mobile View */}
       <div className='md:hidden flex flex-1 justify-end items-center z-50'>
         <img
-          src={toggle ? close : menu}
+          src={toggle ? '/images/close.svg' : '/images/menu.svg'}
           alt='menu'
           className='w-[28px] h-[28px] object-contain'
           onClick={() => setToggle((prev) => !prev)}
         />
 
         <div
-          className={`${toggle ? "flex" : "hidden"} p-6 bg-gray-gradient 
-          absolute top-20 right-0 mx-4 my-2 
+          className={`${toggle ? "flex" : "hidden"} p-6 bg-gray-gradient
+          absolute top-20 right-0 mx-4 my-2
           min-w-[140px] rounded-xl sidebar`}
         >
           <ul className='list-none flex flex-col justify-end items-center flex-1'>

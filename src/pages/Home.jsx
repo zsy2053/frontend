@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from '@mui/material';
-import { chatIcon } from '../assets';
 import Sidebar from '../components/Home/Sidebar';
 import MySpaceMenu from '../components/Home/MySpaceMenu';
 import Navbar from '../components/Home/Navbar';
@@ -25,8 +24,8 @@ const fetchCollectionData = (setCollectionList) => {
         resData.push(
           {
             name: res.data.data[i],
-            icon: <Box className='h-6 w-6 flex justify-center'><img src={chatIcon} className='place-self-center' /></Box>,
-            chatWindowIcon: chatIcon
+            icon: <Box className='h-6 w-6 flex justify-center'><img src='/icons/chatIcon.svg' className='place-self-center' /></Box>,
+            chatWindowIcon: '/icons/chatIcon.svg'
           }
         )
       }

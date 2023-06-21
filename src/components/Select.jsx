@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import CustomTooltip from "./CustomTooltip";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
-import { check } from "../assets";
 
 const Select = ({
   id,
@@ -29,7 +28,7 @@ const Select = ({
         <div>
           <button
             className={`block px-5 py-4 w-full h-[56px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none
-        text-left 
+        text-left
       ${
         phText === placeholder && !open
           ? "border-primary border-opacity-10 border-[1px]"
@@ -47,8 +46,8 @@ const Select = ({
           </button>
 
           <ul
-            className={`list-none flex flex-col justify-end items-start bg-white flex-1 z-10 absolute border-[1px] w-full 
-        rounded-lg 
+            className={`list-none flex flex-col justify-end items-start bg-white flex-1 z-10 absolute border-[1px] w-full
+        rounded-lg
         ${open ? "visible" : "hidden"}`}
             style={{
               boxShadow:
@@ -66,7 +65,7 @@ const Select = ({
                 <div className='flex'>
                   <p className='flex-grow'>{op.text}</p>
                   <img
-                    src={check}
+                    src='/icons/check.svg'
                     className={phText === op.text ? `visible` : "hidden"}
                   ></img>
                 </div>

@@ -1,39 +1,34 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from '@react-oauth/google';
-import {
-    myspaceIconInactive, communityIconInactive, buildIconInactive, learnIconInactive, apikeysIconInactive,
-    myspaceIconActive, communityIconActive, buildIconActive, learnIconActive, apikeysIconActive,
-    settingIconInactive, logoutIconInactive
-} from "../../assets";
 import { Icon } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 
 const data = [
     {
         name: "MySpace",
-        icon: <Icon fontSize='large'><img src={myspaceIconInactive} /></Icon>,
-        iconActive: <Icon fontSize='large'><img src={myspaceIconActive} /></Icon>,
+        icon: <Icon fontSize='large'><img src='/icons/myspaceIconInactive.svg' /></Icon>,
+        iconActive: <Icon fontSize='large'><img src='/icons/myspaceIconActive.svg' /></Icon>,
     },
     {
         name: "Community",
-        icon: <Icon fontSize='large'><img src={communityIconInactive} /></Icon>,
-        iconActive: <Icon fontSize='large'><img src={communityIconActive} /></Icon>,
+        icon: <Icon fontSize='large'><img src='/icons/communityIconInactive.svg' /></Icon>,
+        iconActive: <Icon fontSize='large'><img src='/icons/communityIconActive.svg' /></Icon>,
     },
     {
         name: "Build",
-        icon: <Icon fontSize='large'><img src={buildIconInactive} /></Icon>,
-        iconActive: <Icon fontSize='large'><img src={buildIconActive} /></Icon>,
+        icon: <Icon fontSize='large'><img src='/icons/buildIconInactive.svg' /></Icon>,
+        iconActive: <Icon fontSize='large'><img src='/icons/buildIconActive.svg' /></Icon>,
     },
     {
         name: "Learn",
-        icon: <Icon fontSize='large'><img src={learnIconInactive} /></Icon>,
-        iconActive: <Icon fontSize='large'><img src={learnIconActive} /></Icon>,
+        icon: <Icon fontSize='large'><img src='/icons/learnIconInactive.svg' /></Icon>,
+        iconActive: <Icon fontSize='large'><img src='/icons/learnIconActive.svg' /></Icon>,
     },
     {
         name: "API Keys",
-        icon: <Icon fontSize='large'><img src={apikeysIconInactive} /></Icon>,
-        iconActive: <Icon fontSize='large'><img src={apikeysIconActive} /></Icon>,
+        icon: <Icon fontSize='large'><img src='/icons/apikeysIconInactive.svg' /></Icon>,
+        iconActive: <Icon fontSize='large'><img src='/icons/apikeysIconActive.svg' /></Icon>,
     },
 ];
 
@@ -58,7 +53,7 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
                 <div className='flex mb-2 justify-center'>
                     <button className='flex flex-col justify-center items-center'>
                         <span className='text-homeInactiveIcon'>
-                            <Icon fontSize='large'><img src={settingIconInactive} /></Icon></span>
+                            <Icon fontSize='large'><img src='/icons/settingIconInactive.svg' /></Icon></span>
                     </button>
                 </div>
                 <div className='flex mb-2 justify-center'>
@@ -69,7 +64,7 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
                             navigate('/signin');
                         }}>
                         <span className='text-homeInactiveIcon'>
-                            <Icon fontSize='large'><img src={logoutIconInactive} /></Icon></span>
+                            <Icon fontSize='large'><img src='/icons/logoutIconInactive.svg' /></Icon></span>
                     </button>
                 </div>
             </div>

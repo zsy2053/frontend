@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "../style";
 import { LandingNav } from "../components";
-import { rock } from "../assets";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
@@ -48,7 +47,7 @@ function Sigin() {
             </div>
 
             <div
-                style={{ backgroundImage: `url(${rock})` }}
+                style={{ backgroundImage: `url(/images/rock.svg)` }}
                 className={
                     "bg-no-repeat bg-local lg:bg-[center_top_5rem] bg-[right_top_25rem] min-h-screen"
                 }

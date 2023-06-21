@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../style";
 import { LandingHero, LandingNav } from "../components";
-import { rock } from "../assets";
 
 const Landing = () => (
   <div className='w-full overflow-hidden'>
@@ -12,7 +11,7 @@ const Landing = () => (
     </div>
 
     <div
-      style={{ backgroundImage: `url(${rock})` }}
+      style={{ backgroundImage: `url(/images/rock.svg)` }}
       className={
         "bg-no-repeat bg-local lg:bg-[center_top_5rem] bg-[right_top_25rem] min-h-screen"
       }

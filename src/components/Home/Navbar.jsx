@@ -1,6 +1,5 @@
 import React from 'react'
 import { Stack, Box } from '@mui/system'
-import { refreshIcon, shareIcon, threeDotIcon } from '../../assets'
 
 const Navbar = () => {
   return (
@@ -14,13 +13,13 @@ const Navbar = () => {
     }}>
       <Box className='flex'>
         <button className='mr-5'>
-          <img src={refreshIcon} />
+          <img src='/icons/refreshIcon.svg' />
         </button>
         <button className='mr-5'>
-          <img src={shareIcon} />
+          <img src='/icons/shareIcon.svg' />
         </button>
         <button className='mr-5'>
-          <img src={threeDotIcon} />
+          <img src='/icons/threeDotIcon.svg' />
         </button>
       </Box>
     </Stack>

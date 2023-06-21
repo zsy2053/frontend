@@ -1,7 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
-import { checkboxInternal } from "../assets";
 const BpIcon = styled("span")(({ theme }) => ({
   borderRadius: 6,
   border: "2px solid #1C1C1C",
@@ -15,7 +14,7 @@ const BpIcon = styled("span")(({ theme }) => ({
 
 const BpCheckedIcon = styled(BpIcon)({
   backgroundPosition: "center",
-  backgroundImage: `url(${checkboxInternal})`,
+  backgroundImage: `url(/icons/checkboxInternal.svg)`,
   backgroundRepeat: "no-repeat",
   justifyContent: "center",
   "&:before": {

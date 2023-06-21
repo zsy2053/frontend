@@ -1,11 +1,10 @@
 import React from "react";
-import { logoFooter } from "../../assets";
 import { footerLinks, footerContact } from "../../constants";
 const LandingFooter = () => {
   return (
     <div className='bg-footerBlack flex justify-center px-16'>
       <div className='xl:max-w-[1920px] w-full h-52 flex justify-between items-center'>
-        <img alt='StyleUp Logo Small' src={logoFooter}></img>
+        <img alt='StyleUp Logo Small' src='/images/logoFooter.svg'></img>
 
         <ul className='list-none justify-end items-center flex'>
           <li

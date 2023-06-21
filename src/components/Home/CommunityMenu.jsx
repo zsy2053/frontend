@@ -1,30 +1,28 @@
 import React from 'react'
 import { Stack, Box } from '@mui/system';
 import Divider from '@mui/material/Divider';
-import { House, Fire, PartyPopper, BarChart, OpenBook, ShoppingBag, Laptop, LightBulb, ClinkingGlasses,
-    Gear, Briefcase, VideoGame, MoneyBag, Pill, Globe, Headphone, ArtistPalette } from "../../assets";
 
 const pinnedCategories = [
-    { name: "All", icon: House },
-    { name: "Popular", icon: Fire }
+    { name: "All", icon: '/icons/House.svg' },
+    { name: "Popular", icon: '/icons/Popular.svg' }
 ];
 
 const categories = [
-    { name: "Fun", icon: PartyPopper },
-    { name: "Marketing", icon: BarChart },
-    { name: "Education", icon: OpenBook },
-    { name: "Shopping & Food", icon: ShoppingBag },
-    { name: "Developer Tools", icon: Laptop },
-    { name: "Productivity", icon: LightBulb },
-    { name: "Social", icon: ClinkingGlasses },
-    { name: "Utilities", icon: Gear },
-    { name: "Business", icon: Briefcase },
-    { name: "Gaming", icon: VideoGame },
-    { name: "Finance", icon: MoneyBag },
-    { name: "Health & Fitness", icon: Pill },
-    { name: "Travel", icon: Globe },
-    { name: "Music", icon: Headphone },
-    { name: "Design", icon: ArtistPalette }
+    { name: "Fun", icon: '/icons/PartyPopper.svg' },
+    { name: "Marketing", icon: '/icons/BarChart.svg' },
+    { name: "Education", icon: '/icons/OpenBook.svg' },
+    { name: "Shopping & Food", icon: '/icons/ShoppingBags.svg' },
+    { name: "Developer Tools", icon: '/icons/Laptop.svg' },
+    { name: "Productivity", icon: '/icons/LightBulb.svg' },
+    { name: "Social", icon: '/icons/ClinkingGlasses.svg' },
+    { name: "Utilities", icon: '/icons/Gear.svg' },
+    { name: "Business", icon: '/icons/Briefcase.svg' },
+    { name: "Gaming", icon: '/icons/VideoGame.svg' },
+    { name: "Finance", icon: '/icons/MoneyBag.svg' },
+    { name: "Health & Fitness", icon: '/icons/Pill.svg' },
+    { name: "Travel", icon: '/icons/Globe.svg' },
+    { name: "Music", icon: '/icons/Headphone.svg' },
+    { name: "Design", icon: '/icons/ArtistPalette.svg' }
 ];
 
 const CommunityMenu = () => {

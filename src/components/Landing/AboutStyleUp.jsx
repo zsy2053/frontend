@@ -1,5 +1,4 @@
 import React from "react";
-import { handshake, lightbulb, magnet } from "../../assets";
 const AboutStyleUp = () => (
   <section id='styleup' className={`flex flex-col w-full h-full`}>
     <div className=' mb-28'>
@@ -26,12 +25,12 @@ const AboutStyleUp = () => (
           </span>
         </div>
         <div className='m-auto'>
-          <img src={handshake}></img>
+          <img src='/images/handshake.svg'></img>
         </div>
       </div>
       <div className='grid grid-rows-3 border-2 divide-y-2 h-full min-w-[322px]'>
         <div className='m-auto'>
-          <img src={lightbulb}></img>
+          <img src='/images/lightbulb.svg'></img>
         </div>
         <div>
           <img src='/images/fillerAbout.jpg' className='object-fill w-full h-full'></img>
@@ -57,7 +56,7 @@ const AboutStyleUp = () => (
           </span>
         </div>
         <div className='m-auto'>
-          <img src={magnet}></img>
+          <img src='/images/magnet.svg'></img>
         </div>
       </div>
     </div>

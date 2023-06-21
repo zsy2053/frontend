@@ -4,7 +4,6 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardCommandKeyIcon from '@mui/icons-material/KeyboardCommandKey';
-import { Female06 } from '../../assets';
 
 const Label = ({ text }) => {
   return (
@@ -19,7 +18,7 @@ const AgentCard = ({ item }) => {
     <Box className='w-[284px] h-[410px] mx-2 mb-4'>
       <img src={item.image} />
       <Box className='flex mt-4 mx-3 h-10 items-center'>
-        <img src={Female06} className='mr-4'/>
+        <img src='/icons/Female06.svg' className='mr-4'/>
         {item.title}
       </Box>
       <Box className='mt-2 mx-3'>
