@@ -4,7 +4,7 @@ import CustomTooltip from "./CustomTooltip";
 // third line class placeholder-shown is the default input(not pressed and no value) styling
 // goes to default style when held down, can be fixed by active: if needed.
 
-const Input = ({
+const EAInput = ({
   label,
   id,
   onChange,
@@ -58,4 +58,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default EAInput;

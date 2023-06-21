@@ -1,6 +1,6 @@
 import { landingNavLinks } from "../../constants";
 import { useState } from "react";
-import Button from "../Button";
+import EAButton from "./EAButton";
 import { Link, useNavigate } from "react-router-dom";
 
 const LandingNav = () => {
@@ -45,7 +45,7 @@ const LandingNav = () => {
       {/* Mobile View */}
       <div className='md:hidden flex flex-1 justify-end items-center z-50'>
         <img
-          src={toggle ? '/images/close.svg' : '/images/menu.svg'}
+          src={toggle ? "/images/close.svg" : "/images/menu.svg"}
           alt='menu'
           className='w-[28px] h-[28px] object-contain'
           onClick={() => setToggle((prev) => !prev)}
