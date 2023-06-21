@@ -289,10 +289,10 @@ function Home() {
                       sendMessage={(tip="") => {
                         if (tip == "") {
                           addMyChat(setChatHistory, "Human: " + chatMessage);
-                          handleMessageSend(currentFocus, "Human: " + chatMessage, setChatHistory);
+                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
                         } else {
                           addMyChat(setChatHistory, "Human: " + tip);
-                          handleMessageSend(currentFocus, "Human: " + chatMessage, setChatHistory);
+                          handleMessageSend(currentFocus, tip, setChatHistory);
                         }
                       }}
                       />

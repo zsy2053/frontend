@@ -18,6 +18,7 @@ const GoogleCalendarSignInButton = ({ googleCalendarSignIn }) => {
 }
 
 const messageMapper = (item, index, googleCalendarSignIn) => {
+    console.log(item);
     return item.startsWith("Human: ") ?
         <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-2xl mb-8 max-w-xl'>
             <span style={{ whiteSpace: 'pre-line' }}>
