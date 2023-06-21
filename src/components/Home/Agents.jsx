@@ -27,10 +27,7 @@ const agentsData = [
 	{
 		name: "Audio agent",
 		menuIcon: <Icon><img src='/icons/AudioAgentMenuIcon.svg' /></Icon>,
-		chatWindowIcon: '/icons/AudioAgentMenuIcon.svg',
-		chatSuggestions: [
-			"Summarize the file", "Explain more", "Quiz me"
-		]
+		chatWindowIcon: '/icons/AudioAgentMenuIcon.svg'
 	}
 ]
 

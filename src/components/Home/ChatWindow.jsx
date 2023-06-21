@@ -80,39 +80,40 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                             </button>
                         }
                     </Box>
-                    <Box className='border border-[#b09ae2] rounded-xl mb-4'>
-                        <FormControl fullWidth sx={{ m: 1 }}>
-                            <Input
-                                placeholder='Type new question'
-                                value={chatMessage}
-                                onChange={(event) => setMessage(event.target.value)}
-                                onKeyDown={(event) => {
-                                    if (event.key == "Enter") {
-                                        sendMessage();
-                                        setMessage('');
-                                    }
-                                }}
-                                disableUnderline
-                                id="outlined-adornment-amount"
-                                endAdornment={<InputAdornment position="end">
-                                    <Box className='flex'>
-                                        <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
-                                            <MicIcon fontSize='large' onClick={audioChat}/>
-                                        </button>
-                                        <Box className='flex'>
-                                            <Divider orientation='vertical' variant='middle' flexItem />
-                                        </Box>
-                                        <button onClick={() => {
-                                            sendMessage();
-                                            setMessage('');
-                                        }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                            <img src='/icons/SendIcon.svg' />
-                                        </button>
-                                    </Box>
-                                </InputAdornment>}
-                            />
-                        </FormControl>
-                    </Box>
+                          {chatTitle === "Audio agent" ?
+                          <Box className='flex justify-center'>
+                          <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
+                              <MicIcon fontSize='large' onClick={audioChat}/>
+                          </button>
+                          </Box> :
+                          <Box className='border border-[#b09ae2] rounded-xl mb-4'>
+                          <FormControl fullWidth sx={{ m: 1 }}>
+                          <Input
+                              placeholder='Type new question'
+                              value={chatMessage}
+                              onChange={(event) => setMessage(event.target.value)}
+                              onKeyDown={(event) => {
+                                  if (event.key == "Enter") {
+                                      sendMessage();
+                                      setMessage('');
+                                  }
+                              }}
+                              disableUnderline
+                              id="outlined-adornment-amount"
+                              endAdornment={<InputAdornment position="end">
+                                  <Box className='flex'>
+                                      <button onClick={() => {
+                                          sendMessage();
+                                          setMessage('');
+                                      }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                          <img src='/icons/SendIcon.svg' />
+                                      </button>
+                                  </Box>
+                              </InputAdornment>}
+                          />
+                          </FormControl>
+                                              </Box>
+                          }
                     <p className='flex justify-center mb-5'>Build with StyleUp</p>
                 </Box>
             </Box>
