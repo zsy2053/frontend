@@ -212,7 +212,6 @@ function Home() {
       },
       stopCallback: e => {
         setAudioSrc(window.URL.createObjectURL(e));
-        console.log(window.URL.createObjectURL(e));
         const audioFile = new File([e], "myaudio.wav");
         addMyChat(setChatHistory, "Human: Audio file sent(Style this part with a button)");
         handleMessageSend(currentFocus, chatMessage, setChatHistory, audioFile);
