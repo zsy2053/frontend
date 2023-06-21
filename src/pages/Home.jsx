@@ -24,8 +24,8 @@ const fetchCollectionData = (setCollectionList) => {
         resData.push(
           {
             name: res.data.data[i],
-            icon: <Box className='h-6 w-6 flex justify-center'><img src='/icons/chatIcon.svg' className='place-self-center' /></Box>,
-            chatWindowIcon: '/icons/chatIcon.svg'
+            icon: <Box className='h-6 w-6 flex justify-center'><img src='/icons/Icon.svg' className='place-self-center' /></Box>,
+            chatWindowIcon: '/icons/ChatWithDataFile.svg'
           }
         )
       }

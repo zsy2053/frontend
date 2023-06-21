@@ -13,13 +13,13 @@ const Navbar = () => {
     }}>
       <Box className='flex'>
         <button className='mr-5'>
-          <img src='/icons/refreshIcon.svg' />
+          <img src='/icons/refresh.svg' />
         </button>
         <button className='mr-5'>
-          <img src='/icons/shareIcon.svg' />
+          <img src='/icons/share.svg' />
         </button>
         <button className='mr-5'>
-          <img src='/icons/threeDotIcon.svg' />
+          <img src='/icons/three-dot.svg' />
         </button>
       </Box>
     </Stack>

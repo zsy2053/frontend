@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider';
 
 const pinnedCategories = [
     { name: "All", icon: '/icons/House.svg' },
-    { name: "Popular", icon: '/icons/Popular.svg' }
+    { name: "Popular", icon: '/icons/Fire.svg' }
 ];
 
 const categories = [
