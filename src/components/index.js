@@ -1,5 +1,11 @@
 export { default as LandingNav } from "./Landing/LandingNav";
 export { default as LandingHero } from "./Landing/LandingHero";
+export { default as LandingDesc1 } from "./Landing/LandingDesc1";
+export { default as LandingDesc2 } from "./Landing/LandingDesc2";
+export { default as LandingDesc3 } from "./Landing/LandingDesc3";
+export { default as LandingDesc4 } from "./Landing/LandingDesc4";
+export { default as LandingExplore } from "./Landing/LandingExplore";
+export { default as LandingFAQs } from "./Landing/LandingFAQs";
 export { default as LandingFooter } from "./Landing/LandingFooter";
 export { default as EAButton } from "./Landing/EAButton";
 export { default as EAInput } from "./Landing/EAInput";

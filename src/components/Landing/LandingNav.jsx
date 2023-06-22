@@ -21,11 +21,16 @@ const LandingNav = () => {
         {landingNavLinks.map((nav, index) => (
           <li
             key={nav.id}
-            className={`font-inter font-medium cursor-pointer text-[20px] ${
-              index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
-            }`}
+            className={`font-inter font-medium cursor-pointer text-[20px] ${index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
+              }`}
           >
-            <a onClick={() => navigate(`${nav.id}`)}>{nav.title}</a>
+            <a onClick={() => {
+              if (nav.link) {
+                window.open('https://discord.gg/AtEtD6Y5Mm', '_blank');
+              } else {
+                navigate(`${nav.id}`);
+              }
+            }}>{nav.title}</a>
           </li>
         ))}
       </ul>
@@ -64,7 +69,13 @@ const LandingNav = () => {
                   "font-inter font-medium cursor-pointer text-[20px] mb-4 text-white"
                 }
               >
-                <a onClick={() => navigate(`${nav.id}`)}>{nav.title}</a>
+                <a onClick={() => {
+                  if (nav.link) {
+                    window.open('https://discord.gg/AtEtD6Y5Mm', '_blank');
+                  } else {
+                    navigate(`${nav.id}`);
+                  }
+                }}>{nav.title}</a>
               </li>
             ))}
             <li
