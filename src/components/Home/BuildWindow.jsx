@@ -159,7 +159,7 @@ const BuildWindow = () => {
             </Box>
             <Box className='flex overflow-auto mx-20 mt-12 flex-wrap justify-center max-w-7xl'>
                 {templateCards.map((item, index) => (
-                    <TemplateCard item={item} />
+                    <TemplateCard key={index} item={item} />
                 ))}
             </Box>
         </Stack>
