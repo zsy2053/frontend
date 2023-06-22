@@ -15,17 +15,17 @@ const Landing = () => (
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px]`}>
+      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}>
         <LandingDesc1 />
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px]`}>
+      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}>
         <LandingDesc2 />
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px]`}>
+      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}>
         <LandingDesc3 />
       </div>
     </div>
