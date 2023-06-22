@@ -39,11 +39,12 @@ const fetchCollectionData = (setCollectionList) => {
 }
 
 const resetContext = (currentFocus, mapFocusContext, setChatHistory) => {
+  console.log(currentFocus)
   axios({
       method: 'post',
       url: `${import.meta.env.VITE_API_URL}/api/bots/reset_context`,
       data: {
-        'context': mapFocusContext(currentFocus['name'])
+        'context': mapFocusContext(currentFocus)
       },
       headers: { "Content-Type": "application/json",
       "x-access-token": localStorage.getItem('jwt')},
@@ -177,6 +178,7 @@ const addMyChat = (setChatHistory, chatMessage) => {
 }
 
 const mapFocusContext = (focus) => {
+    console.log(focus)
     switch(focus['name']) {
       case 'Calendar agent':
         return 'calendar_context';
