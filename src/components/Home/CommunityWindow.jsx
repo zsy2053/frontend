@@ -20,7 +20,7 @@ const AgentCard = ({ item }) => {
       <Box className='flex flex-wrap mt-2 mx-3'>
         {
           item.labels.map((l, index) => (
-            <Label text={l} />
+            <Label key={index} text={l} />
           ))
         }
       </Box>
@@ -126,7 +126,7 @@ const CommunityWindow = () => {
       </Box>
       <Box className='flex overflow-auto mx-20 flex-wrap justify-center max-w-7xl'>
         {agentCards.map((item, index) => (
-          <AgentCard item={item}/>
+          <AgentCard key={index} item={item}/>
         ))}
       </Box>
     </Stack>

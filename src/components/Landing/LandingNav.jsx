@@ -25,7 +25,17 @@ const LandingNav = () => {
               index === landingNavLinks.length - 1 ? "mr-0" : "mr-12"
             }`}
           >
-            <a onClick={() => navigate(`${nav.id}`)}>{nav.title}</a>
+            <a
+              onClick={() => {
+                if (nav.link) {
+                  window.open("https://discord.gg/AtEtD6Y5Mm", "_blank");
+                } else {
+                  navigate(`${nav.id}`);
+                }
+              }}
+            >
+              {nav.title}
+            </a>
           </li>
         ))}
       </ul>
@@ -52,29 +62,38 @@ const LandingNav = () => {
         />
 
         <div
-          className={`${toggle ? "flex" : "hidden"} p-6 bg-gray-gradient
-          absolute top-20 right-0 mx-4 my-2
-          min-w-[140px] rounded-xl sidebar`}
+          className={`${toggle ? "flex" : "hidden"} p-6 bg-white
+          absolute top-20 right-0
+          w-full h-[75vh] flex-col `}
         >
-          <ul className='list-none flex flex-col justify-end items-center flex-1'>
+          <ul className='list-none flex flex-col justify-center items-center flex-1'>
             {landingNavLinks.map((nav, index) => (
               <li
                 key={nav.id}
                 className={
-                  "font-inter font-medium cursor-pointer text-[20px] mb-4 text-white"
+                  "font-inter font-medium cursor-pointer text-[20px] mb-4 text-zinc-900"
                 }
               >
-                <a onClick={() => navigate(`${nav.id}`)}>{nav.title}</a>
+                <a
+                  onClick={() => {
+                    if (nav.link) {
+                      window.open("https://discord.gg/AtEtD6Y5Mm", "_blank");
+                    } else {
+                      navigate(`${nav.id}`);
+                    }
+                  }}
+                >
+                  {nav.title}
+                </a>
               </li>
             ))}
-            <li
-              className={
-                "font-inter font-medium cursor-pointer text-[20px] text-white"
-              }
-            >
-              <a onClick={() => navigate("/signin")}>Sign In</a>
-            </li>
           </ul>
+          <EAButton
+            name={"Sign in"}
+            type='button'
+            onClick={() => navigate("/signin")}
+            className={"mb-10"}
+          ></EAButton>
         </div>
       </div>
     </nav>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from "react-router-dom";
 import { googleLogout } from '@react-oauth/google';
 import { Icon } from '@mui/material';
-import Tooltip from '@mui/material/Tooltip';
+import StyledTooltip from './StyledTooltip';
 
 const data = [
     {
@@ -39,33 +39,37 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
             <div className='flex flex-col'>
                 {data.map((item, index) => (
                     <div key={index} className='flex mb-2 justify-center'>
-                        <Tooltip title={item.name} arrow placement='right'>
+                        <StyledTooltip text={item.name} direction="right">
                             <button onClick={() => setSidebarSelection(item.name)}
                                 className='flex flex-col justify-center items-center'>
                                 <span className='text-homeInactiveIcon'>
                                     {(sidebarSelection === item.name) ? item.iconActive : item.icon}</span>
                             </button>
-                        </Tooltip>
+                        </StyledTooltip>
                     </div>
                 ))}
             </div>
             <div className='flex flex-col'>
                 <div className='flex mb-2 justify-center'>
-                    <button className='flex flex-col justify-center items-center'>
-                        <span className='text-homeInactiveIcon'>
-                            <Icon fontSize='large'><img src='/icons/settingIconInactive.svg' /></Icon></span>
-                    </button>
+                    <StyledTooltip text="Settings" direction="right">
+                        <button className='flex flex-col justify-center items-center'>
+                            <span className='text-homeInactiveIcon'>
+                                <Icon fontSize='large'><img src='/icons/settingIconInactive.svg' /></Icon></span>
+                        </button>
+                    </StyledTooltip>
                 </div>
                 <div className='flex mb-2 justify-center'>
-                    <button className='flex flex-col justify-center items-center'
-                        onClick={() => {
-                            localStorage.clear();
-                            googleLogout();
-                            navigate('/signin');
-                        }}>
-                        <span className='text-homeInactiveIcon'>
-                            <Icon fontSize='large'><img src='/icons/logoutIconInactive.svg' /></Icon></span>
-                    </button>
+                    <StyledTooltip text="Log Out" direction="right">
+                        <button className='flex flex-col justify-center items-center'
+                            onClick={() => {
+                                localStorage.clear();
+                                googleLogout();
+                                navigate('/signin');
+                            }}>
+                            <span className='text-homeInactiveIcon'>
+                                <Icon fontSize='large'><img src='/icons/logoutIconInactive.svg' /></Icon></span>
+                        </button>
+                    </StyledTooltip>
                 </div>
             </div>
         </div>
