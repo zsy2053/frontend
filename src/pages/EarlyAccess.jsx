@@ -4,6 +4,7 @@ import styles from "../style";
 import {
   LandingFooter,
   LandingNav,
+  LandingChatbot,
   EAInput,
   EAButton,
   EASelect,
@@ -166,6 +167,7 @@ const EarlyAccess = () => {
       <div className='w-full'>
         <LandingFooter />
       </div>
+      <LandingChatbot />
     </div>
   );
 };

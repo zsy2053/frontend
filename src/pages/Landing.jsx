@@ -1,6 +1,17 @@
 import React from "react";
 import styles from "../style";
-import { LandingHero, LandingNav, LandingFooter, LandingDesc1, LandingDesc2, LandingDesc3, LandingDesc4, LandingExplore, LandingFAQs } from "../components";
+import {
+  LandingHero,
+  LandingNav,
+  LandingFooter,
+  LandingDesc1,
+  LandingDesc2,
+  LandingDesc3,
+  LandingDesc4,
+  LandingExplore,
+  LandingFAQs,
+  LandingChatbot,
+} from "../components";
 
 const Landing = () => (
   <div className='w-full overflow-hidden'>
@@ -10,22 +21,28 @@ const Landing = () => (
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:mt-[140px] mt-[70px]`}>
+      <div className={`w-full md:mt-[140px] mt-[70px]`}>
         <LandingHero />
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}>
+      <div
+        className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}
+      >
         <LandingDesc1 />
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}>
+      <div
+        className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}
+      >
         <LandingDesc2 />
       </div>
     </div>
     <div className={`${styles.flexCenter}`}>
-      <div className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}>
+      <div
+        className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6`}
+      >
         <LandingDesc3 />
       </div>
     </div>
@@ -47,6 +64,7 @@ const Landing = () => (
     <div className='w-full'>
       <LandingFooter />
     </div>
+    <LandingChatbot />
   </div>
 );
 
