@@ -6,7 +6,7 @@ import { Grow, Slide } from "@mui/material";
 const LandingChatbot = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className='fixed bottom-14 right-14 z-10'>
+    <div className='fixed bottom-14 right-14 z-50'>
       <img
         src='/images/logoChatbot.svg'
         onClick={() => setOpen(true)}

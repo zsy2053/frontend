@@ -58,7 +58,6 @@ const EarlyAccess = () => {
   };
 
   const hideTooltip = () => {
-    console.log("hit");
     setInputOneErr(false);
     setInputTwoErr(false);
     setSelectValErr(false);
@@ -70,17 +69,18 @@ const EarlyAccess = () => {
           <LandingNav />
         </div>
       </div>
-      {/* body left*/}
-      <div className='px-48 flex justify-center items-center flex-grow'>
-        <div className='w-full xl:max-w-[1920px] flex flex-grow justify-between items-center'>
-          <div className='flex flex-col max-w-2xl'>
-            <h1 className='font-semibold text-[72px] text-headerGray leading-[1.12]'>
+
+      <div className='lg:px-48 px-5 flex justify-center items-center flex-grow '>
+        <div className='w-full xl:max-w-[1920px] flex flex-shrink justify-between items-center sm:flex-row sm:mt-0 mt-4 flex-col'>
+          {/* body left*/}
+          <div className='flex flex-col max-w-2xl sm:mb-0 mb-7'>
+            <h1 className='font-semibold xl:text-[72px] text-headerGray leading-[1.12] text-[36px]'>
               Early Access
             </h1>
-            <h1 className='font-semibold text-[72px] text-primary leading-[1.15]'>
+            <h1 className='font-semibold xl:text-[72px] text-primary leading-[1.15] text-[36px]'>
               It all starts here.
             </h1>
-            <span className='font-normal text-[25px] text-black leading-[1.30] mt-6'>
+            <span className='font-normal xl:text-[25px] text-black leading-[1.30] mt-6 text-[20px] sm:pr-10'>
               Thanks for your interest in StyleUp AI! As soon as the platform is
               ready for the official launch, you will be notified by email.
             </span>
@@ -93,9 +93,12 @@ const EarlyAccess = () => {
               </span>
             </div>
           ) : (
-            <form className='w-full flex flex-col max-w-xl' noValidate>
-              <div className='flex mb-9'>
-                <div className='flex-1 mr-[18px]'>
+            <form
+              className='w-full flex flex-col max-w-xl flex-grow'
+              noValidate
+            >
+              <div className='flex mb-9 sm:flex-row flex-col'>
+                <div className='flex-1 mr-[18px] mb-9 sm:mb-0'>
                   <EAInput
                     label='Name'
                     id='name'
@@ -137,7 +140,7 @@ const EarlyAccess = () => {
                   StyleUp
                 </span>
               </div>
-              <div className='flex items-center'>
+              <div className='flex items-center sm:mb-0 mb-[60px] sm:flex-row flex-col-reverse'>
                 <span className='font-normal text-[16px] leading-[19px] mr-[34px] text-[#555555] text-opacity-80 flex-1'>
                   By submitting this form you agree to our{" "}
                   <a className='text-menuText text-opacity-100 underline'>
@@ -149,9 +152,9 @@ const EarlyAccess = () => {
                   </a>
                 </span>
                 <ClickAwayListener onClickAway={hideTooltip}>
-                  <div>
+                  <div className='sm:w-min w-full'>
                     <EAButton
-                      className='w-[103px]'
+                      className='sm:w-[103px] w-full sm:mb-0 mb-3'
                       type='submit'
                       name='Submit'
                       onClick={(e) => onSubmit(e)}
