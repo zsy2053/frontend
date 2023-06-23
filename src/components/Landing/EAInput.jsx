@@ -50,7 +50,7 @@ const EAInput = ({
         title={tooltipMsg}
         placement='bottom-start'
         arrow
-        className={required && showTooltip ? "visible" : "hidden"}
+        className={required && showTooltip ? "block" : "hidden"}
       >
         <span className='absolute z-10 origin-[0] bottom-1 left-12'></span>
       </CustomTooltip>
