@@ -28,7 +28,7 @@ const Select = ({
         <div>
           <button
             className={`block px-5 py-4 w-full h-[56px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none
-        text-left text-ellipsis whitespace-nowrap
+        text-left text-ellipsis whitespace-nowrap overflow-hidden
       ${
         phText === placeholder && !open
           ? "border-primary border-opacity-10 border-[1px]"

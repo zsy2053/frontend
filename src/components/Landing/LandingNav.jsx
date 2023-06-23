@@ -27,11 +27,7 @@ const LandingNav = () => {
           >
             <a
               onClick={() => {
-                if (nav.link) {
-                  window.open("https://discord.gg/AtEtD6Y5Mm", "_blank");
-                } else {
-                  navigate(`${nav.id}`);
-                }
+                navigate(`${nav.id}`);
               }}
             >
               {nav.title}
@@ -76,11 +72,7 @@ const LandingNav = () => {
               >
                 <a
                   onClick={() => {
-                    if (nav.link) {
-                      window.open("https://discord.gg/AtEtD6Y5Mm", "_blank");
-                    } else {
-                      navigate(`${nav.id}`);
-                    }
+                    navigate(`${nav.id}`);
                   }}
                 >
                   {nav.title}
