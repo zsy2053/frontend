@@ -10,6 +10,7 @@ import {
   SignIn,
   About,
   Error,
+  Join,
 } from "./pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     path: "/about",
     element: <About />,
   },
+  { path: "/join", element: <Join /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

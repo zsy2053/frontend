@@ -2,45 +2,103 @@ import React from "react";
 import { useState } from "react";
 import { EAButton } from "..";
 import Button from "./EAButton";
-import { Grow, Slide } from "@mui/material";
+import { Grow, Fade } from "@mui/material";
+import { chatbotTipsOptions } from "../../constants";
 const LandingChatbot = () => {
   const [open, setOpen] = useState(false);
+  const [chatbotTips, setChatbotTips] = useState(false);
   return (
     <div className='fixed bottom-14 right-14 z-50'>
       <img
         src='/images/logoChatbot.svg'
         onClick={() => setOpen(true)}
-        className={open ? "hidden" : "visible"}
+        className={open ? "hidden" : ""}
       ></img>
       <Grow direction='up' in={open} mountOnEnter unmountOnExit>
-        <div className={`w-[1067px] h-[88vh] fixed right-16 bottom-16 flex `}>
+        <div
+          className={`w-[1067px] h-[88vh] fixed right-16 bottom-16 flex justify-end `}
+        >
           {/* left */}
-          <div className='w-3/5 bg-white mr-2 border-[2px] border-[#EAECF0] rounded-[20px] flex flex-col'>
+          <div
+            className='sm:w-3/5 bg-white mr-2 sm:border-[2px] border-[#EAECF0] sm:rounded-[20px] flex flex-col sm:static
+          w-full fixed top-0 left-0 h-full'
+          >
             {/* logo bar */}
             <div className='top-0 flex h-32 w-full px-9 items-center border-b-[1px] border-[#EAECF0]'>
-              <img src='/images/logoChatbox.svg' width={173} height={46}></img>
-              <div className='ml-auto flex'>
+              <img
+                src='/images/logoChatbox.svg'
+                width={173}
+                height={46}
+                className='sm:block hidden'
+              ></img>
+              <div className='text-black text-[20px] font-bold sm:hidden block'>
+                STYLEUP
+              </div>
+              <div className='ml-auto flex space-x-10'>
+                {chatbotTips ? (
+                  <>
+                    <img
+                      src='/icons/chatbotTips2.svg'
+                      width={24}
+                      height={24}
+                      className='lg:hidden'
+                      onClick={() => setChatbotTips((p) => !p)}
+                    ></img>
+                    <Fade
+                      direction='down'
+                      in={chatbotTips}
+                      mountOnEnter
+                      unmountOnExit
+                    >
+                      <div className='flex absolute flex-col justify-start bg-white rounded-2xl shadow right-5 top-28 py-[10px] pl-[10px]'>
+                        <span className='font-medium text-[18px] leading-5 text-primary mb-6 px-[20px] py-[10px]'>
+                          ✦Try Prompts
+                        </span>
+                        <ul className='list-none space-y-[16px]'>
+                          {chatbotTipsOptions.map((nav, index) => (
+                            <li
+                              key={nav.id}
+                              className={
+                                "font-medium text-[16px] leading-5 text-primary px-[20px] py-[10px]"
+                              }
+                            >
+                              {nav.text}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </Fade>
+                  </>
+                ) : (
+                  <img
+                    src='/icons/chatbotTips.svg'
+                    width={24}
+                    height={24}
+                    className='lg:hidden '
+                    onClick={() => setChatbotTips((p) => !p)}
+                  ></img>
+                )}
+
                 <img
                   src='/icons/chatbotRefresh.svg'
-                  width={28}
-                  height={28}
-                  className='mr-12'
+                  width={24}
+                  height={24}
                 ></img>
                 <img
                   src='/icons/chatbotX.svg'
-                  width={28}
-                  height={28}
+                  width={24}
+                  height={24}
                   onClick={() => setOpen(false)}
                 ></img>
               </div>
             </div>
             {/* chat area */}
-            <div className='mt-12 px-9 w-full flex-grow overflow-scroll'>
+            <div className='mt-12 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4'>
               👋 Hi! I am StyleUp AI, ask me anything about StyleUp!
             </div>
             <div className='sticky bottom-0'>
               {/* selectors */}
-              <div className='mx-9 h-[40px] w-[calc(100%-64)] flex overflow-x-scroll whitespace-nowrap'>
+              <div className='mx-9 h-[40px] flex overflow-x-scroll overflow-y-visible whitespace-nowrap scrollbar-none'>
                 <button
                   className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
                rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
@@ -54,20 +112,6 @@ const LandingChatbot = () => {
              font-medium text-[16px] leading-5 mr-8'
                 >
                   Browse Agents
-                </button>
-                <button
-                  className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
-               rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
-             font-medium text-[16px] leading-5 mr-8'
-                >
-                  MySpace
-                </button>
-                <button
-                  className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
-               rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
-             font-medium text-[16px] leading-5 mr-8'
-                >
-                  MySpace
                 </button>
                 <button
                   className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
@@ -100,30 +144,21 @@ const LandingChatbot = () => {
             </div>
           </div>
           {/* right */}
-          <div className='w-2/5 h-full bg-white border-[2px] border-[#EAECF0] rounded-[20px] flex flex-col'>
-            <div className='flex flex-col justify-start px-11 mt-11 h-[324px] w-full'>
+          <div className='w-2/5 h-full bg-white border-[2px] border-[#EAECF0] rounded-[20px] flex-col lg:flex hidden'>
+            <div className='flex flex-col justify-start px-11 mt-11 max-h-[324px] w-full flex-shrink overflow-y-scroll scrollbar-none shadow'>
               <span className='font-medium text-[18px] leading-5 text-primary mb-6'>
                 ✦Try Prompts
               </span>
+
               <ul className='list-none space-y-[16px]'>
-                <li className='font-medium text-[16px] leading-5 text-primary'>
-                  What is StyleUp?
-                </li>
-                <li className='font-medium text-[16px] leading-5 text-primary'>
-                  How do I add data to my app?
-                </li>
-                <li className='font-medium text-[16px] leading-5 text-primary'>
-                  Can I use StyleUp for commercial purposes?
-                </li>
-                <li className='font-medium text-[16px] leading-5 text-primary'>
-                  Can I use StyleUp in open-source projects?
-                </li>
-                <li className='font-medium text-[16px] leading-5 text-primary'>
-                  Where can I access my download files?
-                </li>
-                <li className='font-medium text-[16px] leading-5 text-primary'>
-                  What about browser support?
-                </li>
+                {chatbotTipsOptions.map((nav, index) => (
+                  <li
+                    key={nav.id}
+                    className={"font-medium text-[16px] leading-5 text-primary"}
+                  >
+                    {nav.text}
+                  </li>
+                ))}
               </ul>
             </div>
             <div className='px-20 flex items-center text-center flex-1'>

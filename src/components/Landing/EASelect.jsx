@@ -28,7 +28,7 @@ const Select = ({
         <div>
           <button
             className={`block px-5 py-4 w-full h-[56px] text-menuText bg-transparent rounded-[14px] text-opacity-80 focus:outline-none appearance-none
-        text-left text-ellipsis whitespace-nowrap
+        text-left text-ellipsis whitespace-nowrap overflow-hidden
       ${
         phText === placeholder && !open
           ? "border-primary border-opacity-10 border-[1px]"
@@ -48,7 +48,7 @@ const Select = ({
           <ul
             className={`list-none flex flex-col justify-end items-start bg-white flex-1 z-10 absolute border-[1px] w-full
         rounded-lg
-        ${open ? "visible" : "hidden"}`}
+        ${open ? "" : "hidden"}`}
             style={{
               boxShadow:
                 "0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)",
@@ -66,7 +66,7 @@ const Select = ({
                   <p className='flex-grow'>{op.text}</p>
                   <img
                     src='/icons/check.svg'
-                    className={phText === op.text ? `visible` : "hidden"}
+                    className={phText === op.text ? `` : "hidden"}
                   ></img>
                 </div>
               </li>
