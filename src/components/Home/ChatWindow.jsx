@@ -92,15 +92,7 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
         </Box>
 }
 
-const audioChat = (e, setAudioStatus) => {
-    window.alert("Audio recording started!");
-    setAudioStatus("recording");
-    setTimeout(function () {
-        setAudioStatus("inactive");
-    }, 10000);
-}
-
-const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, setAudioStatus, audioProps }) => {
+const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps }) => {
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
@@ -142,10 +134,10 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                             </button>
                         }
                     </Box>
-                    <Box className='border border-[#b09ae2] rounded-xl mb-4'>
+                    <Box className={'rounded-xl mb-4 ' + (audioStatus == 'recording' ? 'bg-[#f2eefb]' : 'border border-[#b09ae2]' )}>
                         <FormControl fullWidth sx={{ m: 1 }}>
                             <Input
-                                placeholder='Type new question'
+                                placeholder={audioStatus == 'recording' ? '' : 'Type new question'}
                                 value={chatMessage}
                                 onChange={(event) => setMessage(event.target.value)}
                                 onKeyDown={(event) => {
@@ -158,8 +150,12 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                                 id="outlined-adornment-amount"
                                 endAdornment={<InputAdornment position="end">
                                     <Box className='flex items-center'>
-                                        <button className='h-10 w-10 flex justify-center items-center'>
-                                            <MicIcon fontSize='large' onClick={(e) => audioChat(e, setAudioStatus)} />
+                                        <button className='h-10 w-10 flex justify-center items-center'
+                                            // onClick={(e) => audioChat(e, setAudioStatus)}
+                                            onMouseDown={() => setAudioStatus('recording')}
+                                            onMouseUp={() => setAudioStatus('inactive')}
+                                        >
+                                            <MicIcon fontSize='large'/>
                                         </button>
                                         <button onClick={() => {
                                             sendMessage();

@@ -278,6 +278,7 @@ function Home() {
                       setMessage={setChatMessage}
                       chatMessage={chatMessage}
                       googleCalendarSignIn={googleCalendarSignIn}
+                      audioStatus={audioStatus}
                       setAudioStatus={setAudioStatus}
                       audioProps={audioProps}
                       sendMessage={(tip="") => {
