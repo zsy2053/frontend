@@ -1,5 +1,5 @@
 import { Stack, Box } from '@mui/system'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -7,6 +7,56 @@ import MicIcon from '@mui/icons-material/Mic';
 import Divider from '@mui/material/Divider';
 import AudioAnalyser from "react-audio-analyser";
 
+const AudioMessage = ({ src }) => {
+    const [playing, setPlaying] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(0);
+
+    const audioRef = useRef()
+
+    const formatTime = (time) => {
+        if (time && !isNaN(time)) {
+            const minutes = Math.floor(time / 60);
+            const formatMinutes = `${minutes}`;
+            const seconds = Math.floor(time % 60);
+            const formatSeconds =
+                seconds < 10 ? `0${seconds}` : `${seconds}`;
+            return `${formatMinutes}:${formatSeconds}`;
+        }
+        return '0:00';
+    };
+
+    const handlePlay = () => {
+        audioRef.current.play()
+        setPlaying(true)
+    }
+
+    const handlePause = () => {
+        audioRef.current.pause()
+        setPlaying(false)
+    }
+
+    const handleTimeUpdate = () => {
+        setTimeLeft(audioRef.current.duration - audioRef.current.currentTime)
+    }
+
+    return (
+        <Box className={'self-end justify-center px-2 py-2 rounded-full mb-8 max-w-xl ' + (playing ? 'bg-styleupPurple' : 'bg-[#f2eefb]') }>
+            <audio
+                ref={audioRef}
+                src={src}
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={handlePause}
+            />
+            <div className='flex items-center'>
+                <button onClick={playing ? handlePause : handlePlay}>
+                    <img src={playing ? '/icons/PlayerPauseIcon.svg' : '/icons/PlayerPlayIcon.svg'} />
+                </button>
+                <img src={playing ? '/icons/WaveformLight.svg' : '/icons/Waveform.svg'} className='mx-2' />
+                <span className={playing ? 'text-white' : 'text-[#1c1c1c] text-opacity-80'}>{formatTime(timeLeft)}</span>
+            </div>
+        </Box>
+    )
+}
 
 const GoogleCalendarSignInButton = ({ googleCalendarSignIn }) => {
     return (
@@ -18,6 +68,10 @@ const GoogleCalendarSignInButton = ({ googleCalendarSignIn }) => {
 }
 
 const messageMapper = (item, index, googleCalendarSignIn) => {
+    if (item.startsWith("Audio: ")) {
+        return <AudioMessage key={index} src={item.substring(item.indexOf(':') + 1)} />
+    }
+
     return item.startsWith("Human: ") ?
         <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-2xl mb-8 max-w-xl'>
             <span style={{ whiteSpace: 'pre-line' }}>
@@ -80,44 +134,43 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                             </button>
                         }
                     </Box>
-                          {chatTitle === "Audio agent" ?
-                          <Box className='flex justify-center'>
-                          <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
-                              <MicIcon fontSize='large' onClick={audioChat}/>
-                          </button>
-                          </Box> :
-                          <Box className='border border-[#b09ae2] rounded-xl mb-4'>
-                          <FormControl fullWidth sx={{ m: 1 }}>
-                          <Input
-                              placeholder='Type new question'
-                              value={chatMessage}
-                              onChange={(event) => setMessage(event.target.value)}
-                              onKeyDown={(event) => {
-                                  if (event.key == "Enter") {
-                                      sendMessage();
-                                      setMessage('');
-                                  }
-                              }}
-                              disableUnderline
-                              id="outlined-adornment-amount"
-                              endAdornment={<InputAdornment position="end">
-                                  <Box className='flex'>
-                                      <button onClick={() => {
-                                          sendMessage();
-                                          setMessage('');
-                                      }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                          <img src='/icons/SendIcon.svg' />
-                                      </button>
-                                  </Box>
-                              </InputAdornment>}
-                          />
-                          </FormControl>
-                                              </Box>
-                          }
+                    {chatTitle === "Audio agent" ?
+                        <Box className='flex justify-center'>
+                            <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
+                                <MicIcon fontSize='large' onClick={audioChat} />
+                            </button>
+                        </Box> :
+                        <Box className='border border-[#b09ae2] rounded-xl mb-4'>
+                            <FormControl fullWidth sx={{ m: 1 }}>
+                                <Input
+                                    placeholder='Type new question'
+                                    value={chatMessage}
+                                    onChange={(event) => setMessage(event.target.value)}
+                                    onKeyDown={(event) => {
+                                        if (event.key == "Enter") {
+                                            sendMessage();
+                                            setMessage('');
+                                        }
+                                    }}
+                                    disableUnderline
+                                    id="outlined-adornment-amount"
+                                    endAdornment={<InputAdornment position="end">
+                                        <Box className='flex'>
+                                            <button onClick={() => {
+                                                sendMessage();
+                                                setMessage('');
+                                            }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                                <img src='/icons/SendIcon.svg' />
+                                            </button>
+                                        </Box>
+                                    </InputAdornment>}
+                                />
+                            </FormControl>
+                        </Box>
+                    }
                     <p className='flex justify-center mb-5'>Build with StyleUp</p>
                 </Box>
             </Box>
-            <div style={{display: "none"}}><AudioAnalyser {...audioProps} /></div>
         </Stack>
     )
 }

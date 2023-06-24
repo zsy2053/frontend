@@ -228,9 +228,10 @@ function Home() {
         console.log("succ pause", e);
       },
       stopCallback: e => {
-        setAudioSrc(window.URL.createObjectURL(e));
+        const audioURL = window.URL.createObjectURL(e)
+        setAudioSrc(audioURL);
         const audioFile = new File([e], "myaudio.wav");
-        addMyChat(setChatHistory, "Human: Audio file sent(Style this part with a button)");
+        addMyChat(setChatHistory, "Audio: " + audioURL);
         handleMessageSend(currentFocus, "Human:" + chatMessage, setChatHistory, audioFile);
         console.log("succ stop", audioFile);
       },
