@@ -40,7 +40,7 @@ const AudioMessage = ({ src }) => {
     }
 
     return (
-        <Box className={'self-end justify-center px-2 py-2 rounded-full mb-8 max-w-xl ' + (playing ? 'bg-styleupPurple' : 'bg-[#f2eefb]') }>
+        <Box className={'self-end justify-center px-2 py-2 rounded-full mb-8 max-w-xl ' + (playing ? 'bg-styleupPurple' : 'bg-[#f2eefb]')}>
             <audio
                 ref={audioRef}
                 src={src}
@@ -92,7 +92,7 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
         </Box>
 }
 
-const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioChat, audioProps }) => {
+const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps }) => {
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
@@ -134,43 +134,44 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                             </button>
                         }
                     </Box>
-                    {chatTitle === "Audio agent" ?
-                        <Box className='flex justify-center'>
-                            <button className='h-10 w-10 pt-0.5 flex justify-center mr-2'>
-                                <MicIcon fontSize='large' onClick={audioChat} />
-                            </button>
-                        </Box> :
-                        <Box className='border border-[#b09ae2] rounded-xl mb-4'>
-                            <FormControl fullWidth sx={{ m: 1 }}>
-                                <Input
-                                    placeholder='Type new question'
-                                    value={chatMessage}
-                                    onChange={(event) => setMessage(event.target.value)}
-                                    onKeyDown={(event) => {
-                                        if (event.key == "Enter") {
+                    <Box className={'rounded-xl mb-4 ' + (audioStatus == 'recording' ? 'bg-[#f2eefb]' : 'border border-[#b09ae2]' )}>
+                        <FormControl fullWidth sx={{ m: 1 }}>
+                            <Input
+                                placeholder={audioStatus == 'recording' ? '' : 'Type new question'}
+                                value={chatMessage}
+                                onChange={(event) => setMessage(event.target.value)}
+                                onKeyDown={(event) => {
+                                    if (event.key == "Enter") {
+                                        sendMessage();
+                                        setMessage('');
+                                    }
+                                }}
+                                disableUnderline
+                                id="outlined-adornment-amount"
+                                endAdornment={<InputAdornment position="end">
+                                    <Box className='flex items-center'>
+                                        <button className='h-10 w-10 flex justify-center items-center'
+                                            // onClick={(e) => audioChat(e, setAudioStatus)}
+                                            onMouseDown={() => setAudioStatus('recording')}
+                                            onMouseUp={() => setAudioStatus('inactive')}
+                                        >
+                                            <MicIcon fontSize='large'/>
+                                        </button>
+                                        <button onClick={() => {
                                             sendMessage();
                                             setMessage('');
-                                        }
-                                    }}
-                                    disableUnderline
-                                    id="outlined-adornment-amount"
-                                    endAdornment={<InputAdornment position="end">
-                                        <Box className='flex'>
-                                            <button onClick={() => {
-                                                sendMessage();
-                                                setMessage('');
-                                            }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                                <img src='/icons/SendIcon.svg' />
-                                            </button>
-                                        </Box>
-                                    </InputAdornment>}
-                                />
-                            </FormControl>
-                        </Box>
-                    }
+                                        }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                            <img src='/icons/SendIcon.svg' />
+                                        </button>
+                                    </Box>
+                                </InputAdornment>}
+                            />
+                        </FormControl>
+                    </Box>
                     <p className='flex justify-center mb-5'>Build with StyleUp</p>
                 </Box>
             </Box>
+            <div style={{ display: "none" }}><AudioAnalyser {...audioProps} /></div>
         </Stack>
     )
 }
