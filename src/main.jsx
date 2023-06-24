@@ -11,6 +11,7 @@ import {
   About,
   Error,
   Join,
+  HowItWorks,
 } from "./pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
@@ -40,7 +41,13 @@ const router = createBrowserRouter([
     path: "/about",
     element: <About />,
   },
-  { path: "/join", element: <Join /> },
+  {
+    path: "/join", element: <Join />
+  },
+  {
+    path: "/how", element: <HowItWorks />
+  },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

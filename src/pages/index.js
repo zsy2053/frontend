@@ -7,3 +7,4 @@ export { default as SignIn } from "./SignIn";
 export { default as About } from "./About";
 export { default as Error } from "./Error";
 export { default as Join } from "./Join";
+export { default as HowItWorks } from "./HowItWorks";
