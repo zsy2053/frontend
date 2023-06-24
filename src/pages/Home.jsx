@@ -63,7 +63,8 @@ const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
     method: 'get',
     url: `${import.meta.env.VITE_API_URL}/api/bots/get_chat_history`,
     params: {
-      'chat_type': chat_type
+      'chat_type': chat_type,
+      'file_name': file_name
     },
     headers: { "Content-Type": "application/json",
     "x-access-token": localStorage.getItem('jwt')},
@@ -103,7 +104,8 @@ const mapStatesUpdate = (states, targetName) => {
     });
 }
 
-const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=null) => {
+const handleMessageSend = (currentFocus, chatMessage, setChatHistory, setIsLoading, audioFile=null) => {
+  setIsLoading(true);
   switch (currentFocus['name']) {
     case 'Calendar agent':
       const res = localStorage.getItem('googleCred') || "";
@@ -117,8 +119,10 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=
         headers: { "Content-Type": "application/json",
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
+        setIsLoading(false);
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => {
+        setIsLoading(false);
         window.alert(err.message);
         console.log(err);
       });
@@ -133,8 +137,10 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=
         headers: { "Content-Type": "application/json",
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
+        setIsLoading(false);
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => {
+        setIsLoading(false);
         window.alert(err.message);
         console.log(err)
       });
@@ -149,9 +155,13 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=
         headers: { "Content-Type": "multipart/form-data",
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
+        setIsLoading(false);
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
         console.log(res);
-      }).catch((err) => console.log(err));
+      }).catch((err) => {
+        setIsLoading(false);
+        console.log(err)
+      });
       break;
     default:
       axios({
@@ -164,8 +174,10 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, audioFile=
         headers: { "Content-Type": "application/json",
         "x-access-token": localStorage.getItem('jwt')},
       }).then((res) => {
+        setIsLoading(false);
         addMyChat(setChatHistory, "AIMessage: " + res.data.data);
       }).catch((err) => {
+        setIsLoading(false);
         window.alert(err.message);
         console.log(err)
       });
@@ -206,6 +218,7 @@ function Home() {
     const [chatMessage, setChatMessage] = useState("");
     const [audioStatus, setAudioStatus] = useState("inactive")
     const [audioSrc, setAudioSrc] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const audioProps = {
       audioType: "audio/wav",
       // audioOptions: {sampleRate: 30000}, // 设置输出音频采样率
@@ -223,7 +236,7 @@ function Home() {
         setAudioSrc(audioURL);
         const audioFile = new File([e], "myaudio.wav");
         addMyChat(setChatHistory, "Audio: " + audioURL);
-        handleMessageSend(currentFocus, "Human:" + chatMessage, setChatHistory, audioFile);
+        handleMessageSend(currentFocus, "Human:" + chatMessage, setChatHistory, setIsLoading, audioFile);
         console.log("succ stop", audioFile);
       },
       onRecordCallback: e => {
@@ -281,13 +294,14 @@ function Home() {
                       audioStatus={audioStatus}
                       setAudioStatus={setAudioStatus}
                       audioProps={audioProps}
+                      isLoading={isLoading}
                       sendMessage={(tip="") => {
                         if (tip == "") {
                           addMyChat(setChatHistory, "Human: " + chatMessage);
-                          handleMessageSend(currentFocus, chatMessage, setChatHistory);
+                          handleMessageSend(currentFocus, chatMessage, setChatHistory, setIsLoading);
                         } else {
                           addMyChat(setChatHistory, "Human: " + tip);
-                          handleMessageSend(currentFocus, tip, setChatHistory);
+                          handleMessageSend(currentFocus, tip, setChatHistory, setIsLoading);
                         }
                       }}
                       />

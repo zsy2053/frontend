@@ -3,12 +3,14 @@ import axios from 'axios';
 import { EAButton } from "..";
 import Button from "./EAButton";
 import { Grow, Fade } from "@mui/material";
+import CircularProgress from '@mui/material/CircularProgress';
 import { StyleUpContext } from "../../main.jsx";
 
 import { chatbotTipsOptions, styleUpCollection, styleUpAPIKey } from "../../constants";
 
-const sendStyleUpMsg = (msg, setStyleMsgHistory) => {
+const sendStyleUpMsg = (msg, setStyleMsgHistory, setIsLoading) => {
  setStyleMsgHistory(oldMessages => [...oldMessages, "Human: " + msg]);
+ setIsLoading(true);
  axios({
      method: 'post',
      url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
@@ -19,9 +21,11 @@ const sendStyleUpMsg = (msg, setStyleMsgHistory) => {
      headers: { "Content-Type": "application/json",
      "bot-api-key": styleUpAPIKey},
  }).then((res) => {
+     setIsLoading(false);
      console.log(res)
      setStyleMsgHistory(oldMessages => [...oldMessages, "AI: " + res.data.data]);
  }).catch((err) => {
+     setIsLoading(false);
      window.alert(err.message);
      console.log(err);
     // navigate(-1);
@@ -150,7 +154,8 @@ const LandingChatbot = () => {
               </div>
               {/* input */}
               <div className='relative mt-8 px-9 w-full h-[75px]'>
-                <button onClick={() => sendStyleUpMsg(styleUpContext.styleUpMsg, styleUpContext.setStyleMsgHistory)}>
+              {styleUpContext.isloading ? <CircularProgress className='absolute right-16 top-1/4' /> :
+                <button onClick={() => sendStyleUpMsg(styleUpContext.styleUpMsg, styleUpContext.setStyleMsgHistory, styleUpContext.setIsLoading)}>
                   <img
                     src='/icons/chatboxSubmit.svg'
                     height={40}
@@ -158,6 +163,7 @@ const LandingChatbot = () => {
                     className='absolute right-16 top-1/4'
                   />
                 </button>
+                }
                 <input
                   onChange={(event) => styleUpContext.setStyleUpMsg(event.target.value)}
                   className='w-full h-[75px] rounded-2xl focus:outline-none appearance-none border-[1px] border-[#555555]

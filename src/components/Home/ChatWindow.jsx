@@ -1,6 +1,7 @@
 import { Stack, Box } from '@mui/system'
 import React, { useState, useRef } from 'react'
 import FormControl from '@mui/material/FormControl';
+import CircularProgress from '@mui/material/CircularProgress';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import MicIcon from '@mui/icons-material/Mic';
@@ -92,7 +93,7 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
         </Box>
 }
 
-const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps }) => {
+const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
     return (
         <Stack className='flex flex-col h-full justify-between'>
             <Box className='flex p-6 items-center'>
@@ -106,27 +107,27 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
             </Box>
             <Box className='flex justify-center'>
                 <Box className='flex-col w-5/6 justify-center' >
-                    {chatSuggestions && chatSuggestions.length > 0 &&
+                    {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                         <Box className='flex justify-start mb-4'>
                             <p className='text-[#555555]'>Chat Suggestions</p>
                         </Box>
                     }
                     <Box className='flex justify-start mb-4'>
-                        {chatSuggestions && chatSuggestions.length > 0 &&
+                        {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[0]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-[#f2eefb]'>
                                 {chatSuggestions[0]}
                             </button>
                         }
-                        {chatSuggestions && chatSuggestions.length > 1 &&
+                        {!isLoading && chatSuggestions && chatSuggestions.length > 1 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[1]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
                                 {chatSuggestions[1]}
                             </button>
                         }
-                        {chatSuggestions && chatSuggestions.length > 2 &&
+                        {!isLoading && chatSuggestions && chatSuggestions.length > 2 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[2]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
@@ -148,22 +149,24 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                                 }}
                                 disableUnderline
                                 id="outlined-adornment-amount"
-                                endAdornment={<InputAdornment position="end">
-                                    <Box className='flex items-center'>
-                                        <button className='h-10 w-10 flex justify-center items-center'
-                                            // onClick={(e) => audioChat(e, setAudioStatus)}
-                                            onMouseDown={() => setAudioStatus('recording')}
-                                            onMouseUp={() => setAudioStatus('inactive')}
-                                        >
-                                            <MicIcon fontSize='large'/>
-                                        </button>
-                                        <button onClick={() => {
-                                            sendMessage();
-                                            setMessage('');
-                                        }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                            <img src='/icons/SendIcon.svg' />
-                                        </button>
-                                    </Box>
+                                endAdornment={<InputAdornment position="end">{
+                                  isLoading ? <Box className='flex items-center'><CircularProgress className='h-10 w-10 flex justify-center items-center'/></Box> :
+                                  <Box className='flex items-center'>
+                                      <button className='h-10 w-10 flex justify-center items-center'
+                                          // onClick={(e) => audioChat(e, setAudioStatus)}
+                                          onMouseDown={() => setAudioStatus('recording')}
+                                          onMouseUp={() => setAudioStatus('inactive')}
+                                      >
+                                          <MicIcon fontSize='large'/>
+                                      </button>
+                                      <button onClick={() => {
+                                          sendMessage();
+                                          setMessage('');
+                                      }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                          <img src='/icons/SendIcon.svg' />
+                                      </button>
+                                  </Box>
+                                }
                                 </InputAdornment>}
                             />
                         </FormControl>

@@ -55,10 +55,11 @@ const router = createBrowserRouter([
 const App = () => {
   const [styleUpMsg, setStyleUpMsg] = useState("");
   const [styleMsgHistory, setStyleMsgHistory] = useState([])
+  const [isloading, setIsLoading] = useState(false)
 
   return <React.StrictMode>
         <GoogleOAuthProvider clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}>
-          <StyleUpContext.Provider value={{ styleUpMsg, setStyleUpMsg, styleMsgHistory, setStyleMsgHistory }}>
+          <StyleUpContext.Provider value={{ styleUpMsg, setStyleUpMsg, styleMsgHistory, setStyleMsgHistory, isloading, setIsLoading }}>
             <RouterProvider router={router} />
           </StyleUpContext.Provider>
         </GoogleOAuthProvider>
