@@ -9,6 +9,9 @@ export const landingNavLinks = [
   },
 ];
 
+export const styleUpCollection = "test12"
+export const styleUpAPIKey = "Q_3XsFeDRgZkYCMSElIF8zdSlUlKRUau3WnBGjTG-D8"
+
 export const footerContact = "Contact: support@styleup.fun";
 export const footerLinks = [
   { link: "/#", title: "Privacy Policy" },

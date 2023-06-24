@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useContext} from "react";
+import axios from 'axios';
 import styles from "../style";
 import {
   LandingFooter,
@@ -10,6 +11,7 @@ import {
   AboutTeam,
   LandingChatbot,
 } from "../components";
+
 const About = () => {
   return (
     <div className='w-full overflow-hidden'>

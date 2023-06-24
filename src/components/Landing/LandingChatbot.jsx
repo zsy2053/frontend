@@ -1,10 +1,35 @@
-import React from "react";
-import { useState } from "react";
+import React, {useState, useContext} from "react";
+import axios from 'axios';
 import { EAButton } from "..";
 import Button from "./EAButton";
 import { Grow, Fade } from "@mui/material";
-import { chatbotTipsOptions } from "../../constants";
+import { StyleUpContext } from "../../main.jsx";
+
+import { chatbotTipsOptions, styleUpCollection, styleUpAPIKey } from "../../constants";
+
+const sendStyleUpMsg = (msg, setStyleMsgHistory) => {
+ setStyleMsgHistory(oldMessages => [...oldMessages, "Human: " + msg]);
+ axios({
+     method: 'post',
+     url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
+     data: {
+       'input': msg,
+       'collection_name': styleUpCollection
+     },
+     headers: { "Content-Type": "application/json",
+     "bot-api-key": styleUpAPIKey},
+ }).then((res) => {
+     console.log(res)
+     setStyleMsgHistory(oldMessages => [...oldMessages, "AI: " + res.data.data]);
+ }).catch((err) => {
+     window.alert(err.message);
+     console.log(err);
+    // navigate(-1);
+ });
+}
+
 const LandingChatbot = () => {
+  const styleUpContext = useContext(StyleUpContext)
   const [open, setOpen] = useState(false);
   const [chatbotTips, setChatbotTips] = useState(false);
   return (
@@ -93,9 +118,11 @@ const LandingChatbot = () => {
               </div>
             </div>
             {/* chat area */}
-            <div className='mt-12 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4'>
+            {styleUpContext.styleMsgHistory && styleUpContext.styleMsgHistory.length > 0 ? styleUpContext.styleMsgHistory.map((item, index) => <div key={index} className='mt-12 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4'>
+              {item}
+            </div>) : <div className='mt-12 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4'>
               👋 Hi! I am StyleUp AI, ask me anything about StyleUp!
-            </div>
+            </div>}
             <div className='sticky bottom-0'>
               {/* selectors */}
               <div className='mx-9 h-[40px] flex overflow-x-scroll overflow-y-visible whitespace-nowrap scrollbar-none'>
@@ -123,13 +150,16 @@ const LandingChatbot = () => {
               </div>
               {/* input */}
               <div className='relative mt-8 px-9 w-full h-[75px]'>
-                <img
-                  src='/icons/chatboxSubmit.svg'
-                  height={40}
-                  width={40}
-                  className='absolute right-16 top-1/4'
-                />
+                <button onClick={() => sendStyleUpMsg(styleUpContext.styleUpMsg, styleUpContext.setStyleMsgHistory)}>
+                  <img
+                    src='/icons/chatboxSubmit.svg'
+                    height={40}
+                    width={40}
+                    className='absolute right-16 top-1/4'
+                  />
+                </button>
                 <input
+                  onChange={(event) => styleUpContext.setStyleUpMsg(event.target.value)}
                   className='w-full h-[75px] rounded-2xl focus:outline-none appearance-none border-[1px] border-[#555555]
                   px-5 py-4'
                   placeholder='Type new questions...'
