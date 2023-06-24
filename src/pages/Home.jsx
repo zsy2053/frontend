@@ -191,15 +191,6 @@ const mapFocusContext = (focus) => {
     }
 }
 
-const audioChat = (e, setAudioStatus) => {
-    window.alert("Audio recording started!");
-    setAudioStatus("recording");
-    setTimeout(function () {
-      setAudioStatus("inactive");
-    }, 10000);
-}
-
-
 function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
@@ -287,7 +278,7 @@ function Home() {
                       setMessage={setChatMessage}
                       chatMessage={chatMessage}
                       googleCalendarSignIn={googleCalendarSignIn}
-                      audioChat={(e) => audioChat(e, setAudioStatus)}
+                      setAudioStatus={setAudioStatus}
                       audioProps={audioProps}
                       sendMessage={(tip="") => {
                         if (tip == "") {
