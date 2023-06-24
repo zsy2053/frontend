@@ -1,14 +1,20 @@
 import React from 'react'
 import Tooltip from '@mui/material/Tooltip';
-//import { makeStyles } from '@mui/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-/*const useStyles = makeStyles(theme => ({
-  arrow: {
-    "&:before": {
-      color: "#1c1c1c"
+const finalTheme = createTheme({
+  components: {
+    MuiTooltip: {
+      styleOverrides: {
+        arrow: {
+          "&:before": {
+            color: "#1c1c1c"
+          }
+        },
+      },
     },
-  }
-}));*/
+  },
+});
 
 const tooltipStyle = {
   sx: {
@@ -20,12 +26,13 @@ const tooltipStyle = {
 }
 
 const StyledTooltip = ({ children, text, direction }) => {
-  //let classes = useStyles();
   return (
-    <Tooltip title={text} arrow placement={direction ? direction : 'bottom'}
-      PopperProps={tooltipStyle}>
-      {children}
-    </Tooltip>
+    <ThemeProvider theme={finalTheme}>
+      <Tooltip title={text} arrow placement={direction ? direction : 'bottom'}
+        PopperProps={tooltipStyle}>
+        {children}
+      </Tooltip>
+    </ThemeProvider>
   )
 }
 
