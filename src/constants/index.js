@@ -9,8 +9,8 @@ export const landingNavLinks = [
   },
 ];
 
-export const styleUpCollection = "test12"
-export const styleUpAPIKey = "Q_3XsFeDRgZkYCMSElIF8zdSlUlKRUau3WnBGjTG-D8"
+export const styleUpCollection = "test12";
+export const styleUpAPIKey = "Q_3XsFeDRgZkYCMSElIF8zdSlUlKRUau3WnBGjTG-D8";
 
 export const footerContact = "Contact: support@styleup.fun";
 export const footerLinks = [
@@ -51,3 +51,22 @@ export const landingSectionText = [
     text: "You free up time to focus on more crucial, strategic aspects of life or work. Let your AI agents handle the tasks, while you handle the innovation.",
   },
 ];
+
+export const exampleChat = [
+  "Human: hi",
+  "AI: Hi there! My name is AI-1. It's nice to meet you.",
+  "Human: Start Building",
+  "AI: Sure thing! What kind of building would you like me to start building?",
+  "Human: Browse Agents",
+  "AI: Sure, I can help you with that. I have a list of agents that I can recommend. Would you like to hear them?",
+  "Human: yes",
+  "AI: Hi there! What can I do for you?",
+  "Human: What is StyleUp?",
+  "AI:  StyleUp is a no-code solution in which anyone could create, deploy, and manage large language model (LLM) agents in less than five minutes. It is a comprehensive platform that allows users to connect and integrate their own private and unique dataset, creating AI agents tailored to their specific use cases.",
+  "Human: How do I add data to my app?",
+  "AI:  You can add data to your app by leveraging StyleUp's vector database technology, which allows you to connect and integrate your own private and unique dataset, creating AI agents tailored to your specific use cases.",
+  "Human: Can I use StyleUp for commercial purposes?",
+  "AI:  Yes, StyleUp can be used for commercial purposes. It is designed to be used by individuals, startups, and organizations to create AI agents tailored to their specific use cases.",
+];
+
+export const chatbotSelectors = ["Start Building", "Browse Agents", "MySpace"];

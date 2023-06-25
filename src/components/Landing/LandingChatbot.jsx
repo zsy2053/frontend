@@ -1,65 +1,80 @@
-import React, {useState, useContext} from "react";
-import axios from 'axios';
-import { EAButton } from "..";
-import Button from "./EAButton";
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import { Grow, Fade } from "@mui/material";
-import CircularProgress from '@mui/material/CircularProgress';
+import EAButton from "./EAButton.jsx";
+import CircularProgress from "@mui/material/CircularProgress";
 import { StyleUpContext } from "../../main.jsx";
 
-import { chatbotTipsOptions, styleUpCollection, styleUpAPIKey } from "../../constants";
+import {
+  chatbotTipsOptions,
+  styleUpCollection,
+  styleUpAPIKey,
+  exampleChat,
+  chatbotSelectors,
+} from "../../constants";
 
 const sendStyleUpMsg = (msg, setStyleMsgHistory, setIsLoading) => {
- setStyleMsgHistory(oldMessages => [...oldMessages, "Human: " + msg]);
- setIsLoading(true);
- axios({
-     method: 'post',
-     url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
-     data: {
-       'input': msg,
-       'collection_name': styleUpCollection
-     },
-     headers: { "Content-Type": "application/json",
-     "bot-api-key": styleUpAPIKey},
- }).then((res) => {
-     setIsLoading(false);
-     console.log(res)
-     setStyleMsgHistory(oldMessages => [...oldMessages, "AI: " + res.data.data]);
- }).catch((err) => {
-     setIsLoading(false);
-     window.alert(err.message);
-     console.log(err);
-    // navigate(-1);
- });
-}
+  setStyleMsgHistory((oldMessages) => [...oldMessages, "Human: " + msg]);
+  setIsLoading(true);
+  axios({
+    method: "post",
+    url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
+    data: {
+      input: msg,
+      collection_name: styleUpCollection,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "bot-api-key": styleUpAPIKey,
+    },
+  })
+    .then((res) => {
+      setIsLoading(false);
+      console.log(res);
+      setStyleMsgHistory((oldMessages) => [
+        ...oldMessages,
+        "AI: " + res.data.data,
+      ]);
+    })
+    .catch((err) => {
+      setIsLoading(false);
+      window.alert(err.message);
+      console.log(err);
+      // navigate(-1);
+    });
+};
 
 const LandingChatbot = () => {
-  const styleUpContext = useContext(StyleUpContext)
+  const styleUpContext = useContext(StyleUpContext);
   const [open, setOpen] = useState(false);
   const [chatbotTips, setChatbotTips] = useState(false);
+  const useExampleChat = false;
   return (
+    // Icon
     <div className='fixed bottom-14 right-14 z-50'>
       <img
         src='/images/logoChatbot.svg'
         onClick={() => setOpen(true)}
         className={open ? "hidden" : ""}
       ></img>
+      {/* Chatbox */}
       <Grow direction='up' in={open} mountOnEnter unmountOnExit>
         <div
           className={`w-[1067px] h-[88vh] fixed right-16 bottom-16 flex justify-end `}
         >
-          {/* left */}
+          {/* Chatbox left */}
           <div
             className='sm:w-3/5 bg-white mr-2 sm:border-[2px] border-[#EAECF0] sm:rounded-[20px] flex flex-col sm:static
           w-full fixed top-0 left-0 h-full'
           >
-            {/* logo bar */}
-            <div className='top-0 flex h-32 w-full px-9 items-center border-b-[1px] border-[#EAECF0]'>
+            {/* Chatbox left logo bar */}
+            <div className='sticky top-0 flex h-32 w-full px-9 items-center border-b-[1px] border-[#EAECF0] sm:flex-shrink-0'>
               <img
                 src='/images/logoChatbox.svg'
                 width={173}
                 height={46}
                 className='sm:block hidden'
-              ></img>
+              />
               <div className='text-black text-[20px] font-bold sm:hidden block'>
                 STYLEUP
               </div>
@@ -72,15 +87,15 @@ const LandingChatbot = () => {
                       height={24}
                       className='lg:hidden'
                       onClick={() => setChatbotTips((p) => !p)}
-                    ></img>
+                    />
                     <Fade
                       direction='down'
                       in={chatbotTips}
                       mountOnEnter
                       unmountOnExit
                     >
-                      <div className='flex absolute flex-col justify-start bg-white rounded-2xl shadow right-5 top-28 py-[10px] pl-[10px]'>
-                        <span className='font-medium text-[18px] leading-5 text-primary mb-6 px-[20px] py-[10px]'>
+                      <div className='flex absolute flex-col justify-start bg-white rounded-2xl shadow right-5 top-28 py-[10px] pl-[10px] z-10'>
+                        <span className='font-medium text-[18px] leading-5 text-primary mb-3 px-[20px] py-[10px] '>
                           ✦Try Prompts
                         </span>
                         <ul className='list-none space-y-[16px]'>
@@ -89,6 +104,9 @@ const LandingChatbot = () => {
                               key={nav.id}
                               className={
                                 "font-medium text-[16px] leading-5 text-primary px-[20px] py-[10px]"
+                              }
+                              onClick={() =>
+                                styleUpContext.setStyleUpMsg(nav.text)
                               }
                             >
                               {nav.text}
@@ -107,7 +125,6 @@ const LandingChatbot = () => {
                     onClick={() => setChatbotTips((p) => !p)}
                   ></img>
                 )}
-
                 <img
                   src='/icons/chatbotRefresh.svg'
                   width={24}
@@ -121,57 +138,109 @@ const LandingChatbot = () => {
                 ></img>
               </div>
             </div>
-            {/* chat area */}
-            {styleUpContext.styleMsgHistory && styleUpContext.styleMsgHistory.length > 0 ? styleUpContext.styleMsgHistory.map((item, index) => <div key={index} className='mt-12 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4'>
-              {item}
-            </div>) : <div className='mt-12 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4'>
-              👋 Hi! I am StyleUp AI, ask me anything about StyleUp!
-            </div>}
-            <div className='sticky bottom-0'>
-              {/* selectors */}
+            {/* Chatbox left chat area */}
+            <div className='mt-6 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4 space-y-[10px] '>
+              {styleUpContext.styleMsgHistory &&
+              styleUpContext.styleMsgHistory.length > 0 ? (
+                styleUpContext.styleMsgHistory.map((item, index) => (
+                  <div className='flex group odd:justify-end odd:text-end'>
+                    <span
+                      key={index}
+                      className='text-neutral-800
+                      font-medium
+                      leading-normal
+                      max-w-[85%]
+                      px-4
+                      py-2
+                      group-odd:bg-indigo-50
+                      group-odd:rounded-2xl'
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))
+              ) : useExampleChat ? (
+                exampleChat.map((item, index) => (
+                  <div className='flex group odd:justify-end odd:text-end'>
+                    <span
+                      key={index}
+                      className='text-neutral-800
+                    font-medium
+                    leading-normal
+                    max-w-[85%]
+                    px-4
+                    py-2
+                    group-odd:bg-indigo-50
+                    group-odd:rounded-2xl'
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <span
+                  className='text-neutral-800
+                text-[16px]
+                font-medium
+                leading-normal'
+                >
+                  👋 Hi! I am StyleUp AI, ask me anything about StyleUp!
+                </span>
+              )}
+            </div>
+            <div>
+              {/* Chatbox left selectors */}
               <div className='mx-9 h-[40px] flex overflow-x-scroll overflow-y-visible whitespace-nowrap scrollbar-none'>
-                <button
-                  className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
-               rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
-             font-medium text-[16px] leading-5 mr-8'
-                >
-                  Start Building
-                </button>
-                <button
-                  className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
-               rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
-             font-medium text-[16px] leading-5 mr-8'
-                >
-                  Browse Agents
-                </button>
-                <button
-                  className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
-               rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
-             font-medium text-[16px] leading-5 mr-8'
-                >
-                  MySpace
-                </button>
+                {chatbotSelectors.map((name) => (
+                  <button
+                    className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
+                    rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
+                    font-medium text-[16px] leading-5 mr-8'
+                    onClick={() => styleUpContext.setStyleUpMsg(name)}
+                  >
+                    {name}
+                  </button>
+                ))}
               </div>
-              {/* input */}
-              <div className='relative mt-8 px-9 w-full h-[75px]'>
-              {styleUpContext.isloading ? <CircularProgress className='absolute right-16 top-1/4' /> :
-                <button onClick={() => sendStyleUpMsg(styleUpContext.styleUpMsg, styleUpContext.setStyleMsgHistory, styleUpContext.setIsLoading)}>
-                  <img
-                    src='/icons/chatboxSubmit.svg'
-                    height={40}
-                    width={40}
-                    className='absolute right-16 top-1/4'
-                  />
-                </button>
-                }
+              {/* Chatbox left input */}
+              <form
+                className='relative mt-8 px-9 w-full h-[75px] -z-10'
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  sendStyleUpMsg(
+                    styleUpContext.styleUpMsg,
+                    styleUpContext.setStyleMsgHistory,
+                    styleUpContext.setIsLoading
+                  );
+                  styleUpContext.setStyleUpMsg("");
+                }}
+              >
                 <input
-                  onChange={(event) => styleUpContext.setStyleUpMsg(event.target.value)}
+                  onChange={(event) =>
+                    styleUpContext.setStyleUpMsg(event.target.value)
+                  }
+                  value={styleUpContext.styleUpMsg}
                   className='w-full h-[75px] rounded-2xl focus:outline-none appearance-none border-[1px] border-[#555555]
                   px-5 py-4'
                   placeholder='Type new questions...'
                 />
-              </div>
-              {/* footer */}
+                {styleUpContext.isloading ? (
+                  <CircularProgress
+                    className='absolute right-16 top-1/4'
+                    sx={{ color: "black" }}
+                  />
+                ) : (
+                  <button type='submit' disabled={!styleUpContext.styleUpMsg}>
+                    <img
+                      src='/icons/chatboxSubmit.svg'
+                      height={40}
+                      width={40}
+                      className='absolute right-16 top-1/4'
+                    />
+                  </button>
+                )}
+              </form>
+              {/* Chatbox left footer */}
               <div className='flex mt-5 mb-7 w-full justify-center items-center'>
                 <span className='font-semibold text-[14px] leading-[20px]'>
                   Build with StyleUp
@@ -205,13 +274,13 @@ const LandingChatbot = () => {
             <div className='sticky bottom-0 px-20 mb-10 flex items-center'>
               <img
                 src='images/illustChatbox.png'
-                className='absolute bottom-[18px] right-[63px]'
+                className='absolute bottom-[18px] right-[72px]'
               />
-              <Button
+              <EAButton
                 type='button'
                 name={"Get Started"}
                 className={`w-full h-[48px] overflow-visible mt-72`}
-              ></Button>
+              ></EAButton>
             </div>
           </div>
         </div>
