@@ -3,15 +3,21 @@ import { useState } from "react";
 import EAButton from "./EAButton";
 import { Link, useNavigate } from "react-router-dom";
 
-const LandingNav = () => {
+const LandingNav = ({ variant = "black" }) => {
   const [toggle, setToggle] = useState(false);
   const navigate = useNavigate();
 
   return (
-    <nav className='w-full flex py-6 justify-between items-center h-[76px] navbar'>
+    <nav
+      className={`w-full flex py-6 justify-between items-center h-[76px] navbar ${
+        variant == "white" ? "text-white" : ""
+      }`}
+    >
       <Link to='/'>
         <img
-          src='/images/logo.svg'
+          src={
+            variant == "white" ? "/images/logoWhite.svg" : "/images/logo.svg"
+          }
           alt='StyleUp Logo'
           className='w-[111px] h-[29px] mr-12'
         ></img>
@@ -85,6 +91,7 @@ const LandingNav = () => {
             type='button'
             onClick={() => navigate("/signin")}
             className={"mb-10"}
+            variant={variant}
           ></EAButton>
         </div>
       </div>

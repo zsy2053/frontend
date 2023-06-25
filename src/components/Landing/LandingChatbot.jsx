@@ -60,7 +60,7 @@ const LandingChatbot = () => {
       {/* Chatbox */}
       <Grow direction='up' in={open} mountOnEnter unmountOnExit>
         <div
-          className={`w-[1067px] h-[88vh] fixed right-16 bottom-16 flex justify-end `}
+          className={`sm:w-[1067px] sm:h-[88vh] fixed right-16 bottom-16 flex justify-end `}
         >
           {/* Chatbox left */}
           <div
@@ -68,7 +68,7 @@ const LandingChatbot = () => {
           w-full fixed top-0 left-0 h-full'
           >
             {/* Chatbox left logo bar */}
-            <div className='sticky top-0 flex h-32 w-full px-9 items-center border-b-[1px] border-[#EAECF0] sm:flex-shrink-0'>
+            <div className='sticky top-0 flex h-32 w-full px-9 items-center border-b-[1px] border-[#EAECF0] sm:flex-shrink-0 z-10'>
               <img
                 src='/images/logoChatbox.svg'
                 width={173}
@@ -204,7 +204,7 @@ const LandingChatbot = () => {
               </div>
               {/* Chatbox left input */}
               <form
-                className='relative mt-8 px-9 w-full h-[75px] -z-10'
+                className='relative mt-8 px-9 w-full h-[75px] z-[1]'
                 onSubmit={(e) => {
                   e.preventDefault();
                   sendStyleUpMsg(
