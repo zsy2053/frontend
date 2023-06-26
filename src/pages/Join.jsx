@@ -36,21 +36,26 @@ const Join = () => {
               You will enjoy access to:
             </span>
 
-            <ul className='list-none w-[588px] h-[188px] relative'>
-              <li className='w-[588px] left-[0px] top-[0px] absolute text-neutral-900 text-[24px] font-medium'>
+            <ul className='list-none w-[588px] h-[188px]'>
+              <li className='max-w-[588px] text-neutral-900 text-[24px] font-medium'>
                 Resources and new features of StyleUp;
               </li>
-              <li className='w-[588px] left-[0px] top-[53px] absolute text-neutral-900 text-[24px] font-medium'>
+              <li className='max-w-[588px] text-neutral-900 text-[24px] font-medium'>
                 Showcase your work;
               </li>
-              <li className='w-[588px] left-[0px] top-[106px] absolute text-neutral-900 text-[24px] font-medium'>
+              <li className='max-w-[588px] text-neutral-900 text-[24px] font-medium'>
                 Collaboration Opportunities;
               </li>
-              <li className='w-[588px] left-[0px] top-[159px] absolute text-neutral-900 text-[24px] font-medium'>
+              <li className='max-w-[588px] text-neutral-900 text-[24px] font-medium'>
                 Connect with the like-minded.{" "}
               </li>
             </ul>
           </div>
+        </div>
+        <div className='w-[588px] h-[670px] grid grid-cols-2 grid-rows-[8] gap-6'>
+          <div className='bg-red-400 col-span-1 row-start-2 row-end-4'>b</div>
+          <div className='bg-blue-300 col-span-2 row-start-4 row-end-8'>b</div>
+          <div className='bg-blue-800 col-start-2 row-start-1 row-end-4'>c</div>
         </div>
       </div>
       {/* footer */}

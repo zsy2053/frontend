@@ -14,8 +14,8 @@ export const styleUpAPIKey = "Q_3XsFeDRgZkYCMSElIF8zdSlUlKRUau3WnBGjTG-D8";
 
 export const footerContact = "Contact: support@styleup.fun";
 export const footerLinks = [
-  { link: "/#", title: "Privacy Policy" },
-  { link: "/#", title: "Terms of Service" },
+  { link: "/#", title: "Privacy Policy", id: "14" },
+  { link: "/#", title: "Terms of Service", id: "15" },
 ];
 
 export const earlyAccessOptions = [
@@ -29,12 +29,12 @@ export const earlyAccessOptions = [
 ];
 
 export const chatbotTipsOptions = [
-  { id: "1", text: "What is StyleUp?" },
-  { id: "2", text: "How do I add data to my app?" },
-  { id: "3", text: "Can I use StyleUp for commercial purposes?" },
-  { id: "4", text: "Can I use StyleUp in open-source projects?" },
-  { id: "5", text: "Where can I access my download files?" },
-  { id: "6", text: "What about browser support?" },
+  { id: "8", text: "What is StyleUp?" },
+  { id: "9", text: "How do I add data to my app?" },
+  { id: "10", text: "Can I use StyleUp for commercial purposes?" },
+  { id: "11", text: "Can I use StyleUp in open-source projects?" },
+  { id: "12", text: "Where can I access my download files?" },
+  { id: "13", text: "What about browser support?" },
 ];
 
 export const landingSectionText = [

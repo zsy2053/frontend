@@ -22,7 +22,7 @@ const LandingFooter = () => {
           {footerLinks.map((nav, index) => (
             <li
               className={`font-inter underline cursor-pointer text-[16px] text-white font-normal mr-12 whitespace-nowrap`}
-              key={index + 1}
+              key={nav.id}
             >
               <a href={`${nav.link}`}>{nav.title}</a>
             </li>

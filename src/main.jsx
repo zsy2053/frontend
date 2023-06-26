@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
@@ -14,8 +14,7 @@ import {
   HowItWorks,
 } from "./pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
-export const StyleUpContext = React.createContext(null);
+import { StyleUpProvider } from "./context/StyleUpContext";
 
 const router = createBrowserRouter([
   {
@@ -44,26 +43,27 @@ const router = createBrowserRouter([
     element: <About />,
   },
   {
-    path: "/join", element: <Join />
+    path: "/join",
+    element: <Join />,
   },
   {
-    path: "/how", element: <HowItWorks />
+    path: "/how",
+    element: <HowItWorks />,
   },
-
 ]);
 
 const App = () => {
-  const [styleUpMsg, setStyleUpMsg] = useState("");
-  const [styleMsgHistory, setStyleMsgHistory] = useState([])
-  const [isloading, setIsLoading] = useState(false)
+  return (
+    <React.StrictMode>
+      <GoogleOAuthProvider
+        clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}
+      >
+        <StyleUpProvider>
+          <RouterProvider router={router} />
+        </StyleUpProvider>
+      </GoogleOAuthProvider>
+    </React.StrictMode>
+  );
+};
 
-  return <React.StrictMode>
-        <GoogleOAuthProvider clientId={`${import.meta.env.VITE_GOOGLE_CLIENT_ID}`}>
-          <StyleUpContext.Provider value={{ styleUpMsg, setStyleUpMsg, styleMsgHistory, setStyleMsgHistory, isloading, setIsLoading }}>
-            <RouterProvider router={router} />
-          </StyleUpContext.Provider>
-        </GoogleOAuthProvider>
-    </React.StrictMode>;
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Grow, Fade } from "@mui/material";
 import EAButton from "./EAButton.jsx";
 import CircularProgress from "@mui/material/CircularProgress";
-import { StyleUpContext } from "../../main.jsx";
+import { useStyleUp } from "../../context/StyleUpContext.jsx";
 
 import {
   chatbotTipsOptions,
@@ -45,7 +45,7 @@ const sendStyleUpMsg = (msg, setStyleMsgHistory, setIsLoading) => {
 };
 
 const LandingChatbot = () => {
-  const styleUpContext = useContext(StyleUpContext);
+  const styleUpContext = useStyleUp;
   const [open, setOpen] = useState(false);
   const [chatbotTips, setChatbotTips] = useState(false);
   const useExampleChat = false;
