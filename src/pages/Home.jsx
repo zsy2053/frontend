@@ -91,6 +91,31 @@ const googleCalendarSignIn = () => {
   });
 }
 
+const handleLinkCreate = (websiteUrl, crawlLevel=2) => {
+    console.log(websiteUrl)
+    const domainName = (new URL(websiteUrl)).hostname.replace('www.', '').split('.')[0];
+    const data = {
+        "collection_content": websiteUrl,
+        "collection_name": domainName,
+        "collection_type": "link",
+        "link_levels": crawlLevel
+    }
+    axios({
+        method: 'post',
+        url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
+        data,
+        headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.getItem('jwt')
+        },
+    }).then((res) => {
+        console.log(res);
+    }).catch((err) => {
+        console.log(err);
+        // navigate(-1);
+    });
+}
+
 
 const mapStatesUpdate = (states, targetName) => {
     return states.map((item) => {
@@ -108,42 +133,80 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, setIsLoadi
   setIsLoading(true);
   switch (currentFocus['name']) {
     case 'Calendar agent':
-      const res = localStorage.getItem('googleCred') || "";
-      axios({
-        method: 'post',
-        url: `${import.meta.env.VITE_API_URL}/api/bots/get_google_calendars`,
-        data: {
-          'input': chatMessage,
-          'user_info': res
-        },
-        headers: { "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem('jwt')},
-      }).then((res) => {
-        setIsLoading(false);
-        addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-      }).catch((err) => {
-        setIsLoading(false);
-        window.alert(err.message);
-        console.log(err);
-      });
+      if (audioFile == null) {
+        const res = localStorage.getItem('googleCred') || "";
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/get_google_calendars`,
+          data: {
+            'input': chatMessage,
+            'user_info': res
+          },
+          headers: { "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem('jwt')},
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+        }).catch((err) => {
+          setIsLoading(false);
+          window.alert(err.message);
+          console.log(err);
+        });
+      } else {
+        var formData = new FormData();
+        formData.append("audio_file", audioFile);
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/get_google_calendars`,
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data",
+          "x-access-token": localStorage.getItem('jwt')},
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+          console.log(res);
+        }).catch((err) => {
+          setIsLoading(false);
+          console.log(err)
+        });
+      }
       break;
     case 'AI tutor':
-      axios({
-        method: 'post',
-        url: `${import.meta.env.VITE_API_URL}/api/bots/tutor_agent`,
-        data: {
-          'input': chatMessage,
-        },
-        headers: { "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem('jwt')},
-      }).then((res) => {
-        setIsLoading(false);
-        addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-      }).catch((err) => {
-        setIsLoading(false);
-        window.alert(err.message);
-        console.log(err)
-      });
+      if (audioFile == null) {
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/tutor_agent`,
+          data: {
+            'input': chatMessage,
+          },
+          headers: { "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem('jwt')},
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+        }).catch((err) => {
+          setIsLoading(false);
+          window.alert(err.message);
+          console.log(err)
+        });
+      } else {
+        var formData = new FormData();
+        formData.append("audio_file", audioFile);
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/tutor_agent`,
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data",
+          "x-access-token": localStorage.getItem('jwt')},
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+          console.log(res);
+        }).catch((err) => {
+          setIsLoading(false);
+          console.log(err)
+        });
+      }
       break;
     case 'Audio agent':
       var formData = new FormData();
@@ -164,23 +227,43 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, setIsLoadi
       });
       break;
     default:
-      axios({
-        method: 'post',
-        url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
-        data: {
-          'input': chatMessage,
-          'collection_name': currentFocus['name']
-        },
-        headers: { "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem('jwt')},
-      }).then((res) => {
-        setIsLoading(false);
-        addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-      }).catch((err) => {
-        setIsLoading(false);
-        window.alert(err.message);
-        console.log(err)
-      });
+      if (audioFile == null) {
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
+          data: {
+            'input': chatMessage,
+            'collection_name': currentFocus['name']
+          },
+          headers: { "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem('jwt')},
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+        }).catch((err) => {
+          setIsLoading(false);
+          window.alert(err.message);
+          console.log(err)
+        });
+      } else {
+        var formData = new FormData();
+        formData.append("audio_file", audioFile);
+        formData.append("collection_name", currentFocus['name']);
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/chat`,
+          data: formData,
+          headers: { "Content-Type": "multipart/form-data",
+          "x-access-token": localStorage.getItem('jwt')},
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+          console.log(res);
+        }).catch((err) => {
+          setIsLoading(false);
+          console.log(err)
+        });
+      }
       break;
   }
 }
@@ -206,6 +289,7 @@ const mapFocusContext = (focus) => {
 function Home() {
     const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false)
     const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false)
+    const [websiteUrl, setWebsiteUrl] = useState("");
     const [sidebarSelection, setSidebarSelection] = useState('MySpace')
     const spaceStateInit = [
         { name: "Add file", state: false, setActiveFunc: setUploadFilesModalActive},
@@ -318,7 +402,11 @@ function Home() {
               {
                 sidebarSelection === 'Build' &&
                 <Box className='flex flex-col flex-grow'>
-                  <BuildWindow />
+                  <BuildWindow
+                    buildWebsite={handleLinkCreate}
+                    webUrl={websiteUrl}
+                    setWebsiteUrl={setWebsiteUrl}
+                    />
                 </Box>
               }
             </Stack>

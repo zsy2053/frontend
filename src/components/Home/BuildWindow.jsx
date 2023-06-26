@@ -117,7 +117,7 @@ const TemplateCard = ({ item }) => {
     )
 }
 
-const BuildWindow = () => {
+const BuildWindow = ({buildWebsite, webUrl, setWebsiteUrl}) => {
     return (
         <Stack className='flex flex-col h-full border items-center'>
             <Box className='flex flex-col mt-12 mb-7 items-center'>
@@ -134,7 +134,9 @@ const BuildWindow = () => {
                         onChange={(event) => setWebsiteUrl(event.target.value)}
                     />
                 </Box>
-                <button className='flex w-40 ml-6 justify-center items-center h-11 bg-styleupPurple rounded-lg'>
+                <button
+                  className='flex w-40 ml-6 justify-center items-center h-11 bg-styleupPurple rounded-lg'
+                  onClick={() => buildWebsite(webUrl)}>
                     Generate
                 </button>
             </Box>

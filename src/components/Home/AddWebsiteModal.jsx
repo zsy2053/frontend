@@ -5,9 +5,11 @@ import Input from '@mui/material/Input';
 import axios from 'axios';
 
 const handleLinkCreate = (websiteUrl, crawlLevel) => {
+    const domainName = (new URL(websiteUrl)).hostname.replace('www.', '').split('.')[0];
+
     const data = {
         "collection_content": websiteUrl,
-        "collection_name": websiteUrl,
+        "collection_name": domainName,
         "collection_type": "link",
         "link_levels": crawlLevel
     }
