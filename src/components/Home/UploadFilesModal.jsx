@@ -20,8 +20,11 @@ const handleFileUpload = (event, fileName) => {
         "x-access-token": localStorage.getItem('jwt'),
       "Access-Control-Allow-Origin": "*" },
     }).then((res) => {
+        window.alert("Collection create success!");
         console.log(res);
     }).catch((err) => {
+        window.alert("Collection create failed!");
+
         console.log(err);
        // navigate(-1);
     });
@@ -29,7 +32,7 @@ const handleFileUpload = (event, fileName) => {
 }
 
 const UploadFilesModal = ({ setActive }) => {
-    const [fileName, setFileName] = useState("");
+    const [fileList, setFileList] = useState([]);
 
     return (
         <Box className='fixed h-screen w-screen grid place-items-center bg-black/40 z-50'>
@@ -43,26 +46,28 @@ const UploadFilesModal = ({ setActive }) => {
                     </Box>
                     <p className='text-[#555555] text-sm mb-5'>Upload files to this folder.</p>
                     <label htmlFor="file" className='flex flex-col justify-center items-center h-32 mb-4 rounded-lg border border-gray-200'>
-                        <input type="file" onChange={(event) => handleFileUpload(event, fileName)} id="file" name="file" hidden multiple />
+                        <input type="file" onChange={(event) => setFileList(fileList.concat(Array.from(event.target.files)))} id="file" name="file" hidden multiple />
                         <Box className='flex'>
                             <p className='text-styleupPurple font-semibold mr-1'>Click to upload</p>
                             <p className='text-[#555555]'>or drag and drop</p>
                         </Box>
                         <p className='text-[#555555]'>XLS or CSV or PDF</p>
                     </label>
-                    {/*<p className='text-[#555555] text-sm font-medium mb-1.5'>File name</p>
-                    <OutlinedInput
-                        className='rounded-lg border border-gray-200 mb-8'
-                        id="outlined-folder-name-input"
-                        placeholder='e.g. Data testing'
-                        onChange={(event) => setFileName(event.target.value)}
-                    />*/}
+                    {fileList.length > 0 && fileList.map((item, index) => {
+                      return(
+                    <div key={index}>
+                    <p
+                      onClick={()=>{
+                        setFileList(fileList.filter((subItem)=>subItem.name != item.name))}}
+                      className='text-[#555555] text-sm font-medium mb-1.5'>{item.name}</p>
+                    </div>);})}
                     <Box className='flex justify-stretch items-stretch'>
                         <button onClick={() => setActive(false)}
                             className='flex flex-auto justify-center items-center h-11 mr-3 rounded-lg border border-gray-300'>
                             Cancel
                         </button>
-                        <button className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg'>
+                        <button onClick={() => handleFileUpload(fileList)}
+                          className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg'>
                             Upload
                         </button>
                     </Box>
