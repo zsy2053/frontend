@@ -69,8 +69,11 @@ const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
     headers: { "Content-Type": "application/json",
     "x-access-token": localStorage.getItem('jwt')},
   }).then((res) => {
-    console.log(res)
-    setChatHistory(res.data.data);
+    if (res.data.data.length == 0 && chat_type == 'tutor_context') {
+      setChatHistory(["1.Adjust the depth of knowledge to match your learning needs\n2.Customize your learning style, communication type, tone, and reasoning framework\n3.Create the ultimate AI tutor tailored just for you"]);
+    } else {
+      setChatHistory(res.data.data);
+    }
   }).catch((err) => {
     window.alert(err.message);
     console.log(err)
