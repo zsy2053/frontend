@@ -5,7 +5,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import MicIcon from '@mui/icons-material/Mic';
-import Divider from '@mui/material/Divider';
 import AudioAnalyser from "react-audio-analyser";
 
 const AudioMessage = ({ src }) => {
@@ -27,8 +26,11 @@ const AudioMessage = ({ src }) => {
     };
 
     const handlePlay = () => {
-        audioRef.current.play()
         setPlaying(true)
+        // Subtle: duration is only updated after 1 second of playing, so we need to explicitly
+        // set the duration for the first second.
+        setTimeLeft(audioRef.current.duration)
+        audioRef.current.play()
     }
 
     const handlePause = () => {
@@ -53,7 +55,12 @@ const AudioMessage = ({ src }) => {
                     <img src={playing ? '/icons/PlayerPauseIcon.svg' : '/icons/PlayerPlayIcon.svg'} />
                 </button>
                 <img src={playing ? '/icons/WaveformLight.svg' : '/icons/Waveform.svg'} className='mx-2' />
-                <span className={playing ? 'text-white' : 'text-[#1c1c1c] text-opacity-80'}>{formatTime(timeLeft)}</span>
+                <span className={playing ? 'text-white' : 'text-[#1c1c1c] text-opacity-80'}>{
+                    playing ? formatTime(timeLeft) :
+                        (
+                            audioRef.current == null ?
+                                '0:00' : formatTime(audioRef.current.duration)
+                        )}</span>
             </div>
         </Box>
     )
