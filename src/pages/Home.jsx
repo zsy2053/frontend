@@ -323,7 +323,7 @@ function Home() {
         setAudioSrc(audioURL);
         const audioFile = new File([e], "myaudio.wav");
         addMyChat(setChatHistory, "Audio: " + audioURL);
-        handleMessageSend(currentFocus, "Human:" + chatMessage, setChatHistory, setIsLoading, audioFile);
+        handleMessageSend(currentFocus, chatMessage, setChatHistory, setIsLoading, audioFile);
         console.log("succ stop", audioFile);
       },
       onRecordCallback: e => {
