@@ -4,10 +4,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import axios  from 'axios';
 
-const handleFileUpload = (event, fileName) => {
-  const files = event.target.files;
-  for (let i = 0; i < files.length; i++) {
-    const item = files[i];
+const handleFileUpload = (fileList) => {
+  for (let i = 0; i < fileList.length; i++) {
+    const item = fileList[i];
     const formData = new FormData();
     formData.append("collection_content", item);
     formData.append("collection_name", item.name.split('.')[0]);

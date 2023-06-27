@@ -5,6 +5,9 @@ import Input from '@mui/material/Input';
 import axios from 'axios';
 
 const handleLinkCreate = (websiteUrl, crawlLevel) => {
+    if (!websiteUrl.includes("http") || !websiteUrl.includes("https")) {
+      websiteUrl = "https://" + websiteUrl;
+    }
     const domainName = (new URL(websiteUrl)).hostname.replace('www.', '').split('.')[0];
 
     const data = {
