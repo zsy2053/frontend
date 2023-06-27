@@ -51,11 +51,11 @@ const LandingChatbot = () => {
   const useExampleChat = false;
   return (
     // Icon
-    <div className='fixed bottom-14 right-14 z-50'>
+    <div className='fixed sm:bottom-14 sm:right-14 bottom-4 right-4 z-50'>
       <img
         src='/images/logoChatbot.svg'
         onClick={() => setOpen(true)}
-        className={open ? "hidden" : ""}
+        className={open ? "hidden" : "sm:h-[150px] h-[80px]"}
       ></img>
       {/* Chatbox */}
       <Grow direction='up' in={open} mountOnEnter unmountOnExit>
@@ -141,7 +141,7 @@ const LandingChatbot = () => {
             {/* Chatbox left chat area */}
             <div className='mt-6 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4 space-y-[10px] '>
               {styleUpContext.styleMsgHistory &&
-              styleUpContext.styleMsgHistory.length > 0 ? (
+                styleUpContext.styleMsgHistory.length > 0 ? (
                 styleUpContext.styleMsgHistory.map((item, index) => (
                   <div className='flex group odd:justify-end odd:text-end'>
                     <span
@@ -261,7 +261,11 @@ const LandingChatbot = () => {
                     key={nav.id}
                     className={"font-medium text-[16px] leading-5 text-primary"}
                   >
-                    {nav.text}
+                    <button className="text-left" onClick={() => {
+                      //send message
+                    }}>
+                      {nav.text}
+                    </button>
                   </li>
                 ))}
               </ul>

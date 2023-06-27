@@ -157,6 +157,7 @@ const EarlyAccess = () => {
                       className='sm:w-[103px] w-full sm:mb-0 mb-3'
                       type='submit'
                       name='Submit'
+                      variant="black"
                       onClick={(e) => onSubmit(e)}
                     />
                   </div>
