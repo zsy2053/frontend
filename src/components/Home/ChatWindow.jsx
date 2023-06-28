@@ -1,11 +1,10 @@
 import { Stack, Box } from '@mui/system'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import FormControl from '@mui/material/FormControl';
 import CircularProgress from '@mui/material/CircularProgress';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import MicIcon from '@mui/icons-material/Mic';
-import Divider from '@mui/material/Divider';
 import AudioAnalyser from "react-audio-analyser";
 
 const AudioMessage = ({ src }) => {
@@ -27,8 +26,11 @@ const AudioMessage = ({ src }) => {
     };
 
     const handlePlay = () => {
-        audioRef.current.play()
         setPlaying(true)
+        // Subtle: duration is only updated after 1 second of playing, so we need to explicitly
+        // set the duration for the first second.
+        setTimeLeft(audioRef.current.duration)
+        audioRef.current.play()
     }
 
     const handlePause = () => {
@@ -53,7 +55,12 @@ const AudioMessage = ({ src }) => {
                     <img src={playing ? '/icons/PlayerPauseIcon.svg' : '/icons/PlayerPlayIcon.svg'} />
                 </button>
                 <img src={playing ? '/icons/WaveformLight.svg' : '/icons/Waveform.svg'} className='mx-2' />
-                <span className={playing ? 'text-white' : 'text-[#1c1c1c] text-opacity-80'}>{formatTime(timeLeft)}</span>
+                <span className={playing ? 'text-white' : 'text-[#1c1c1c] text-opacity-80'}>{
+                    playing ? formatTime(timeLeft) :
+                        (
+                            audioRef.current == null ?
+                                '0:00' : formatTime(audioRef.current.duration)
+                        )}</span>
             </div>
         </Box>
     )
@@ -94,25 +101,37 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
 }
 
 const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [content]);
+
+
     return (
-        <Stack className='flex flex-col h-full justify-between'>
-            <Box className='flex p-6 items-center'>
+        <Stack className='flex flex-col w-full h-screen'>
+            <Box className='flex p-6 items-center mt-[44px]'>
                 <Box className='h-10 w-10 flex justify-center mr-4'><img src={chatWindowIcon} /></Box>
                 <p className='text-[24px]'>{chatTitle}</p>
             </Box>
-            <Box className='flex flex-col self-center w-5/6 justify-start flex-grow'>
+            <Box className='flex flex-col self-center w-5/6 justify-start overflow-x-hidden h-full mb-[210px]'>
                 {content && content.length > 0 ?
                     content.map((item, index) => messageMapper(item, index, googleCalendarSignIn))
                     : <Box className='flex justify-center'>Chat History</Box>}
+                <div ref={messagesEndRef} />
             </Box>
-            <Box className='flex justify-center'>
+            <Box className='flex justify-center fixed bottom-0 bg-white right-0 left-0 ml-[368px]'>
                 <Box className='flex-col w-5/6 justify-center' >
                     {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                         <Box className='flex justify-start mb-4'>
                             <p className='text-[#555555]'>Chat Suggestions</p>
                         </Box>
                     }
-                    <Box className='flex justify-start mb-4'>
+                    <Box className='flex justify-start mb-4 overflow-x-auto whitespace-nowrap'>
                         {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[0]);
@@ -135,7 +154,7 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                             </button>
                         }
                     </Box>
-                    <Box className={'rounded-xl mb-4 ' + (audioStatus == 'recording' ? 'bg-[#f2eefb]' : 'border border-[#b09ae2]' )}>
+                    <Box className={'rounded-xl mb-4 ' + (audioStatus == 'recording' ? 'bg-[#f2eefb]' : 'border border-[#b09ae2]')}>
                         <FormControl fullWidth sx={{ m: 1 }}>
                             <Input
                                 placeholder={audioStatus == 'recording' ? '' : 'Type new question'}
@@ -150,22 +169,22 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                                 disableUnderline
                                 id="outlined-adornment-amount"
                                 endAdornment={<InputAdornment position="end">{
-                                  isLoading ? <Box className='flex items-center'><CircularProgress className='h-10 w-10 flex justify-center items-center'/></Box> :
-                                  <Box className='flex items-center'>
-                                      <button className='h-10 w-10 flex justify-center items-center'
-                                          // onClick={(e) => audioChat(e, setAudioStatus)}
-                                          onMouseDown={() => setAudioStatus('recording')}
-                                          onMouseUp={() => setAudioStatus('inactive')}
-                                      >
-                                          <MicIcon fontSize='large'/>
-                                      </button>
-                                      <button onClick={() => {
-                                          sendMessage();
-                                          setMessage('');
-                                      }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                          <img src='/icons/SendIcon.svg' />
-                                      </button>
-                                  </Box>
+                                    isLoading ? <Box className='flex items-center'><CircularProgress className='h-10 w-10 flex justify-center items-center' /></Box> :
+                                        <Box className='flex items-center'>
+                                            <button className='h-10 w-10 flex justify-center items-center'
+                                                // onClick={(e) => audioChat(e, setAudioStatus)}
+                                                onMouseDown={() => setAudioStatus('recording')}
+                                                onMouseUp={() => setAudioStatus('inactive')}
+                                            >
+                                                <MicIcon fontSize='large' />
+                                            </button>
+                                            <button onClick={() => {
+                                                sendMessage();
+                                                setMessage('');
+                                            }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                                <img src='/icons/SendIcon.svg' />
+                                            </button>
+                                        </Box>
                                 }
                                 </InputAdornment>}
                             />

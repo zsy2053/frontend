@@ -4,12 +4,12 @@ const LandingFooter = () => {
   return (
     <div className='bg-footerBlack'>
       <div className='xl:max-w-[1920px] flex justify-center px-16 sm:flex-row flex-col mx-auto'>
-        <div className=' w-full h-52 flex justify-between items-center'>
+        <div className=' w-full sm:h-52 h-44 flex justify-between items-center'>
           <img alt='StyleUp Logo Small' src='/images/logoFooter.svg'></img>
           <div className='justify-end items-center flex sm:hidden space-x-[20px]'>
-            <img src='/icons/footerInsta.svg' width={20} height={20}></img>
-            <img src='/icons/footerTwitter.svg' width={20} height={20}></img>
-            <img src='/icons/footerDiscord.svg' width={20} height={20}></img>
+            <img src='/icons/footerInsta.svg' width={34} height={34}></img>
+            <img src='/icons/footerTwitter.svg' width={34} height={34}></img>
+            <img src='/icons/footerDiscord.svg' width={34} height={34}></img>
           </div>
         </div>
         <ul className='list-none sm:justify-end sm:items-center flex sm:flex-row flex-col-reverse items-start justify-start'>
@@ -28,7 +28,7 @@ const LandingFooter = () => {
             </li>
           ))}
         </ul>
-        <span className='sm:hidden text-white text-[13px] font-normal leading-none mt-[30px]'>
+        <span className='sm:hidden text-white text-[13px] font-normal leading-none mt-[30px] mb-[30px]'>
           © Copyright 2023 StyleUp
         </span>
       </div>

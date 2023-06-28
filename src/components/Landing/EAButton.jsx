@@ -6,7 +6,7 @@ const EAButton = ({
   type = "button",
   onClick,
   children,
-  variant = "white",
+  variant = "black",
 }) => {
   return (
     <button

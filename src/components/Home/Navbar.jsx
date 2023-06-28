@@ -4,14 +4,9 @@ import StyledTooltip from './StyledTooltip'
 
 const Navbar = ({ resetContext }) => {
   return (
-    <Stack direction='row' alignItems='center' py={2} sx={{
-      height: '44px',
-      position: 'sticky',
-      top: 0,
-      justifyContent: 'right',
-      backgroundColor: '#f9fafb',
-      borderBottom: '1px solid #eaecf0',
-    }}>
+    <Stack
+      className="h-[44px] fixed top-0 left-0 right-0 bg-[#f9fafb] border-b border-[#eaecf0] justify-center items-end z-50"
+    >
       <Box className='flex'>
         <StyledTooltip text="Reset Chat">
           <button className='mr-5' onClick={resetContext}>
