@@ -5,7 +5,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import MicIcon from '@mui/icons-material/Mic';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
 import AudioAnalyser from "react-audio-analyser";
+import AnimatedWaveform from './AnimatedWaveform';
 
 const AudioMessage = ({ src }) => {
     const [playing, setPlaying] = useState(false);
@@ -154,46 +156,61 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                             </button>
                         }
                     </Box>
-                    <Box className={'rounded-xl mb-4 ' + (audioStatus == 'recording' ? 'bg-[#f2eefb]' : 'border border-[#b09ae2]')}>
-                        <FormControl fullWidth sx={{ m: 1 }}>
-                            <Input
-                                placeholder={audioStatus == 'recording' ? '' : 'Type new question'}
-                                value={chatMessage}
-                                onChange={(event) => setMessage(event.target.value)}
-                                onKeyDown={(event) => {
-                                    if (event.key == "Enter") {
-                                        sendMessage();
-                                        setMessage('');
+                    <Box className={'rounded-xl mb-4 ' + (audioStatus == 'recording' ? 'grid bg-[#f2eefb] border border-[#f2eefb]' : 'border border-[#b09ae2]')}>
+                        {audioStatus == 'inactive' &&
+                            <FormControl fullWidth sx={{ m: 1 }}>
+                                <Input
+                                    placeholder={audioStatus == 'recording' ? '' : 'Type new question'}
+                                    value={chatMessage}
+                                    onChange={(event) => setMessage(event.target.value)}
+                                    onKeyDown={(event) => {
+                                        if (event.key == "Enter") {
+                                            sendMessage();
+                                            setMessage('');
+                                        }
+                                    }}
+                                    disableUnderline
+                                    id="outlined-adornment-amount"
+                                    endAdornment={<InputAdornment position="end">{
+                                        isLoading ? <Box className='flex items-center'><CircularProgress className='h-10 w-10 flex justify-center items-center' /></Box> :
+                                            <Box className='flex items-center'>
+                                                <button className='h-10 w-10 flex justify-center items-center'
+                                                    onClick={() => setAudioStatus('recording')}>
+                                                    <MicIcon fontSize='large' />
+                                                </button>
+                                                <button onClick={() => {
+                                                    sendMessage();
+                                                    setMessage('');
+                                                }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
+                                                    <img src='/icons/SendIcon.svg' />
+                                                </button>
+                                            </Box>
                                     }
-                                }}
-                                disableUnderline
-                                id="outlined-adornment-amount"
-                                endAdornment={<InputAdornment position="end">{
-                                    isLoading ? <Box className='flex items-center'><CircularProgress className='h-10 w-10 flex justify-center items-center' /></Box> :
-                                        <Box className='flex items-center'>
-                                            <button className='h-10 w-10 flex justify-center items-center'
-                                                // onClick={(e) => audioChat(e, setAudioStatus)}
-                                                onMouseDown={() => setAudioStatus('recording')}
-                                                onMouseUp={() => setAudioStatus('inactive')}
-                                            >
-                                                <MicIcon fontSize='large' />
-                                            </button>
-                                            <button onClick={() => {
-                                                sendMessage();
-                                                setMessage('');
-                                            }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
-                                                <img src='/icons/SendIcon.svg' />
-                                            </button>
-                                        </Box>
-                                }
-                                </InputAdornment>}
-                            />
-                        </FormControl>
+                                    </InputAdornment>}
+                                />
+                            </FormControl>
+                        }
+                        {
+                            audioStatus == 'recording' &&
+                            <Box className='flex justify-between px-4'>
+                            <AnimatedWaveform />
+                            <Box className='grid grid-cols-2 my-1 items-center justify-self-end'>
+                                <button className='h-10 w-10 flex justify-center items-center'
+                                    onClick={() => setAudioStatus('inactive')}>
+                                    <StopCircleIcon fontSize='large' />
+                                </button>
+                                {/* Fake button just for visual effect */}
+                                <button className='h-10 w-10 ml-1 mr-2 flex justify-center'>
+                                    <img src='/icons/SendIcon.svg' />
+                                </button>
+                            </Box>
+                            </Box>
+                        }
                     </Box>
                     <p className='flex justify-center mb-5'>Build with StyleUp</p>
                 </Box>
             </Box>
-            <div style={{ display: "none" }}><AudioAnalyser {...audioProps} /></div>
+            <div style={{ display: 'none' }}><AudioAnalyser {...audioProps} /></div>
         </Stack>
     )
 }
