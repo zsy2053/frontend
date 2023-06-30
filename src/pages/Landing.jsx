@@ -13,6 +13,7 @@ import {
   LandingChatbot,
 } from "../components";
 import { landingSectionText } from "../constants";
+import { InlineWidget } from "react-calendly";
 
 const Landing = () => (
   <div className='w-full overflow-hidden'>
@@ -78,6 +79,14 @@ const Landing = () => (
         <LandingFAQs />
       </div>
     </div> */}
+    <div className={`${styles.flexCenter}`}>
+      <div
+        className={`h-[730px] w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6 `}
+      >
+        <InlineWidget  url='https://calendly.com/xplorer01/30min' styles={{height:'750px', minWidth:'320px'}}/>
+      </div>
+    </div>
+
     <div className='w-full'>
       <LandingFooter />
     </div>
