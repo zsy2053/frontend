@@ -10,15 +10,12 @@ const LandingHero = () => (
         "bg-no-repeat bg-local lg:bg-[center_top_5rem] bg-[right_top_25rem] lg:min-h-[800px] min-h-[600px] relative"
       }
     >
-      <div className='flex flex-col justify-between items-center w-full text-black text-center'>
-        <h1 className='flex-1 font-inter font-semibold lg:text-[140px] lg:mb-12 lg:leading-[169px] sm:text-[75px] sm:leading-12 sm:mb-8 text-[48px] mb-4 '>
-          Unleashing the <br /> Power of AI
+      <div className='flex flex-col justify-between items-center w-full text-black text-center px-16'>
+        <h1 className='flex-1 font-inter font-bold lg:text-[100px] lg:mb-12 sm:text-[75px] sm:mb-8 text-[48px] mb-4 max-w-[715px] leading-tight'>
+          Unleash the Power of AI
         </h1>
-        <span className='flex-1 font-inter font-medium sm:text-[24px] px-16 text-[18px]'>
-          Build, Deploy, and Manage Large Language Model Agents to{" "}
-        </span>{" "}
-        <span className='flex-1 font-inter font-medium sm:text-[24px] mb-14 px-16 text-[18px]'>
-          Revolutionize User Interactions.
+        <span className='max-w-[555px] text-center text-black sm:text-[24px] font-medium leading-9 text-[18px] mb-12'>
+        Build, Deploy, and Manage LLM Agents to Revolutionize User Interactions.
         </span>
         <Link to='/early-access'>
           <button

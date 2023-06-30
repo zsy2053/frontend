@@ -30,7 +30,7 @@ const About = () => {
           <AboutCEO />
         </div>
       </div>
-      <div className='mx-52 mt-64 flex justify-center items-center'>
+      <div className='mx-[156px] mt-64 flex justify-center items-center'>
         <div className={`w-full min-h-screen xl:max-w-[1920px]`}>
           <AboutTeam />
         </div>

@@ -12,7 +12,7 @@ const Navbar = ({ resetContext }) => {
   //codeString should be a useState
   //adjust method of linebreaking to \n if needed?
   const codeString = `(num) => num + 1\nasdASDDDDDDDDDDDDDDDD DDDDDDDDDDDDDDDDDDDDDD
-  DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD DDDDDDDD\n\n\n\n\n\n\n\n\n\n\n\n\n`;
+  DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD DDDDDDDD\n DDD DDDDDDDD\n\nD\n DDD DDDDDDDD\n\n\n\n\n\n\n\n\n`;
   return (
     <Stack className='h-[44px] fixed top-0 left-0 right-0 bg-[#f9fafb] border-b border-[#eaecf0] justify-center items-end'>
       <Box className='flex'>
