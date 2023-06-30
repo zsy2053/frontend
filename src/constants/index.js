@@ -120,7 +120,7 @@ export const aboutTeamInfo = [
     name: "Victor Zhu",
     role: "CMO",
     hashtags: "#Influencer #Writer #Marathon",
-    university: "University of Toronto",
+    university: "lowa State University",
     desc: "Enovix, Battery Engineer, Bilibili Host.",
     switch: "#FBBA0E",
   },
