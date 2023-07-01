@@ -65,7 +65,7 @@ const AboutTeamCard = ({ info, variant = false }) => {
   return (
     <div className='w-full h-full flex flex-col'>
       <div
-        className={`relative w-full h-full shadow card-inner flex-grow rounded-2xl ${
+        className={`relative w-full h-full card-inner flex-grow rounded-2xl ${
           checked ? "card-flip" : ""
         }`}
       >
@@ -129,16 +129,29 @@ const AboutTeamCard = ({ info, variant = false }) => {
             <img className={`row-span-1 rounded-tr-[20px]`} src={info.image2} />
             <img className={`row-span-1 rounded-br-[20px]`} src={info.image3} />
           </div>
-          <div className='w-full py-6 pl-6 flex flex-col relative flex-grow'>
-            <span className='w-[310px] text-neutral-600 text-opacity-80 text-[16px] font-normal leading-snug tracking-wide'>
+          {/* bottom info */}
+          <div className='w-full py-6 pl-6 flex flex-col relative flex-grow gap-2'>
+            <span
+              className={` text-neutral-600 text-opacity-80 text-[16px] font-normal leading-snug tracking-wide ${
+                variant ? "" : "w-310"
+              }`}
+            >
               {info.hashtags}
             </span>
-            <span className='w-[310px] text-black text-[28px] font-bold'>
+            <span
+              className={`w-[310px] text-black text-[28px] font-bold ${
+                variant ? "" : "w-310"
+              }`}
+            >
               {info.university}
             </span>
-            <div className='w-[310px] text-black text-[16px] font-normal leading-snug tracking-wide'>
+            <span
+              className={`text-black text-[16px] font-normal tracking-wide ${
+                variant ? "" : "w-310"
+              }`}
+            >
               {info.desc}
-            </div>
+            </span>
             <div className='absolute bottom-[10px] right-0'>
               <Switch
                 slots={{

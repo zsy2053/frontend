@@ -27,7 +27,7 @@ const categories = [
 
 const CommunityMenu = () => {
     return (
-        <Stack className=' w-72 overflow-auto pb-10 bg-white'>
+        <Stack className='absolute left-0 top-0 bottom-0 ml-[80px] mt-[44px] w-72 overflow-auto pb-10 bg-white border-r'>
             <Box className='mt-8 ml-4 mb-2 text-menuText'>
                 Categories
             </Box>
