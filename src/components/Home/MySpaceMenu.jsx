@@ -25,7 +25,7 @@ const mapStatesUpdate = (states, targetName) => {
     });
 }
 
-const MySpaceMenu = ({ collectionList, handleState, handleFocus }) => {
+const MySpaceMenu = ({ collectionList, handleState, handleFocus, setSidebarSelection }) => {
     return (
         <Stack className='absolute left-0 top-0 bottom-0 ml-[80px] mt-[44px] w-72 overflow-auto pb-10 bg-white border-r'>
             <Box className='mt-8 ml-4 text-menuText'>
@@ -33,7 +33,7 @@ const MySpaceMenu = ({ collectionList, handleState, handleFocus }) => {
                 <Stack className='h-40 mt-4'>
                     {agentsData.map((item, index) => (
                         <div key={index}>
-                            <button onClick={(event) => handleFocus(agentsData.filter((item) => item.name === event.currentTarget.name)[0])} name={item.name} className='flex h-10 items-center'>
+                            <button onClick={(event) => item.name == "Add agent" ? setSidebarSelection("Community") :handleFocus(agentsData.filter((item) => item.name === event.currentTarget.name)[0])} name={item.name} className='flex h-10 items-center'>
                                 <span className='mr-2'>{item.menuIcon}</span>
                                 <p className='text-menuText'>{item.name}</p>
                             </button>

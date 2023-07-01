@@ -380,6 +380,7 @@ function Home() {
             <MySpaceMenu
               collectionList={collectionList}
               handleState={handleState}
+              setSidebarSelection={setSidebarSelection}
               handleFocus={(focus) => {
                 const focusType = mapFocusContext(focus);
                 if (focusType !== 'context') {

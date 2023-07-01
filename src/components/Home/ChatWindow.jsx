@@ -100,6 +100,30 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
         </Box>
 }
 
+const getDefaultMsg = (chatTitle, index) => {
+  switch (chatTitle) {
+    case "Calendar agent":
+      return <Box key={index} className='self-start flex-col'>
+          <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+              <span style={{ whiteSpace: 'pre-line' }}>
+                  The Calendar agent can check for events
+              </span>
+          </Box>
+      </Box>
+     case "Audio agent":
+       return <Box key={index} className='self-start flex-col'>
+           <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+               <span style={{ whiteSpace: 'pre-line' }}>
+                   Tell me what do you want
+               </span>
+           </Box>
+       </Box>
+    default:
+      return ""
+  }
+  return ""
+}
+
 const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
     const messagesEndRef = useRef(null);
 
@@ -121,7 +145,7 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
             <Box className='flex flex-col self-center w-5/6 justify-start overflow-x-hidden h-full mb-[210px]'>
                 {content && content.length > 0 ?
                     content.map((item, index) => messageMapper(item, index, googleCalendarSignIn))
-                    : <Box className='flex justify-center'>Chat History</Box>}
+                    : getDefaultMsg(chatTitle, 0)}
                 <div ref={messagesEndRef} />
             </Box>
             <Box className='flex justify-center fixed bottom-0 bg-white right-0 left-0 ml-[368px]'>

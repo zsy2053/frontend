@@ -32,55 +32,55 @@ const agentCards = [
   {
     image: '/images/card1.png',
     title: '聊天学红楼',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card2.png',
     title: '原神骨灰级必备',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card3.png',
     title: 'Pokemon Go快速晋级攻略',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card4.png',
     title: '全网找低价好物',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card5.png',
     title: '旅行规划，游击自动生成',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card6.png',
     title: '问问成功人士“怎么创业”',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card7.png',
     title: '一键帮你生成微信公众号文章',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card8.png',
     title: '高效人士-日程管理',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
   {
     image: '/images/card9.png',
     title: '一个就够了-社交媒体投放规划',
-    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    desc: 'The "my calendar" agent can check your calendar for events...',
     labels: ['Calendar', 'Time Management', 'Event']
   },
 ]
