@@ -25,9 +25,10 @@ const agentsData = [
 		]
 	},
 	{
-		name: "Audio agent",
-		menuIcon: <Icon><img src='/icons/AudioAgentMenuIcon.svg' /></Icon>,
-		chatWindowIcon: '/icons/AudioAgentMenuIcon.svg'
+		name: "Any topic friend?",
+		menuIcon: <Icon><img src='/icons/BlenderBot.svg' /></Icon>,
+		chatWindowIcon: '/icons/BlenderBot.svg',
+		chatSuggestions: []
 	}
 ]
 

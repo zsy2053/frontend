@@ -1,7 +1,6 @@
 import { Stack, Box } from '@mui/system'
 import React, { useState, useRef, useEffect } from 'react'
 import FormControl from '@mui/material/FormControl';
-import CircularProgress from '@mui/material/CircularProgress';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import MicIcon from '@mui/icons-material/Mic';
@@ -195,21 +194,24 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                                     }}
                                     disableUnderline
                                     id="outlined-adornment-amount"
-                                    endAdornment={<InputAdornment position="end">{
-                                        isLoading ? <Box className='flex items-center'><CircularProgress className='h-10 w-10 flex justify-center items-center' /></Box> :
-                                            <Box className='flex items-center'>
-                                                <button className='h-10 w-10 flex justify-center items-center'
-                                                    onClick={() => setAudioStatus('recording')}>
-                                                    <MicIcon fontSize='large' />
-                                                </button>
+                                    endAdornment={<InputAdornment position="end">
+                                        <Box className='flex items-center'>
+                                            <button className='h-10 w-10 flex justify-center items-center'
+                                                onClick={() => setAudioStatus('recording')}>
+                                                <MicIcon fontSize='large' />
+                                            </button>
+                                            {isLoading ?
+                                                <img src='/icons/Spinner.svg'
+                                                    class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+                                                :
                                                 <button onClick={() => {
                                                     sendMessage();
                                                     setMessage('');
                                                 }} className='h-10 w-10 ml-4 mr-4 flex justify-center'>
                                                     <img src='/icons/SendIcon.svg' />
                                                 </button>
-                                            </Box>
-                                    }
+                                            }
+                                        </Box>
                                     </InputAdornment>}
                                 />
                             </FormControl>
@@ -217,17 +219,17 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                         {
                             audioStatus == 'recording' &&
                             <Box className='flex justify-between px-4'>
-                            <AnimatedWaveform />
-                            <Box className='grid grid-cols-2 my-1 items-center justify-self-end'>
-                                <button className='h-10 w-10 flex justify-center items-center'
-                                    onClick={() => setAudioStatus('inactive')}>
-                                    <StopCircleIcon fontSize='large' />
-                                </button>
-                                {/* Fake button just for visual effect */}
-                                <button className='h-10 w-10 ml-1 mr-2 flex justify-center'>
-                                    <img src='/icons/SendIcon.svg' />
-                                </button>
-                            </Box>
+                                <AnimatedWaveform />
+                                <Box className='grid grid-cols-2 my-1 items-center justify-self-end'>
+                                    <button className='h-10 w-10 flex justify-center items-center'
+                                        onClick={() => setAudioStatus('inactive')}>
+                                        <StopCircleIcon fontSize='large' />
+                                    </button>
+                                    {/* Fake button just for visual effect */}
+                                    <button className='h-10 w-10 ml-1 mr-2 flex justify-center'>
+                                        <img src='/icons/SendIcon.svg' />
+                                    </button>
+                                </Box>
                             </Box>
                         }
                     </Box>
