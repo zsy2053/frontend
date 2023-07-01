@@ -1,38 +1,17 @@
 import React from "react";
 import AboutTeamCard from "./AboutTeamCard";
+import { aboutTeamInfo } from "../../constants";
 const AboutTeam = () => (
   <section id='team' className={`flex flex-col w-full h-full`}>
-    <h1 className='font-inter font-semibold text-[48px]'>Our Team</h1>
-    <div className='flex justify-between [&>div]:w-1/4'>
-      <div className='flex flex-col items-center'>
-        <div className='mt-[145px]'>
-          <AboutTeamCard />
+    <h1 className='font-inter font-semibold text-[48px] self-center mb-[100px]'>
+      Meet the Team
+    </h1>
+    <div className='flex justify-between [&>div]:min-w-[360px] [&>div]:min-h-[572px] gap-14'>
+      {aboutTeamInfo.slice(1).map((info, index) => (
+        <div>
+          <AboutTeamCard info={info} />
         </div>
-        <div className='mt-[220px]'>
-          <AboutTeamCard />
-        </div>
-      </div>
-      <div className='flex flex-col items-center'>
-        <div className='mt-[385px]'>
-          <AboutTeamCard />
-        </div>
-        <div className='mt-[220px]'>
-          <AboutTeamCard />
-        </div>
-      </div>
-      <div className='flex flex-col items-center'>
-        <div className=''>
-          <AboutTeamCard />
-        </div>
-        <div className='mt-[220px]'>
-          <AboutTeamCard />
-        </div>
-      </div>
-      <div className='flex flex-col items-center'>
-        <div className='mt-[445px]'>
-          <AboutTeamCard />
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 );

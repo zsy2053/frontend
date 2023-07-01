@@ -92,11 +92,11 @@ const CommunityWindow = () => {
         <p className='text-[28px]'>
           Find Your Favorite Agents
         </p>
-        <p className='mt-2 text-sm text-gray-600'>
+        {/* <p className='mt-2 text-sm text-gray-600'>
           Find agents to power your life and work
-        </p>
+        </p> */}
       </Box>
-      <Input
+      {/* <Input
         className='bg-[#00000005] rounded-lg'
         placeholder='Search'
         disableUnderline
@@ -112,7 +112,7 @@ const CommunityWindow = () => {
             </button>
           </Box>
         </InputAdornment>}
-      />
+      /> */}
       <Box className='mt-3 flex'>
         <Label text='Game' />
         <Label text='Design' />
