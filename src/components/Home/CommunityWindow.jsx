@@ -92,7 +92,7 @@ const agentCards = [
 
 const CommunityWindow = () => {
   return (
-    <Stack className='flex flex-col h-screen w-full items-center' sx={{border:'0px'}}>
+    <Stack className='flex flex-col h-[calc(100vh-44px)] w-full items-center' sx={{border:'0px'}}>
       <Box className='flex flex-col mt-12 mb-7 items-center'>
         <p className='text-[28px]'>Find Your Favorite Agents</p>
         <p className='mt-2 text-sm text-gray-600'>

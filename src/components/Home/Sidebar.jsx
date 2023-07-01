@@ -35,7 +35,7 @@ const data = [
 const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
     const navigate = useNavigate()
     return (
-        <div className='fixed left-0 bottom-0 top-0 mt-[44px] w-20 overflow-auto pt-8 bg-white flex flex-col justify-between border-r'>
+        <div className='absolute left-0 bottom-0 top-[44px] pt-8 w-20 bg-white flex flex-col justify-between border-r'>
             <div className='flex flex-col'>
                 {data.map((item, index) => (
                     <div key={index} className='flex mb-2 justify-center'>

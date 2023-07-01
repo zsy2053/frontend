@@ -27,10 +27,11 @@ const mapStatesUpdate = (states, targetName) => {
 
 const MySpaceMenu = ({ collectionList, handleState, handleFocus, setSidebarSelection }) => {
     return (
-        <Stack className='absolute left-0 top-0 bottom-0 ml-[80px] mt-[44px] w-72 overflow-auto pb-10 bg-white border-r'>
-            <Box className='mt-8 ml-4 text-menuText'>
-                Agents
-                <Stack className='h-40 mt-4'>
+        <Stack className='w-72 py-8 px-4 bg-white border-r flex-shrink-0'>
+            <Box className='text-menuText'>
+                <div className='mb-4'>Agents</div>
+                
+                <Stack className='h-40'>
                     {agentsData.map((item, index) => (
                         <div key={index}>
                             <button onClick={(event) => item.name == "Add agent" ? setSidebarSelection("Community") :handleFocus(agentsData.filter((item) => item.name === event.currentTarget.name)[0])} name={item.name} className='flex h-10 items-center'>
@@ -41,7 +42,7 @@ const MySpaceMenu = ({ collectionList, handleState, handleFocus, setSidebarSelec
                     ))}
                 </Stack>
             </Box>
-            <Box className='mt-8 ml-4'>
+            <Box className='mt-8'>
                 Library
                 <Stack className='h-50 mt-4'>
                     {libraryData.map((item, index) => (

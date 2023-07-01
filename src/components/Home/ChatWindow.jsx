@@ -138,8 +138,8 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
 
 
     return (
-        <Stack className='flex flex-col w-full h-screen'>
-            <Box className='flex p-6 items-center mt-[44px]'>
+        <Stack className='flex flex-col w-full'>
+            <Box className='flex p-6 items-center'>
                 <Box className='h-10 w-10 flex justify-center mr-4'><img src={chatWindowIcon} /></Box>
                 <p className='text-[24px]'>{chatTitle}</p>
             </Box>
@@ -149,7 +149,7 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                     : getDefaultMsg(chatTitle, 0)}
                 <div ref={messagesEndRef} />
             </Box>
-            <Box className='flex justify-center fixed bottom-0 bg-white right-0 left-0 ml-[368px]'>
+            <Box className='flex justify-center absolute bottom-0 bg-white right-0 left-0 ml-[368px]'>
                 <Box className='flex-col w-5/6 justify-center' >
                     {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                         <Box className='flex justify-start mb-4'>
