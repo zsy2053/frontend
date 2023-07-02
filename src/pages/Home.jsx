@@ -5,6 +5,7 @@ import Sidebar from "../components/Home/Sidebar";
 import MySpaceMenu from "../components/Home/MySpaceMenu";
 import Navbar from "../components/Home/Navbar";
 import ChatWindow from "../components/Home/ChatWindow";
+import ApiPage from "../components/Home/ApiPage";
 import agentsData from "../components/Home/Agents";
 import UploadFilesModal from "../components/Home/UploadFilesModal";
 import AddWebsiteModal from "../components/Home/AddWebsiteModal";
@@ -36,6 +37,25 @@ const fetchCollectionData = (setCollectionList) => {
         });
       }
       setCollectionList(resData);
+    })
+    .catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+      // navigate(-1);
+    });
+};
+
+const fetchApiKeyListData = (setApiKeyList) => {
+  axios({
+    method: "get",
+    url: `${import.meta.env.VITE_API_URL}/api/users/get_api_keys`,
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("jwt"),
+    },
+  })
+    .then((res) => {
+      setApiKeyList(res.data.data);
     })
     .catch((err) => {
       window.alert(err.message);
@@ -396,6 +416,7 @@ function Home() {
   const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [sidebarSelection, setSidebarSelection] = useState("MySpace");
+  const [apiKeyList, setApiKeyList] = useState([]);
   const spaceStateInit = [
     {
       name: "Add file",
@@ -460,6 +481,7 @@ function Home() {
     } else {
       fetchCollectionData(setCollectionList);
       fetchChatHistory(setChatHistory, "calendar_context");
+      fetchApiKeyListData(setApiKeyList);
     }
   }, []);
   return (
@@ -544,6 +566,11 @@ function Home() {
               webUrl={websiteUrl}
               setWebsiteUrl={setWebsiteUrl}
             />
+          </Box>
+        )}
+        {sidebarSelection === "API Keys" && (
+          <Box className='flex'>
+            <ApiPage apiKeys={apiKeyList}/>
           </Box>
         )}
       </Stack>

@@ -15,16 +15,16 @@ const data = [
         icon: <Icon fontSize='large'><img src='/icons/communityIconInactive.svg' /></Icon>,
         iconActive: <Icon fontSize='large'><img src='/icons/communityIconActive.svg' /></Icon>,
     },
-    {
+    /*{
         name: "Build",
         icon: <Icon fontSize='large'><img src='/icons/buildIconInactive.svg' /></Icon>,
         iconActive: <Icon fontSize='large'><img src='/icons/buildIconActive.svg' /></Icon>,
-    },
-    {
+    },*/
+    /*{
         name: "Learn",
         icon: <Icon fontSize='large'><img src='/icons/learnIconInactive.svg' /></Icon>,
         iconActive: <Icon fontSize='large'><img src='/icons/learnIconActive.svg' /></Icon>,
-    },
+    },*/
     {
         name: "API Keys",
         icon: <Icon fontSize='large'><img src='/icons/apikeysIconInactive.svg' /></Icon>,
