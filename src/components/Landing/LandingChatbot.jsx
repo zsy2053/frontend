@@ -139,24 +139,45 @@ const LandingChatbot = () => {
             <div className='mt-6 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4 space-y-[10px] break-words'>
               {useStyleUp.styleMsgHistory &&
               useStyleUp.styleMsgHistory.length > 0 ? (
-                useStyleUp.styleMsgHistory.map((item, index) => (
-                  <div className='flex group odd:justify-end odd:text-end'>
-                    <span
-                      key={index}
-                      className='text-neutral-800
+                useStyleUp.styleMsgHistory.map((item, index) =>
+                  item.startsWith("Human: ") ? (
+                    <div className='flex justify-end text-end'>
+                      <span
+                        key={index}
+                        className='text-neutral-800
                       font-medium
                       leading-normal
                       max-w-[85%]
                       px-4
                       py-2
-                      group-odd:bg-indigo-50
-                      group-odd:rounded-2xl
+                      bg-indigo-50
+                      rounded-l-2xl
+                      rounded-tr-2xl
                       text-left'
-                    >
-                      {item}
-                    </span>
-                  </div>
-                ))
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  ) : (
+                    <div className='flex group'>
+                      <span
+                        key={index}
+                        className='text-neutral-800
+                      font-medium
+                      leading-normal
+                      max-w-[85%]
+                      px-4
+                      py-2
+                      bg-[#f9fafb]
+                      rounded-r-2xl
+                      rounded-tl-2xl
+                      text-left'
+                      >
+                        {item}
+                      </span>
+                    </div>
+                  )
+                )
               ) : useExampleChat ? (
                 exampleChat.map((item, index) => (
                   <div className='flex group odd:justify-end odd:text-end'>
@@ -176,14 +197,22 @@ const LandingChatbot = () => {
                   </div>
                 ))
               ) : (
-                <span
-                  className='text-neutral-800
-                text-[16px]
-                font-medium
-                leading-normal'
-                >
-                  👋 Hi! I am StyleUp AI, ask me anything about StyleUp!
-                </span>
+                <div className="flex">
+                  <span
+                    className='text-neutral-800
+                      font-medium
+                      leading-normal
+                      max-w-[85%]
+                      px-4
+                      py-2
+                      bg-[#f9fafb]
+                      rounded-r-2xl
+                      rounded-tl-2xl
+                      text-left'
+                  >
+                    👋 Hi! I am StyleUp AI, ask me anything about StyleUp!
+                  </span>
+                </div>
               )}
             </div>
             <div>
@@ -194,7 +223,7 @@ const LandingChatbot = () => {
                     className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
                     rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
                     font-medium text-[16px] leading-5 mr-8'
-                    onClick={() => styleUpContext.setStyleUpMsg(name)}
+                    onClick={() => useStyleUp.setStyleUpMsg(name)}
                   >
                     {name}
                   </button>
@@ -221,7 +250,7 @@ const LandingChatbot = () => {
                   }
                   value={useStyleUp.styleUpMsg}
                   className='w-full h-[75px] rounded-2xl focus:outline-none appearance-none border-[1px] border-[#555555]
-                  px-5 py-4'
+                  pl-5 pr-20 py-4'
                   placeholder='Type new questions...'
                 />
                 {useStyleUp.isloading ? (
@@ -263,9 +292,7 @@ const LandingChatbot = () => {
                   >
                     <button
                       className='text-left'
-                      onClick={() => {
-                        //send message
-                      }}
+                      onClick={() => useStyleUp.setStyleUpMsg(nav.text)}
                     >
                       {nav.text}
                     </button>

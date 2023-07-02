@@ -82,14 +82,14 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
     }
 
     return item.startsWith("Human: ") ?
-        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-2xl mb-8 max-w-xl break-words'>
+        <Box key={index} className='self-end justify-center px-4 py-3 bg-[#f2eefb] rounded-l-2xl rounded-tr-2xl mb-8 max-w-xl break-words'>
             <span style={{ whiteSpace: 'pre-line' }}>
                 {item.substring(item.indexOf(':') + 1)}
             </span>
         </Box>
         :
         <Box key={index} className='self-start flex-col'>
-            <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+            <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-r-2xl rounded-tl-2xl mb-8 max-w-xl'>
                 <span style={{ whiteSpace: 'pre-line' }}>
                     {item.substring(item.indexOf(':') + 1)}
                 </span>
@@ -168,21 +168,21 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                         {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[0]);
-                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg bg-[#f2eefb]'>
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#f2eefb]'>
                                 {chatSuggestions[0]}
                             </button>
                         }
                         {!isLoading && chatSuggestions && chatSuggestions.length > 1 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[1]);
-                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#f2eefb]'>
                                 {chatSuggestions[1]}
                             </button>
                         }
                         {!isLoading && chatSuggestions && chatSuggestions.length > 2 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[2]);
-                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300'>
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#f2eefb]'>
                                 {chatSuggestions[2]}
                             </button>
                         }
