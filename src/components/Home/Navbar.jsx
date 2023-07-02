@@ -14,7 +14,7 @@ const Navbar = ({ resetContext }) => {
   const codeString = `(num) => num + 1\nasdASDDDDDDDDDDDDDDDD DDDDDDDDDDDDDDDDDDDDDD
   DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD DDDDDDDD\n DDD DDDDDDDD\n\nD\n DDD DDDDDDDD\n\n\n\n\n\n\n\n\n`;
   return (
-    <Stack className='h-[44px] fixed top-0 left-0 right-0 bg-[#f9fafb] border-b border-[#eaecf0] justify-center items-end'>
+    <Stack className='h-[44px] flex-shrink-0 w-full bg-[#f9fafb] border-b border-[#eaecf0] justify-center items-end'>
       <Box className='flex'>
         <StyledTooltip text='Reset Chat'>
           <button className='mr-5' onClick={resetContext}>

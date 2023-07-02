@@ -33,10 +33,10 @@ const Landing = () => (
       >
         {landingSectionText.map((i, index) => (
           <div className='flex flex-col flex-1'>
-            <h1 className='max-w-[602px] text-black text-[56px] font-bold leading-10 mb-6'>
+            <h1 className='max-w-[602px] text-black text-[48px] font-bold leading-10 mb-6'>
               {i.title}
             </h1>
-            <span className='max-w-[567px] text-neutral-600 text-[24px] font-medium'>
+            <span className='max-w-[538px] text-neutral-600 text-[24px] font-medium'>
               {i.text}
             </span>
           </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { createContext, useContext, useState } from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-const StyleUpContext = React.createContext(null);
+export const StyleUpContext = React.createContext(null);
 export const useStyleUp = () => useContext(StyleUpContext);
 
 export const StyleUpProvider = ({ children }) => {
