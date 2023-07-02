@@ -27,11 +27,11 @@ const categories = [
 
 const CommunityMenu = () => {
     return (
-        <Stack className=' w-72 overflow-auto pb-10 bg-white'>
-            <Box className='mt-8 ml-4 mb-2 text-menuText'>
+        <Stack className='w-72 py-8 px-4 bg-white border-r flex-shrink-0'>
+            <Box className='mb-4 text-menuText'>
                 Categories
             </Box>
-            <Box className='ml-4 mb-1 text-menuText'>
+            <Box className='mb-1 text-menuText'>
                 {pinnedCategories.map((item, index) => (
                     <div key={index}>
                         <button name={item.name} className='flex h-10 items-center'>
@@ -42,7 +42,7 @@ const CommunityMenu = () => {
                 ))}
             </Box>
             <Divider variant='middle' />
-            <Box className='ml-4 mt-1 text-menuText'>
+            <Box className='mt-1 text-menuText'>
                 {categories.map((item, index) => (
                     <div key={index}>
                         <button name={item.name} className='flex h-10 items-center'>
