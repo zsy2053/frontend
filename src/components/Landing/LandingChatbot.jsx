@@ -104,9 +104,7 @@ const LandingChatbot = () => {
                               className={
                                 "font-medium text-[16px] leading-5 text-primary px-[20px] py-[10px]"
                               }
-                              onClick={() =>
-                                useStyleUp.setStyleUpMsg(nav.text)
-                              }
+                              onClick={() => useStyleUp.setStyleUpMsg(nav.text)}
                             >
                               {nav.text}
                             </li>
@@ -138,10 +136,10 @@ const LandingChatbot = () => {
               </div>
             </div>
             {/* Chatbox left chat area */}
-            <div className='mt-6 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4 space-y-[10px] '>
+            <div className='mt-6 px-9 w-full flex-grow overflow-y-scroll scrollbar-none mb-4 space-y-[10px] break-words'>
               {useStyleUp.styleMsgHistory &&
-                useStyleUp.styleMsgHistory.length > 0 ? (
-                  useStyleUp.styleMsgHistory.map((item, index) => (
+              useStyleUp.styleMsgHistory.length > 0 ? (
+                useStyleUp.styleMsgHistory.map((item, index) => (
                   <div className='flex group odd:justify-end odd:text-end'>
                     <span
                       key={index}
@@ -152,7 +150,8 @@ const LandingChatbot = () => {
                       px-4
                       py-2
                       group-odd:bg-indigo-50
-                      group-odd:rounded-2xl'
+                      group-odd:rounded-2xl
+                      text-left'
                     >
                       {item}
                     </span>
@@ -206,12 +205,14 @@ const LandingChatbot = () => {
                 className='relative mt-8 px-9 w-full h-[75px] z-[1]'
                 onSubmit={(e) => {
                   e.preventDefault();
-                  sendStyleUpMsg(
-                    useStyleUp.styleUpMsg,
-                    useStyleUp.setStyleMsgHistory,
-                    useStyleUp.setIsLoading
-                  );
-                  useStyleUp.setStyleUpMsg("");
+                  if (!useStyleUp.isloading) {
+                    sendStyleUpMsg(
+                      useStyleUp.styleUpMsg,
+                      useStyleUp.setStyleMsgHistory,
+                      useStyleUp.setIsLoading
+                    );
+                    useStyleUp.setStyleUpMsg("");
+                  }
                 }}
               >
                 <input
@@ -234,7 +235,7 @@ const LandingChatbot = () => {
                       src='/icons/chatboxSubmit.svg'
                       height={40}
                       width={40}
-                      className='absolute right-16 top-1/4'
+                      className='absolute right-16 top-1/4 hover:cursor-pointer'
                     />
                   </button>
                 )}
@@ -260,9 +261,12 @@ const LandingChatbot = () => {
                     key={nav.id}
                     className={"font-medium text-[16px] leading-5 text-primary"}
                   >
-                    <button className="text-left" onClick={() => {
-                      //send message
-                    }}>
+                    <button
+                      className='text-left'
+                      onClick={() => {
+                        //send message
+                      }}
+                    >
                       {nav.text}
                     </button>
                   </li>

@@ -280,49 +280,53 @@ const handleMessageSend = (
           console.log(err);
         });
       break;
-      case 'Blender bot':
+    case "Blender bot":
       if (audioFile == null) {
         axios({
-          method: 'post',
+          method: "post",
           url: `${import.meta.env.VITE_API_URL}/api/bots/blenderbot_agent`,
           data: {
-            'input': chatMessage,
-            'collection_name': currentFocus['name']
+            input: chatMessage,
+            collection_name: currentFocus["name"],
           },
           headers: {
             "Content-Type": "application/json",
-            "x-access-token": localStorage.getItem('jwt')
+            "x-access-token": localStorage.getItem("jwt"),
           },
-        }).then((res) => {
-          setIsLoading(false);
-          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-        }).catch((err) => {
-          setIsLoading(false);
-          window.alert(err.message);
-          console.log(err)
-        });
+        })
+          .then((res) => {
+            setIsLoading(false);
+            addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            window.alert(err.message);
+            console.log(err);
+          });
       } else {
         var formData = new FormData();
         formData.append("audio_file", audioFile);
-        formData.append("collection_name", currentFocus['name']);
+        formData.append("collection_name", currentFocus["name"]);
         axios({
-          method: 'post',
+          method: "post",
           url: `${import.meta.env.VITE_API_URL}/api/bots/blenderbot_agent`,
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data",
-            "x-access-token": localStorage.getItem('jwt')
+            "x-access-token": localStorage.getItem("jwt"),
           },
-        }).then((res) => {
-          setIsLoading(false);
-          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
-          console.log(res);
-        }).catch((err) => {
-          setIsLoading(false);
-          console.log(err)
-        });
+        })
+          .then((res) => {
+            setIsLoading(false);
+            addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+            console.log(res);
+          })
+          .catch((err) => {
+            setIsLoading(false);
+            console.log(err);
+          });
       }
-        break;
+      break;
     default:
       if (audioFile == null) {
         axios({
@@ -463,91 +467,94 @@ function Home() {
     }
   }, []);
   return (
-    <Stack className='h-screen w-screen pt-[44px] pl-[80px]'>
-      <Navbar
-        resetContext={() =>
-          resetContext(currentFocus, mapFocusContext, setChatHistory)
-        }
-      />
-      <Sidebar
-        sidebarSelection={sidebarSelection}
-        setSidebarSelection={setSidebarSelection}
-      />
+    <div className='w-full overflow-hidden flex flex-col min-h-screen'>
       {uploadFilesModalActive && (
         <UploadFilesModal setActive={setUploadFilesModalActive} />
       )}
       {addWebsiteModalActive && (
         <AddWebsiteModal setActive={setAddWebsiteModalActive} />
       )}
-      <Stack className='w-full h-screen'>
-        {sidebarSelection === "MySpace" && (
-          <Box className='flex w-full h-full'>
-            <MySpaceMenu
-              collectionList={collectionList}
-              handleState={handleState}
-              setSidebarSelection={setSidebarSelection}
-              handleFocus={(focus) => {
-                const focusType = mapFocusContext(focus);
-                if (focusType !== "context") {
-                  fetchChatHistory(setChatHistory, focusType);
-                } else {
-                  fetchChatHistory(setChatHistory, focusType, focus["name"]);
-                }
-                setCurrentFocus(focus);
-              }}
-              setActiveAgent={setCurrentFocus}
-            />
-            <ChatWindow
-              chatTitle={currentFocus.name}
-              chatWindowIcon={currentFocus.chatWindowIcon}
-              chatSuggestions={currentFocus.chatSuggestions}
-              content={chatHistory}
-              setMessage={setChatMessage}
-              chatMessage={chatMessage}
-              googleCalendarSignIn={googleCalendarSignIn}
-              audioStatus={audioStatus}
-              setAudioStatus={setAudioStatus}
-              audioProps={audioProps}
-              isLoading={isLoading}
-              sendMessage={(tip = "") => {
-                if (tip == "") {
-                  addMyChat(setChatHistory, "Human: " + chatMessage);
-                  handleMessageSend(
-                    currentFocus,
-                    chatMessage,
-                    setChatHistory,
-                    setIsLoading
-                  );
-                } else {
-                  addMyChat(setChatHistory, "Human: " + tip);
-                  handleMessageSend(
-                    currentFocus,
-                    tip,
-                    setChatHistory,
-                    setIsLoading
-                  );
-                }
-              }}
-            />
-          </Box>
-        )}
-        {sidebarSelection === "Community" && (
-          <Box className='flex'>
-            <CommunityMenu />
-            <CommunityWindow />
-          </Box>
-        )}
-        {sidebarSelection === "Build" && (
-          <Box className=''>
-            <BuildWindow
-              buildWebsite={handleLinkCreate}
-              webUrl={websiteUrl}
-              setWebsiteUrl={setWebsiteUrl}
-            />
-          </Box>
-        )}
-      </Stack>
-    </Stack>
+      <Navbar
+        resetContext={() =>
+          resetContext(currentFocus, mapFocusContext, setChatHistory)
+        }
+      />
+
+      <div className='flex flex-grow'>
+        <Sidebar
+          sidebarSelection={sidebarSelection}
+          setSidebarSelection={setSidebarSelection}
+        />
+        <div className='flex-1 flex-grow'>
+          {sidebarSelection === "MySpace" && (
+            <Box className='flex w-full h-full'>
+              <MySpaceMenu
+                collectionList={collectionList}
+                handleState={handleState}
+                setSidebarSelection={setSidebarSelection}
+                handleFocus={(focus) => {
+                  const focusType = mapFocusContext(focus);
+                  if (focusType !== "context") {
+                    fetchChatHistory(setChatHistory, focusType);
+                  } else {
+                    fetchChatHistory(setChatHistory, focusType, focus["name"]);
+                  }
+                  setCurrentFocus(focus);
+                }}
+                setActiveAgent={setCurrentFocus}
+              />
+              <ChatWindow
+                chatTitle={currentFocus.name}
+                chatWindowIcon={currentFocus.chatWindowIcon}
+                chatSuggestions={currentFocus.chatSuggestions}
+                content={chatHistory}
+                setMessage={setChatMessage}
+                chatMessage={chatMessage}
+                googleCalendarSignIn={googleCalendarSignIn}
+                audioStatus={audioStatus}
+                setAudioStatus={setAudioStatus}
+                audioProps={audioProps}
+                isLoading={isLoading}
+                sendMessage={(tip = "") => {
+                  if (tip == "") {
+                    addMyChat(setChatHistory, "Human: " + chatMessage);
+                    handleMessageSend(
+                      currentFocus,
+                      chatMessage,
+                      setChatHistory,
+                      setIsLoading
+                    );
+                  } else {
+                    addMyChat(setChatHistory, "Human: " + tip);
+                    handleMessageSend(
+                      currentFocus,
+                      tip,
+                      setChatHistory,
+                      setIsLoading
+                    );
+                  }
+                }}
+              />
+            </Box>
+          )}
+          {sidebarSelection === "Community" && (
+            <Box className='flex'>
+              <CommunityMenu />
+              <CommunityWindow />
+            </Box>
+          )}
+          {sidebarSelection === "Build" && (
+            <Box className=''>
+              <BuildWindow
+                buildWebsite={handleLinkCreate}
+                webUrl={websiteUrl}
+                setWebsiteUrl={setWebsiteUrl}
+              />
+            </Box>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 
