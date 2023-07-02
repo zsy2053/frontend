@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import agentsData from "./Agents";
@@ -45,10 +46,19 @@ const MySpaceMenu = ({
   handleFocus,
   setSidebarSelection,
 }) => {
+  const [contextMenu, setContextMenu] = React.useState(null);
+  const handleContextMenu = (event) => {
+    event.preventDefault();
+    setContextMenu({
+      mouseX: event.clientX + 2,
+      mouseY: event.clientY - 6,
+    });
+  };
+
   return (
-    <Stack className='w-72 py-8 px-4 bg-white border-r flex-shrink-0'>
+    <Stack className='w-72 py-8 bg-white border-r flex-shrink-0'>
       <Box className='text-menuText'>
-        <div className='mb-4'>Agents</div>
+        <div className='mb-4 px-4'>Agents</div>
 
         <Stack className='h-40'>
           {agentsData.map((item, index) => (
@@ -64,45 +74,64 @@ const MySpaceMenu = ({
                     )
               }
               name={item.name}
-              className='flex h-10 items-center'
+              className='flex h-10 items-center px-4'
             >
               <span className='mr-2'>{item.menuIcon}</span>
-              <p className='text-menuText overflow-hidden text-ellipsis'>{item.name}</p>
+              <p className='text-menuText overflow-hidden text-ellipsis'>
+                {item.name}
+              </p>
             </button>
           ))}
         </Stack>
       </Box>
-      <Box className='mt-8'>
-        Library
+      <Box className='mt-8 '>
+        <div className='mb-4 px-4'>Library</div>
         <Stack className='h-50 mt-4'>
           {libraryData.map((item, index) => (
             <button
               key={index}
-              className='flex h-10 items-center'
+              className='flex h-10 items-center px-4'
               name={item.name}
               onClick={handleState}
             >
               <span className='mr-2'>{item.icon}</span>
-              <p className='text-menuText overflow-hidden text-ellipsis'>{item.name}</p>
+              <p className='text-menuText overflow-hidden text-ellipsis'>
+                {item.name}
+              </p>
             </button>
           ))}
           {collectionList.map((item, index) => (
-              <button
-                className='flex h-10 items-center text-start'
-                onClick={(event) =>
-                  handleFocus(
-                    collectionList.filter(
-                      (item) => item.name === event.currentTarget.name
-                    )[0]
-                  )
-                }
-                name={item.name}
-                key={index}
-              >
-                <span className='mr-2'>{item.icon}</span>
-                <p className='text-menuText flex-1 overflow-hidden text-ellipsis'>{item.name}</p>
-              </button>
+            <button
+              className='flex h-10 items-center text-start px-4 hover:bg-zinc-300'
+              onClick={(event) =>
+                handleFocus(
+                  collectionList.filter(
+                    (item) => item.name === event.currentTarget.name
+                  )[0]
+                )
+              }
+              onContextMenu={handleContextMenu}
+              name={item.name}
+              key={index}
+            >
+              <span className='mr-2'>{item.icon}</span>
+              <p className='text-menuText flex-1 overflow-hidden text-ellipsis'>
+                {item.name}
+              </p>
+            </button>
           ))}
+          <Menu
+            open={contextMenu !== null}
+            onClose={() => setContextMenu(null)}
+            anchorReference='anchorPosition'
+            anchorPosition={
+              contextMenu !== null
+                ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
+                : undefined
+            }
+          >
+            <MenuItem onClick={() => setContextMenu(null)}>Delete</MenuItem>
+          </Menu>
         </Stack>
       </Box>
     </Stack>

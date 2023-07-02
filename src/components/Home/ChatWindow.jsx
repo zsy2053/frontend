@@ -149,9 +149,9 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
         <Stack className='flex flex-col flex-1 max-h-[calc(100vh-44px)]'>
             <Box className='flex p-6 items-center '>
                 <Box className='h-10 w-10 flex-shrink-0 justify-center mr-4'><img src={chatWindowIcon} width={100} height={100}/></Box>
-                <p className='text-[24px] overflow-hidden text-ellipsis'>{chatTitle}</p>
+                <p className='text-[24px] overflow-hidden text-ellipsis max-w-md'>{chatTitle}</p>
             </Box>
-            <Box className='flex flex-col justify-center w-full xl:px-32 lg:px-12 overflow-y-scroll'>
+            <Box className='flex flex-col justify-center xl:px-32 lg:px-12 overflow-y-scroll'>
                 {content && content.length > 0 ?
                     content.map((item, index) => messageMapper(item, index, googleCalendarSignIn))
                     : getDefaultMsg(chatTitle, 0)}
