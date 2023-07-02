@@ -28,6 +28,11 @@ const agentsData = [
 		name: "Audio agent",
 		menuIcon: <Icon><img src='/icons/AudioAgentMenuIcon.svg' /></Icon>,
 		chatWindowIcon: '/icons/AudioAgentMenuIcon.svg'
+	},
+	{
+		name: "Blender bot",
+		menuIcon: <Icon><img src='/icons/blenderbot.svg' /></Icon>,
+		chatWindowIcon: '/icons/blenderbot.svg'
 	}
 ]
 

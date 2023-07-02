@@ -120,6 +120,14 @@ const getDefaultMsg = (chatTitle, index) => {
                </span>
            </Box>
        </Box>
+     case "Blender bot":
+       return <Box key={index} className='self-start flex-col'>
+           <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+               <span style={{ whiteSpace: 'pre-line' }}>
+                   Facebook blenderbot, talk to me like common friend
+               </span>
+           </Box>
+       </Box>
     default:
       return ""
   }

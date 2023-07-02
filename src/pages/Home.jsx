@@ -247,6 +247,49 @@ const handleMessageSend = (currentFocus, chatMessage, setChatHistory, setIsLoadi
         console.log(err)
       });
       break;
+      case 'Blender bot':
+      if (audioFile == null) {
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/blenderbot_agent`,
+          data: {
+            'input': chatMessage,
+            'collection_name': currentFocus['name']
+          },
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.getItem('jwt')
+          },
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+        }).catch((err) => {
+          setIsLoading(false);
+          window.alert(err.message);
+          console.log(err)
+        });
+      } else {
+        var formData = new FormData();
+        formData.append("audio_file", audioFile);
+        formData.append("collection_name", currentFocus['name']);
+        axios({
+          method: 'post',
+          url: `${import.meta.env.VITE_API_URL}/api/bots/blenderbot_agent`,
+          data: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "x-access-token": localStorage.getItem('jwt')
+          },
+        }).then((res) => {
+          setIsLoading(false);
+          addMyChat(setChatHistory, "AIMessage: " + res.data.data);
+          console.log(res);
+        }).catch((err) => {
+          setIsLoading(false);
+          console.log(err)
+        });
+      }
+        break;
     default:
       if (audioFile == null) {
         axios({
