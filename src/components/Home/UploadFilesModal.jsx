@@ -4,39 +4,41 @@ import CloseIcon from "@mui/icons-material/Close";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import axios from "axios";
 
-const handleFileUpload = (fileList) => {
-  for (let i = 0; i < fileList.length; i++) {
-    const item = fileList[i];
-    const formData = new FormData();
-    formData.append("collection_content", item);
-    formData.append("collection_name", item.name.split(".")[0]);
-    formData.append("collection_type", "file");
-    axios({
-      method: "post",
-      url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
-      data: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "x-access-token": localStorage.getItem("jwt"),
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((res) => {
-        window.alert("Collection create success!");
-        console.log(res);
-      })
-      .catch((err) => {
-        window.alert("Collection create failed!");
-
-        console.log(err);
-        // navigate(-1);
-      });
-  }
-};
-
 const UploadFilesModal = ({ setActive }) => {
   const [fileList, setFileList] = useState([]);
   const [dragging, setDragging] = useState(false);
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleFileUpload = (fileList) => {
+    for (let i = 0; i < fileList.length; i++) {
+      const item = fileList[i];
+      const formData = new FormData();
+      formData.append("collection_content", item);
+      formData.append("collection_name", item.name.split(".")[0]);
+      formData.append("collection_type", "file");
+      axios({
+        method: "post",
+        url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-access-token": localStorage.getItem("jwt"),
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+        .then((res) => {
+          setSubmitted(true);
+          window.alert("Collection create Success!");
+          console.log(res);
+        })
+        .catch((err) => {
+          window.alert("Collection create failed!");
+
+          console.log(err);
+          // navigate(-1);
+        });
+    }
+  };
 
   const handleDrop = (event) => {
     event.preventDefault();
