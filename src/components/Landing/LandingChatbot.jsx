@@ -197,7 +197,7 @@ const LandingChatbot = () => {
                   </div>
                 ))
               ) : (
-                <div className="flex">
+                <div className='flex'>
                   <span
                     className='text-neutral-800
                       font-medium
