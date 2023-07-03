@@ -44,15 +44,19 @@ const MySpaceMenu = ({
   collectionList,
   handleState,
   handleFocus,
+  handleCollectionDelete,
+  setCollectionList,
   setSidebarSelection,
 }) => {
   const [contextMenu, setContextMenu] = React.useState(null);
+  const [selectedItem, setSelectedItem] = React.useState(null);
   const handleContextMenu = (event) => {
     event.preventDefault();
     setContextMenu({
       mouseX: event.clientX + 2,
       mouseY: event.clientY - 6,
     });
+    setSelectedItem(event.currentTarget.name)
   };
 
   return (
@@ -130,7 +134,10 @@ const MySpaceMenu = ({
                 : undefined
             }
           >
-            <MenuItem onClick={() => setContextMenu(null)}>Delete</MenuItem>
+            <MenuItem onClick={(e) => {
+              handleCollectionDelete(selectedItem, setCollectionList)
+              setContextMenu(null)
+            }}>Delete</MenuItem>
           </Menu>
         </Stack>
       </Box>

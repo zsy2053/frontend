@@ -45,6 +45,25 @@ const fetchCollectionData = (setCollectionList) => {
     });
 };
 
+const deleteCollection = (collection_name, setCollectionList) => {
+  axios({
+    method: "delete",
+    url: `${import.meta.env.VITE_API_URL}/api/bots/delete_collection?collection_name=${collection_name}`,
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("jwt"),
+    },
+  }).then((res) => {
+      console.log(res);
+      fetchCollectionData(setCollectionList);
+    })
+    .catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+      // navigate(-1);
+    });
+}
+
 const fetchApiKeyListData = (setApiKeyList) => {
   axios({
     method: "get",
@@ -514,6 +533,8 @@ function Home() {
                 collectionList={collectionList}
                 handleState={handleState}
                 setSidebarSelection={setSidebarSelection}
+                setCollectionList={setCollectionList}
+                handleCollectionDelete={deleteCollection}
                 handleFocus={(focus) => {
                   const focusType = mapFocusContext(focus);
                   if (focusType !== "context") {
