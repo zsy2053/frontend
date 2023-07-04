@@ -507,7 +507,7 @@ function Home() {
           sidebarSelection={sidebarSelection}
           setSidebarSelection={setSidebarSelection}
         />
-        <div className='flex-1 flex-grow'>
+        <div className='flex-1 flex-grow justify-center flex'>
           {sidebarSelection === "MySpace" && (
             <Box className='flex w-full h-full'>
               <MySpaceMenu
@@ -560,16 +560,12 @@ function Home() {
             </Box>
           )}
           {sidebarSelection === "Community" && (
-            <Box className='flex'>
+            <Box className='flex w-full h-full'>
               <CommunityMenu />
               <CommunityWindow />
             </Box>
           )}
-          {sidebarSelection === "API Keys" && (
-            <Box className='flex'>
-              <ApiPage apiKeys={apiKeyList}/>
-            </Box>
-          )}
+          {sidebarSelection === "API Keys" && <ApiPage apiKeys={apiKeyList} />}
         </div>
       </div>
     </div>

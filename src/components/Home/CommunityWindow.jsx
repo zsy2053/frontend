@@ -128,7 +128,7 @@ const CommunityWindow = () => {
         </InputAdornment>}
       /> */}
 
-      <Box className='flex flex-wrap overflow-scroll gap-6 mx-20 my-4 max-w-7xl'>
+      <Box className='flex flex-wrap overflow-y-scroll gap-6 mx-20 my-4 max-w-7xl'>
         {agentCards.map((item, index) => (
           <AgentCard key={index} item={item} />
         ))}
