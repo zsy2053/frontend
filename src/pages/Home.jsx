@@ -510,7 +510,11 @@ function Home() {
   return (
     <div className='w-full overflow-hidden flex flex-col min-h-screen'>
       {uploadFilesModalActive && (
-        <UploadFilesModal setActive={setUploadFilesModalActive} />
+        <UploadFilesModal
+          setActive={setUploadFilesModalActive}
+          fetchCollectionData={fetchCollectionData}
+          setCollectionList={setCollectionList}
+        />
       )}
       {addWebsiteModalActive && (
         <AddWebsiteModal setActive={setAddWebsiteModalActive} />

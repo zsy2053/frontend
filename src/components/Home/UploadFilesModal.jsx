@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import axios  from 'axios';
 
-const handleFileUpload = (fileList) => {
+const handleFileUpload = (fileList, fetchCollectionData, setCollectionList) => {
   for (let i = 0; i < fileList.length; i++) {
     const item = fileList[i];
     const formData = new FormData();
@@ -21,6 +21,7 @@ const handleFileUpload = (fileList) => {
     }).then((res) => {
         window.alert("Collection create success!");
         console.log(res);
+        fetchCollectionData(setCollectionList)
     }).catch((err) => {
         window.alert("Collection create failed!");
 
@@ -30,7 +31,7 @@ const handleFileUpload = (fileList) => {
   }
 }
 
-const UploadFilesModal = ({ setActive }) => {
+const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList }) => {
     const [fileList, setFileList] = useState([]);
 
     return (
@@ -65,7 +66,7 @@ const UploadFilesModal = ({ setActive }) => {
                             className='flex flex-auto justify-center items-center h-11 mr-3 rounded-lg border border-gray-300'>
                             Cancel
                         </button>
-                        <button onClick={() => handleFileUpload(fileList)}
+                        <button onClick={() => handleFileUpload(fileList, fetchCollectionData, setCollectionList)}
                           className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg'>
                             Upload
                         </button>
