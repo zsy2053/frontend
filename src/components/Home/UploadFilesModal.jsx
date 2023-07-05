@@ -46,7 +46,7 @@ const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList })
                     </Box>
                     <p className='text-[#555555] text-sm mb-5'>Upload files to this folder.</p>
                     <label htmlFor="file" className='flex flex-col justify-center items-center h-32 mb-4 rounded-lg border border-gray-200'>
-                        <input type="file" onChange={(event) => setFileList(fileList.concat(Array.from(event.target.files)))} id="file" name="file" hidden multiple />
+                        <input type="file" onChange={(event) => setFileList(fileList.concat(Array.from(event.target.files)))} id="file" name="file" accept=".pdf, .txt, .xlsx, .csv" hidden multiple />
                         <Box className='flex'>
                             <p className='text-styleupPurple font-semibold mr-1'>Click to upload</p>
                             <p className='text-[#555555]'>or drag and drop</p>
