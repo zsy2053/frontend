@@ -156,3 +156,20 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.ql-toolbar {
+  border: none !important;
+  margin-bottom: 8px;
+  padding-top: 0 !important;
+}
+.ql-container {
+  border-radius: 8px !important;
+  border: 1px solid var(--gray-300, #d0d5dd) !important;
+  background: var(--white, #fff) !important;
+  min-height: 326px;
+  /* Shadow/xs */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+.ql-editor {
+  padding: 10px 14px !important;
+}

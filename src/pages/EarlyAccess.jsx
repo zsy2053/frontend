@@ -123,7 +123,7 @@ const EarlyAccess = () => {
                 <EASelect
                   options={earlyAccessOptions}
                   placeholder='What tasks do you want to use StyleUp to help you with?'
-                  id='email'
+                  id='select'
                   onChange={setSelectVal}
                   required
                   tooltipMsg='Please select an option from dropdown menu'

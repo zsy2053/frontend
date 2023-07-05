@@ -13,6 +13,7 @@ import axios from "axios";
 import CommunityMenu from "../components/Home/CommunityMenu";
 import CommunityWindow from "../components/Home/CommunityWindow";
 import BuildWindow from "../components/Home/BuildWindow";
+import AddAgentWindow from "../components/Home/AddAgentWindow";
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
@@ -566,6 +567,9 @@ function Home() {
             </Box>
           )}
           {sidebarSelection === "API Keys" && <ApiPage apiKeys={apiKeyList} />}
+          {sidebarSelection === "AddAgent" && (
+            <AddAgentWindow setSidebarSelection={setSidebarSelection} />
+          )}
         </div>
       </div>
     </div>

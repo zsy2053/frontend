@@ -66,7 +66,7 @@ const MySpaceMenu = ({
               key={index}
               onClick={(event) =>
                 item.name == "Add agent"
-                  ? setSidebarSelection("Community")
+                  ? setSidebarSelection("AddAgent")
                   : handleFocus(
                       agentsData.filter(
                         (item) => item.name === event.currentTarget.name
