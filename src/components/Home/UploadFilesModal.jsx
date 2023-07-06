@@ -127,8 +127,8 @@ const UploadFilesModal = ({ setActive }) => {
                           {item.name}
                         </p>
                         <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
-                          {item.size >= 102400
-                            ? Math.ceil(item.size / 10240) + "MB"
+                          {item.size >= 1000024
+                            ? Math.ceil(item.size / 1000024) + "MB"
                             : Math.ceil(item.size / 1024) + "KB"}
                         </span>
                       </div>
