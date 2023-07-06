@@ -10,25 +10,22 @@ import ClearIcon from "@mui/icons-material/Clear";
 import Chip from "@mui/material/Chip";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Modal from "@mui/material/Modal";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const AddAgentWindow = ({ setSidebarSelection }) => {
-  const [fileList, setFileList] = useState([]);
+  const [coverImg, setCoverImg] = useState("");
   const [dragging, setDragging] = useState(false);
   const handleDrop = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const files = Array.from(event.dataTransfer.files).filter(
-      (item) =>
-        item.type.includes("png") ||
-        item.type.includes("jpg") ||
-        item.type.includes("jpeg")
-    );
-    if (files.length > 0) {
-      if (files.length > 1) {
-        setFileList(files.slice(0, 1));
-      } else {
-        setFileList(files);
-      }
+
+    if (
+      event.dataTransfer.files[0].type.includes("png") ||
+      event.dataTransfer.files[0].type.includes("jpg") ||
+      event.dataTransfer.files[0].type.includes("jpeg")
+    ) {
+      setCoverImg(event.dataTransfer.files[0]);
     }
   };
 
@@ -62,6 +59,14 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
 
   const [textArea, setTextArea] = useState("");
 
+  const [openModal, setOpenModal] = useState(false);
+  const [modalState, setModalState] = useState(0);
+  const handlePublish = () => {
+    if (coverImg) {
+      setOpenModal(true);
+    }
+  };
+
   return (
     <div className='py-8 h-[100vh] overflow-y-scroll'>
       {/* header */}
@@ -76,7 +81,10 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
         </div>
       </div>
       {/* form */}
-      <form className='flex w-full justify-start px-8 flex-col' onSubmit={(e)=>e.preventDefault()}>
+      <form
+        className='flex w-full justify-start px-8 flex-col'
+        onSubmit={(e) => e.preventDefault()}
+      >
         {/* App Name input */}
         <div className='flex'>
           <div className='w-[280px] text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight mr-8'>
@@ -105,8 +113,9 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
           <div className='flex flex-col'>
             <label
               htmlFor='file'
-              className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${dragging && "border-styleupPurple bg-gray-100"
-                }`}
+              className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${
+                dragging && "border-styleupPurple bg-gray-100"
+              }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={() => setDragging(false)}
@@ -114,11 +123,10 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
               <input
                 type='file'
                 accept='png, jpg, jpeg'
-                onChange={(event) =>
-                  setFileList(Array.from(event.target.files))
-                }
+                onChange={(event) => setCoverImg(event.target.files[0])}
                 id='file'
                 name='file'
+                key={coverImg && coverImg.name} // to reset the input. Otherwise, the same file won't be accepted
                 hidden
               />
               <div className='w-10 h-10 p-2.5 bg-gray-100 rounded-[28px] justify-center items-center inline-flex'>
@@ -141,40 +149,34 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
                 PNG or JPG (max. 800x400px)
               </div>
             </label>
-            {fileList.length > 0 &&
-              fileList.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className='w-full overflow-hidden p-4 h-[72px] flex items-center border rounded-lg border-gray-200 hover:border-styleupPurple mb-3'
-                  >
-                    <img
-                      src='/icons/coverImageUploadIcon.svg'
-                      width={24}
-                      height={24}
-                      className='mr-4 flex-shrink-0'
-                    />
-                    <div className='flex flex-col w-[332px]'>
-                      <p className='text-zinc-900 text-[14px] font-medium leading-tight text-ellipsis overflow-hidden'>
-                        {item.name}
-                      </p>
-                      <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
-                        {item.size >= 102400
-                          ? Math.ceil(item.size / 10240) + "MB"
-                          : Math.ceil(item.size / 1024) + "KB"}
-                      </span>
-                    </div>
+            {coverImg && (
+              <div className='w-full overflow-hidden p-4 h-[72px] flex items-center border rounded-lg border-gray-200 hover:border-styleupPurple mb-3'>
+                <img
+                  src='/icons/coverImageUploadIcon.svg'
+                  width={24}
+                  height={24}
+                  className='mr-4 flex-shrink-0'
+                />
+                <div className='flex flex-col w-[332px]'>
+                  <p className='text-zinc-900 text-[14px] font-medium leading-tight text-ellipsis overflow-hidden'>
+                    {coverImg.name}
+                  </p>
+                  <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
+                    {coverImg.size >= 10000024
+                      ? Math.ceil(coverImg.size / 1000024) + "MB"
+                      : Math.ceil(coverImg.size / 1024) + "KB"}
+                  </span>
+                </div>
 
-                    <img
-                      src='/icons/trashIcon.svg'
-                      onClick={() => {
-                        setFileList([]);
-                      }}
-                      className='hover:cursor-pointer ml-auto hover:bg-gray-100 rounded-full p-1'
-                    />
-                  </div>
-                );
-              })}
+                <img
+                  src='/icons/trashIcon.svg'
+                  onClick={() => {
+                    setCoverImg("");
+                  }}
+                  className='hover:cursor-pointer ml-auto hover:bg-gray-100 rounded-full p-1'
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -341,21 +343,84 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
         <div className='w-full my-8'>
           <Divider />
         </div>
-
+        {/* buttons */}
         <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
-          <button className='px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex' type="button"
-            onClick={() => setSidebarSelection('MySpace')}>
+          <button
+            className='px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex'
+            type='button'
+            onClick={() => setSidebarSelection("MySpace")}
+          >
             <span className='text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight'>
               Cancel
             </span>
           </button>
 
-          <button className='px-4 py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex' type="button">
+          <button
+            className='px-4 py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex'
+            type='button'
+            onClick={handlePublish}
+          >
             <span className='text-white text-[14px] font-semibold leading-tight'>
               Publish
             </span>
           </button>
         </div>
+
+        <Modal
+          open={openModal}
+          onClose={() => modalState === 1 && setOpenModal(false)}
+        >
+          <div className='bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[464] rounded-xl p-6 flex flex-col items-center'>
+            {modalState === 0 && (
+              <>
+                <img
+                  src={coverImg && URL.createObjectURL(coverImg)}
+                  className='w-[464px] rounded-3xl mb-6'
+                ></img>
+                <div className='w-[464px] text-center text-zinc-900 text-[24px] font-semibold leading-7 mb-4'>
+                  Congratulations
+                </div>
+                <div className='w-[464px] text-center text-neutral-600 text-[14px] font-normal leading-tight mb-6'>
+                  This chat app has been published. Community members will be
+                  able to chat based on this data file and app settings.
+                </div>
+                <div className='flex w-full'>
+                  <button
+                    onClick={() => setOpenModal(false)} //filler. this is supposed to delete the agent?
+                    className='flex-1 h-11 mr-3 rounded-lg border border-gray-300'
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => setModalState(1)}
+                    className='flex-1 h-11 bg-styleupPurple rounded-lg text-white'
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </>
+            )}
+            {modalState === 1 && (
+              <>
+                <img
+                  src='/images/addAgentModalSuccess.png'
+                  className='w-[312px] rounded-3xl mb-6'
+                ></img>
+                <div className='w-[464px] text-center text-zinc-900 text-[24px] font-semibold leading-7 mb-4'>
+                  Share with others
+                </div>
+                <div className='w-full justify-start items-center flex'>
+                  <div className='flex-1 h-11 px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 text-zinc-900 mr-1'>
+                    Link goes here...
+                  </div>
+                  <div className='w-10 h-10 p-2.5 justify-center items-center gap-2 inline-flex'>
+                    <ContentCopyIcon />
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </Modal>
       </form>
     </div>
   );

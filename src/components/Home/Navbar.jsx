@@ -11,8 +11,7 @@ const Navbar = ({ resetContext }) => {
   const [openCopy, setOpenCopy] = React.useState(false);
   //codeString should be a useState
   //adjust method of linebreaking to \n if needed?
-  const codeString = `(num) => num + 1\nasdASDDDDDDDDDDDDDDDD DDDDDDDDDDDDDDDDDDDDDD
-  DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD DDDDDDDD\n DDD DDDDDDDD\n\nD\n DDD DDDDDDDD\n\n\n\n\n\n\n\n\n`;
+  const codeString = `(num) => num + 1\n(num) => num + 1 \n (num) => num + 1 \n \n \n (num) => num + 1`;
   return (
     <Stack className='h-[44px] flex-shrink-0 w-full bg-[#f9fafb] border-b border-[#eaecf0] justify-center items-end'>
       <Box className='flex'>

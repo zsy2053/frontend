@@ -91,6 +91,7 @@ const UploadFilesModal = ({ setActive }) => {
                 }
                 id='file'
                 name='file'
+                key={fileList.length > 0 && fileList[0].name} // to reset input. otherwise, same file cannot be uploaded again
                 hidden
                 multiple
               />
