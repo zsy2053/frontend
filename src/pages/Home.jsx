@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from "@mui/material";
 import Sidebar from "../components/Home/Sidebar";
 import MySpaceMenu from "../components/Home/MySpaceMenu";
-import Navbar from "../components/Home/Navbar";
 import ChatWindow from "../components/Home/ChatWindow";
 import ApiPage from "../components/Home/ApiPage";
 import agentsData from "../components/Home/Agents";
@@ -120,9 +119,8 @@ const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
 const googleCalendarSignIn = () => {
   axios({
     method: "post",
-    url: `${
-      import.meta.env.VITE_API_URL
-    }/api/bots/authenticate_google_calendar`,
+    url: `${import.meta.env.VITE_API_URL
+      }/api/bots/authenticate_google_calendar`,
     headers: {
       "Content-Type": "application/json",
       "x-access-token": localStorage.getItem("jwt"),
@@ -497,11 +495,6 @@ function Home() {
       {addWebsiteModalActive && (
         <AddWebsiteModal setActive={setAddWebsiteModalActive} />
       )}
-      <Navbar
-        resetContext={() =>
-          resetContext(currentFocus, mapFocusContext, setChatHistory)
-        }
-      />
 
       <div className='flex flex-grow'>
         <Sidebar

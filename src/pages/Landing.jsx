@@ -29,14 +29,14 @@ const Landing = () => (
     </div>
     <div className={`${styles.flexCenter}`}>
       <div
-        className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6 space-x-4 hidden md:flex`}
+        className={`w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6 space-x-4 hidden md:flex xl:gap-36 gap-6`}
       >
         {landingSectionText.map((i, index) => (
           <div className='flex flex-col flex-1'>
-            <h1 className='max-w-[602px] text-black text-[48px] font-bold leading-10 mb-6'>
+            <h1 className=' text-black text-[48px] font-semibold leading-10 mb-6'>
               {i.title}
             </h1>
-            <span className='max-w-[538px] text-neutral-600 text-[24px] font-medium'>
+            <span className='text-neutral-600 text-[24px] font-medium'>
               {i.text}
             </span>
           </div>
@@ -83,7 +83,7 @@ const Landing = () => (
       <div
         className={`h-[730px] w-full xl:max-w-[1920px] md:my-[140px] my-[70px] sm:px-16 px-6 `}
       >
-        <InlineWidget  url='https://calendly.com/xplorer01/30min' styles={{height:'750px', minWidth:'320px'}}/>
+        <InlineWidget url='https://calendly.com/xplorer01/30min' styles={{ height: '750px', minWidth: '320px' }} />
       </div>
     </div>
 

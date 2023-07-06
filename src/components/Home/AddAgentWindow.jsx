@@ -64,7 +64,7 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
   const [textArea, setTextArea] = useState("");
 
   return (
-    <div className='py-8 h-[calc(100vh-44px)] overflow-y-scroll'>
+    <div className='py-8 h-[100vh] overflow-y-scroll'>
       {/* header */}
       <div className='w-[1128px] h-[82px] px-8 flex-col justify-start items-start inline-flex mb-8'>
         <div className='self-stretch text-zinc-900 text-[24px] font-semibold leading-9'>
@@ -106,9 +106,8 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
           <div className='flex flex-col'>
             <label
               htmlFor='file'
-              className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${
-                dragging && "border-styleupPurple bg-gray-100"
-              }`}
+              className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${dragging && "border-styleupPurple bg-gray-100"
+                }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={() => setDragging(false)}
@@ -345,7 +344,7 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
 
         <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
           <button className='px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex'
-          onClick={()=>setSidebarSelection('MySpace')}>
+            onClick={() => setSidebarSelection('MySpace')}>
             <span className='text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight'>
               Cancel
             </span>

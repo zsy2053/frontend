@@ -9,7 +9,7 @@ const ApiPage = ({ apiKeys }) => {
   console.log(apiKeys);
   return (
     <Stack
-      className='flex flex-col h-[calc(100vh-44px)] max-w-[787px] items-center'
+      className='flex flex-col h-[100vh] max-w-[787px] items-center'
       sx={{ border: "0px" }}
     >
       <div className='flex flex-col mt-12 items-left mb-7'>

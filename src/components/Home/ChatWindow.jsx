@@ -7,6 +7,7 @@ import MicIcon from '@mui/icons-material/Mic';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import AudioAnalyser from "react-audio-analyser";
 import AnimatedWaveform from './AnimatedWaveform';
+import Navbar from "../../components/Home/Navbar";
 
 const AudioMessage = ({ src }) => {
     const [playing, setPlaying] = useState(false);
@@ -102,35 +103,35 @@ const messageMapper = (item, index, googleCalendarSignIn) => {
 }
 
 const getDefaultMsg = (chatTitle, index) => {
-  switch (chatTitle) {
-    case "Calendar agent":
-      return <Box key={index} className='self-start flex-col'>
-          <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
-              <span style={{ whiteSpace: 'pre-line' }}>
-                  The Calendar agent can check for events
-              </span>
-          </Box>
-      </Box>
-     case "Audio agent":
-       return <Box key={index} className='self-start flex-col'>
-           <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
-               <span style={{ whiteSpace: 'pre-line' }}>
-                   Tell me what do you want
-               </span>
-           </Box>
-       </Box>
-     case "Blender bot":
-       return <Box key={index} className='self-start flex-col'>
-           <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
-               <span style={{ whiteSpace: 'pre-line' }}>
-                   Facebook blenderbot, talk to me like common friend
-               </span>
-           </Box>
-       </Box>
-    default:
-      return ""
-  }
-  return ""
+    switch (chatTitle) {
+        case "Calendar agent":
+            return <Box key={index} className='self-start flex-col'>
+                <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+                    <span style={{ whiteSpace: 'pre-line' }}>
+                        The Calendar agent can check for events
+                    </span>
+                </Box>
+            </Box>
+        case "Audio agent":
+            return <Box key={index} className='self-start flex-col'>
+                <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+                    <span style={{ whiteSpace: 'pre-line' }}>
+                        Tell me what do you want
+                    </span>
+                </Box>
+            </Box>
+        case "Blender bot":
+            return <Box key={index} className='self-start flex-col'>
+                <Box key={index} className='px-4 py-3 bg-[#f9fafb] rounded-2xl mb-8 max-w-xl'>
+                    <span style={{ whiteSpace: 'pre-line' }}>
+                        Facebook blenderbot, talk to me like common friend
+                    </span>
+                </Box>
+            </Box>
+        default:
+            return ""
+    }
+    return ""
 }
 
 const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
@@ -146,9 +147,14 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
 
 
     return (
-        <Stack className='flex flex-col flex-1 max-h-[calc(100vh-44px)]'>
+        <Stack className='flex flex-col flex-1 max-h-[100vh]'>
+            <Navbar
+                resetContext={() =>
+                    resetContext(currentFocus, mapFocusContext, setChatHistory)
+                }
+            />
             <Box className='flex p-6 items-center '>
-                <Box className='h-10 w-10 flex-shrink-0 justify-center mr-4'><img src={chatWindowIcon} width={100} height={100}/></Box>
+                <Box className='h-10 w-10 flex-shrink-0 justify-center mr-4'><img src={chatWindowIcon} width={100} height={100} /></Box>
                 <p className='text-[24px] overflow-hidden text-ellipsis max-w-md'>{chatTitle}</p>
             </Box>
             <Box className='flex flex-col justify-center xl:px-32 lg:px-12 overflow-y-scroll'>

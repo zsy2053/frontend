@@ -119,7 +119,7 @@ const TemplateCard = ({ item }) => {
 
 const BuildWindow = ({ buildWebsite, webUrl, setWebsiteUrl }) => {
   return (
-    <Stack className='flex flex-col h-[calc(100vh-44px)] w-full items-center'>
+    <Stack className='flex flex-col h-[100vh] w-full items-center'>
       <div className='my-12 flex-col justify-center items-center gap-7 flex min-w-[494px]'>
         <p className='text-[28px]'>Already have a website/app?</p>
         <Box className='flex'>

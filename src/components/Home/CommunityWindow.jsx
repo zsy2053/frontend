@@ -8,7 +8,7 @@ import Label from "./Label";
 
 const AgentCard = ({ item }) => {
   return (
-    <Box className='w-[284px] h-[403px] flex flex-col'>
+    <Box className='w-[284px] h-[403px] flex flex-col transition duration-500 hover:scale-110'>
       <img src={item.image} />
       <div className='px-6 py-4 h-[163px] flex-col justify-start items-start gap-2 flex'>
         <div className='w-[230px] h-10 justify-start items-center gap-4 inline-flex'>
@@ -20,7 +20,7 @@ const AgentCard = ({ item }) => {
             {item.title}
           </div>
         </div>
-        <Box className='text-zinc-900 text-opacity-80 text-[12px] font-normal leading-none w-full overflow-hidden text-ellipsis'>
+        <Box className='text-zinc-900 text-opacity-80 text-[12px] font-normal leading-none w-full line-clamp-2'>
           {item.desc}
         </Box>
         <Box className='flex flex-wrap gap-2'>
@@ -92,7 +92,7 @@ const agentCards = [
 
 const CommunityWindow = () => {
   return (
-    <Stack className='flex flex-col h-[calc(100vh-44px)] w-full items-center' sx={{border:'0px'}}>
+    <Stack className='flex flex-col h-[100vh] w-full items-center' sx={{ border: '0px' }}>
       <Box className='flex flex-col mt-12 mb-7 items-center'>
         <p className='text-[28px]'>Find Your Favorite Agents</p>
         <p className='mt-2 text-sm text-gray-600'>
@@ -128,7 +128,7 @@ const CommunityWindow = () => {
         </InputAdornment>}
       /> */}
 
-      <Box className='flex flex-wrap overflow-y-scroll gap-6 mx-20 my-4 max-w-7xl'>
+      <Box className='flex flex-wrap overflow-y-scroll gap-6 mx-20 max-w-7xl justify-center items-center py-6'>
         {agentCards.map((item, index) => (
           <AgentCard key={index} item={item} />
         ))}

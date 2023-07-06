@@ -68,10 +68,10 @@ const MySpaceMenu = ({
                 item.name == "Add agent"
                   ? setSidebarSelection("AddAgent")
                   : handleFocus(
-                      agentsData.filter(
-                        (item) => item.name === event.currentTarget.name
-                      )[0]
-                    )
+                    agentsData.filter(
+                      (item) => item.name === event.currentTarget.name
+                    )[0]
+                  )
               }
               name={item.name}
               className='flex h-10 items-center px-4'
