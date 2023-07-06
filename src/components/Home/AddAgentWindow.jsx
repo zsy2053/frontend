@@ -50,7 +50,6 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
   const [chips, setChips] = useState([]);
   const handleChips = (e) => {
     if (e.key === "Enter") {
-      console.log(e.target.value);
       if (chips.length < 3) {
         setChips([...chips, chipVal]);
         setChipVal("");
@@ -77,7 +76,7 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
         </div>
       </div>
       {/* form */}
-      <form className='flex w-full justify-start px-8 flex-col'>
+      <form className='flex w-full justify-start px-8 flex-col' onSubmit={(e)=>e.preventDefault()}>
         {/* App Name input */}
         <div className='flex'>
           <div className='w-[280px] text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight mr-8'>
@@ -264,9 +263,9 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
           </div>
           <div className='flex flex-col'>
             <div
-              className='flex w-[512px] h-11 px-[14px] py-[10px] border 
+              className='flex w-[512px] min-h-11 px-[14px] py-[10px] border 
             border-gray-300 rounded-lg focus:ring-2
-            focus:ring-styleupPurple items-center'
+            focus:ring-styleupPurple items-center overflow-hidden'
             >
               <div className='flex flex-wrap gap-2 mr-2'>
                 {chips.map((item, index) => (
@@ -281,6 +280,7 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
                       backgroundColor: "#F9F5FF",
                       fontSize: "14px",
                       fontWeight: "500",
+                      maxWidth: "150px",
                     }}
                   />
                 ))}
@@ -343,14 +343,14 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
         </div>
 
         <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
-          <button className='px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex'
+          <button className='px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex' type="button"
             onClick={() => setSidebarSelection('MySpace')}>
             <span className='text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight'>
               Cancel
             </span>
           </button>
 
-          <button className='px-4 py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex'>
+          <button className='px-4 py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex' type="button">
             <span className='text-white text-[14px] font-semibold leading-tight'>
               Publish
             </span>
