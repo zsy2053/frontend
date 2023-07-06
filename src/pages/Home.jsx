@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Box, Stack, Typography, Icon } from "@mui/material";
 import Sidebar from "../components/Home/Sidebar";
 import MySpaceMenu from "../components/Home/MySpaceMenu";
-import Navbar from "../components/Home/Navbar";
 import ChatWindow from "../components/Home/ChatWindow";
 import ApiPage from "../components/Home/ApiPage";
 import agentsData from "../components/Home/Agents";
@@ -13,6 +12,7 @@ import axios from "axios";
 import CommunityMenu from "../components/Home/CommunityMenu";
 import CommunityWindow from "../components/Home/CommunityWindow";
 import BuildWindow from "../components/Home/BuildWindow";
+import AddAgentWindow from "../components/Home/AddAgentWindow";
 
 const fetchCollectionData = (setCollectionList) => {
   axios({
@@ -138,9 +138,8 @@ const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
 const googleCalendarSignIn = () => {
   axios({
     method: "post",
-    url: `${
-      import.meta.env.VITE_API_URL
-    }/api/bots/authenticate_google_calendar`,
+    url: `${import.meta.env.VITE_API_URL
+      }/api/bots/authenticate_google_calendar`,
     headers: {
       "Content-Type": "application/json",
       "x-access-token": localStorage.getItem("jwt"),
@@ -519,18 +518,13 @@ function Home() {
       {addWebsiteModalActive && (
         <AddWebsiteModal setActive={setAddWebsiteModalActive} />
       )}
-      <Navbar
-        resetContext={() =>
-          resetContext(currentFocus, mapFocusContext, setChatHistory)
-        }
-      />
 
       <div className='flex flex-grow'>
         <Sidebar
           sidebarSelection={sidebarSelection}
           setSidebarSelection={setSidebarSelection}
         />
-        <div className='flex-1 flex-grow'>
+        <div className='flex-1 flex-grow justify-center flex'>
           {sidebarSelection === "MySpace" && (
             <Box className='flex w-full h-full'>
               <MySpaceMenu
@@ -585,15 +579,14 @@ function Home() {
             </Box>
           )}
           {sidebarSelection === "Community" && (
-            <Box className='flex'>
+            <Box className='flex w-full h-full'>
               <CommunityMenu />
               <CommunityWindow />
             </Box>
           )}
-          {sidebarSelection === "API Keys" && (
-            <Box className='flex'>
-              <ApiPage apiKeys={apiKeyList}/>
-            </Box>
+          {sidebarSelection === "API Keys" && <ApiPage apiKeys={apiKeyList} />}
+          {sidebarSelection === "AddAgent" && (
+            <AddAgentWindow setSidebarSelection={setSidebarSelection} />
           )}
         </div>
       </div>

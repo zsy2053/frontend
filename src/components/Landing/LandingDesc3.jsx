@@ -8,7 +8,7 @@ const LandingDesc3 = () => (
       <img src='/images/landingDesc3.png'></img>
     </div>
     <div className='flex flex-col'>
-      <div className='text-black text-[56px] font-bold leading-tight mb-[24px]'>
+      <div className='text-black text-[48px] font-bold leading-tight mb-[24px]'>
         Agent Maker.
       </div>
       <div className='max-w-[567px] text-neutral-600 text-[24px] font-medium'>

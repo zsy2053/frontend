@@ -138,3 +138,13 @@ export const aboutTeamInfo = [
     switch: "#5AC8FC",
   },
 ];
+
+export const addAgentSelectOptions = [
+  { id: "1", text: "Have Fun" },
+  { id: "2", text: "Education" },
+  { id: "3", text: "Marketing" },
+  { id: "4", text: "Shopping & Food" },
+  { id: "5", text: "Developer Tools" },
+  { id: "6", text: "Productivity" },
+  { id: "7", text: "Social" },
+]

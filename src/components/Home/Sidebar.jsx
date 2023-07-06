@@ -35,7 +35,7 @@ const data = [
 const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
     const navigate = useNavigate()
     return (
-        <div className='max-h-[calc(100vh-44px)] pt-8 flex-shrink-0 w-20 bg-white flex flex-col justify-between border-r'>
+        <div className='max-h-[100vh] pt-8 flex-shrink-0 w-20 bg-white flex flex-col justify-between border-r'>
             <div className='flex flex-col'>
                 {data.map((item, index) => (
                     <div key={index} className='flex mb-2 justify-center'>
@@ -49,7 +49,7 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
                     </div>
                 ))}
             </div>
-            <div className='flex flex-col'>
+            <div className='flex flex-col justify-center items-center'>
                 <div className='flex mb-2 justify-center'>
                     <StyledTooltip text="Settings" direction="right">
                         <button className='flex flex-col justify-center items-center'>
@@ -71,6 +71,12 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
                         </button>
                     </StyledTooltip>
                 </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="1" viewBox="0 0 48 1" fill="none" className="my-6 justify-center items-center">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M48 1H0V0H48V1Z" fill="#555555" />
+                </svg>
+                <StyledTooltip text={localStorage.getItem('user_name')} direction="right">
+                    <img src={`${localStorage.getItem('user_avatar')}`} className="rounded-full h-12 w-12 mb-6" />
+                </StyledTooltip>
             </div>
         </div>
     )

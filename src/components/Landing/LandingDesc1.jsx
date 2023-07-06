@@ -8,7 +8,7 @@ const LandingDesc1 = () => (
       <img src='/images/landingDesc1.png'></img>
     </div>
     <div className='flex flex-col'>
-      <div className='text-black text-[56px] font-bold leading-tight mb-[24px]'>
+      <div className='text-black text-[48px] font-bold leading-tight mb-[24px]'>
         One-click Generation.
       </div>
       <div className='max-w-[567px] text-neutral-600 text-[24px] font-medium'>

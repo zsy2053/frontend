@@ -18,19 +18,25 @@ const HowItWorks = () => {
         <div className='flex flex-col relative justify-center items-center w-full'>
           <div className='absolute z-0 w-[100vw]'>
             <Marquee autoFill='true' direction='left'>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
+              {[...Array(20)].map((item, index) => (
+                <div key={index + 'marquee1'}>
+                  <img src={`/images/howitworks/howItWorks (${Math.floor(Math.random() * 50) + 1}).jpg`} className="mr-6" />
+                </div>
+              ))}
             </Marquee>
             <Marquee autoFill='true' direction='right'>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
+              {[...Array(20)].map((item, index) => (
+                <div key={index + 'marquee1'}>
+                  <img src={`/images/howitworks/howItWorks (${Math.floor(Math.random() * 50) + 1}).jpg`} className="mr-6" />
+                </div>
+              ))}
             </Marquee>
             <Marquee autoFill='true' direction='left'>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
-              <div className='h-[50px] w-[50px] bg-white mr-[50px]'></div>
+              {[...Array(20)].map((item, index) => (
+                <div key={index + 'marquee1'}>
+                  <img src={`/images/howitworks/howItWorks (${Math.floor(Math.random() * 50) + 1}).jpg`} className="mr-6" />
+                </div>
+              ))}
             </Marquee>
           </div>
           <img src='/images/LaptopFrame.svg' className='z-10'></img>
