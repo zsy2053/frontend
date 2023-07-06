@@ -10,34 +10,34 @@ const UploadFilesModal = ({ setActive }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleFileUpload = (fileList) => {
-    for (let i = 0; i < fileList.length; i++) {
-      const item = fileList[i];
       const formData = new FormData();
-      formData.append("collection_content", item);
-      formData.append("collection_name", item.name.split(".")[0]);
       formData.append("collection_type", "file");
-      axios({
-        method: "post",
-        url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
-        data: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "x-access-token": localStorage.getItem("jwt"),
-          "Access-Control-Allow-Origin": "*",
-        },
+      for (let i = 0; i < fileList.length; i++) {
+        const item = fileList[i];
+        formData.append("collection_content", item);
+        formData.append("collection_name", item.name.split(".")[0]);
+      }
+    axios({
+      method: "post",
+      url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "x-access-token": localStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => {
+        setSubmitted(true);
+        console.log(res);
+        fetchCollectionData(setCollectionList);
       })
-        .then((res) => {
-          setSubmitted(true);
-          console.log(res);
-          fetchCollectionData(setCollectionList);
-        })
-        .catch((err) => {
-          window.alert("Collection create failed!");
+      .catch((err) => {
+        window.alert("Collection create failed!");
 
-          console.log(err);
-          // navigate(-1);
-        });
-    }
+        console.log(err);
+        // navigate(-1);
+      });
   };
 
   const handleDrop = (event) => {
