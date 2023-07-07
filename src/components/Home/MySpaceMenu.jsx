@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Stack } from "@mui/material";
+import { Stack, Modal } from "@mui/material";
 import { Box } from "@mui/system";
 import agentsData from "./Agents";
 
@@ -47,12 +47,17 @@ const MySpaceMenu = ({
   setSidebarSelection,
 }) => {
   const [contextMenu, setContextMenu] = React.useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const handleContextMenu = (event) => {
     event.preventDefault();
     setContextMenu({
       mouseX: event.clientX + 2,
       mouseY: event.clientY - 6,
     });
+  };
+  const handleDelete = () => {
+    setContextMenu(null);
+    setConfirmDelete(true);
   };
 
   return (
@@ -68,10 +73,10 @@ const MySpaceMenu = ({
                 item.name == "Add agent"
                   ? setSidebarSelection("AddAgent")
                   : handleFocus(
-                    agentsData.filter(
-                      (item) => item.name === event.currentTarget.name
-                    )[0]
-                  )
+                      agentsData.filter(
+                        (item) => item.name === event.currentTarget.name
+                      )[0]
+                    )
               }
               name={item.name}
               className='flex h-10 items-center px-4'
@@ -130,10 +135,35 @@ const MySpaceMenu = ({
                 : undefined
             }
           >
-            <MenuItem onClick={() => setContextMenu(null)}>Delete</MenuItem>
+            <MenuItem onClick={handleDelete}>Delete</MenuItem>
           </Menu>
         </Stack>
       </Box>
+      <Modal open={confirmDelete} onClose={() => setConfirmDelete(false)}>
+        <div className='bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[464px] rounded-xl p-6 flex flex-col items-center'>
+          <img src='/icons/attentionIcon.svg' className='self-start mb-5' />
+          <div className='w-full text-slate-700 text-[14px] font-bold leading-tight mb-2 text-start '>
+            Are you sure you want to delete this?
+          </div>
+          <div className='w-full text-neutral-600 text-[14px] font-normal leading-tight mb-12'>
+            File deleted can't be recovered, be cautious with this action.
+          </div>
+          <div className='flex w-full'>
+            <button
+              onClick={() => setConfirmDelete(false)}
+              className='flex-1 h-11 mr-3 rounded-lg border border-gray-300'
+            >
+              Cancel
+            </button>
+            <button
+              onClick={null}
+              className='flex-1 h-11 bg-rose-600 rounded-lg text-white'
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </Modal>
     </Stack>
   );
 };

@@ -119,8 +119,9 @@ const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
 const googleCalendarSignIn = () => {
   axios({
     method: "post",
-    url: `${import.meta.env.VITE_API_URL
-      }/api/bots/authenticate_google_calendar`,
+    url: `${
+      import.meta.env.VITE_API_URL
+    }/api/bots/authenticate_google_calendar`,
     headers: {
       "Content-Type": "application/json",
       "x-access-token": localStorage.getItem("jwt"),
@@ -442,6 +443,7 @@ function Home() {
   const [audioStatus, setAudioStatus] = useState("inactive");
   const [audioSrc, setAudioSrc] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hideMenu, setHideMenu] = useState(false);
   const audioProps = {
     audioType: "audio/wav",
     // audioOptions: {sampleRate: 30000}, // 设置输出音频采样率
@@ -555,7 +557,8 @@ function Home() {
           )}
           {sidebarSelection === "Community" && (
             <Box className='flex w-full h-full'>
-              <CommunityMenu />
+              {!hideMenu ? <CommunityMenu setHide={setHideMenu} /> : <></>}
+
               <CommunityWindow />
             </Box>
           )}
