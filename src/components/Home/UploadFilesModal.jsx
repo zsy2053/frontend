@@ -33,8 +33,7 @@ const UploadFilesModal = ({ setActive }) => {
         fetchCollectionData(setCollectionList);
       })
       .catch((err) => {
-        window.alert("Collection create failed!");
-
+        fetchCollectionData(setCollectionList);
         console.log(err);
         // navigate(-1);
       });
