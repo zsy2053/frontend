@@ -33,7 +33,7 @@ const googleLogin = (idToken, navigate) => {
         localStorage.setItem('user_name', userDetails['name']);
         localStorage.setItem('user_avatar', userDetails['picture']);
         if (localStorage.getItem('jwt')) {
-            navigate("/home");
+            navigate("/app");
         }
     }).catch((err) => {
         window.alert(err.message);

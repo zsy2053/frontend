@@ -3,7 +3,7 @@ import { Box, Stack } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import axios from "axios";
-
+import CustomButton from "./CustomButton";
 const UploadFilesModal = ({ setActive }) => {
   const [fileList, setFileList] = useState([]);
   const [dragging, setDragging] = useState(false);
@@ -76,9 +76,8 @@ const UploadFilesModal = ({ setActive }) => {
             </p>
             <label
               htmlFor='file'
-              className={`flex flex-col justify-center items-center h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${
-                dragging && "border-styleupPurple bg-gray-100"
-              }`}
+              className={`flex flex-col justify-center items-center h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${dragging && "border-styleupPurple bg-gray-100"
+                }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={() => setDragging(false)}
@@ -91,6 +90,7 @@ const UploadFilesModal = ({ setActive }) => {
                 }
                 id='file'
                 name='file'
+                key={fileList.length > 0 && fileList[0].name} // to reset input. otherwise, same file cannot be uploaded again
                 hidden
                 multiple
               />
@@ -127,8 +127,8 @@ const UploadFilesModal = ({ setActive }) => {
                           {item.name}
                         </p>
                         <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
-                          {item.size >= 102400
-                            ? Math.ceil(item.size / 10240) + "MB"
+                          {item.size >= 1000024
+                            ? Math.ceil(item.size / 1000024) + "MB"
                             : Math.ceil(item.size / 1024) + "KB"}
                         </span>
                       </div>
@@ -154,19 +154,9 @@ const UploadFilesModal = ({ setActive }) => {
                 Free if your upload file is less than 20000 characters.
               </span>
             </div>
-            <Box className='flex justify-stretch items-stretch'>
-              <button
-                onClick={() => setActive(false)}
-                className='flex flex-auto justify-center items-center h-11 mr-3 rounded-lg border border-gray-300'
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => handleFileUpload(fileList)}
-                className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg text-white'
-              >
-                Upload
-              </button>
+            <Box className='flex justify-stretch items-stretch gap-2'>
+              <CustomButton onClick={() => setActive(false)} title="Cancel" size="expand" type="sub" />
+              <CustomButton onClick={() => handleFileUpload(fileList)} title="Upload" size="expand" />
             </Box>
           </Stack>
         ) : (

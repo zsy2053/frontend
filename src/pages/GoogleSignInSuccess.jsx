@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react'
-import axios  from 'axios';
+import { useEffect, useState } from 'react'
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const getGoogleCred = (code, setStatus, navigate) => {
@@ -10,12 +10,12 @@ const getGoogleCred = (code, setStatus, navigate) => {
         console.log(res);
         localStorage.setItem('googleCred', res.data.data);
         setStatus(true);
-        navigate("/home");
+        navigate("/app");
     }).catch((err) => {
         window.alert(err.message);
         setStatus(false);
         console.log(err);
-       // navigate(-1);
+        // navigate(-1);
     });
 }
 
@@ -36,7 +36,7 @@ function GoogleSignInSuccess() {
         const code = urlParams.get('code');
         console.log(code);
         getGoogleCred(code, setStatus, navigate);
-      }, []);
+    }, []);
 
     return (
         <div>

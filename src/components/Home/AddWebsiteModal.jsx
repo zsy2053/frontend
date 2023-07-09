@@ -3,6 +3,7 @@ import { Box, Stack } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import Input from "@mui/material/Input";
 import axios from "axios";
+import CustomButton from "./CustomButton";
 
 const AddWebsiteModal = ({ setActive }) => {
   const [websiteUrl, setWebsiteUrl] = useState("");
@@ -88,37 +89,28 @@ const AddWebsiteModal = ({ setActive }) => {
                   onChange={(event) => setWebsiteUrl(event.target.value)}
                 />
               </Box>
-
-              <button className='flex w-40 justify-center items-center h-11 bg-styleupPurple rounded-lg text-white'>
-                Fetch
-              </button>
+              <CustomButton title="Fetch" size="expand" />
             </Box>
             <p className='text-lg mb-2'>Crawling Levels</p>
             <Box className='flex justify-between gap-6 mb-6'>
               <button
                 onClick={() => setCrawlLevel(1)}
                 className={
-                  "h-11 rounded-lg border border-gray-300 flex-1" +
-                  (crawlLevel == 1 ? " bg-lime-400" : "")
-                }
+                  `h-11 rounded-lg border border-gray-300 flex-auto ${crawlLevel == 1 ? "bg-lime-400 hover:bg-lime-500" : "bg-white hover:bg-gray-100"} transition`}
               >
                 Level 1
               </button>
               <button
                 onClick={() => setCrawlLevel(2)}
                 className={
-                  "h-11 rounded-lg border border-gray-300 flex-1" +
-                  (crawlLevel == 2 ? " bg-lime-400" : "")
-                }
+                  `h-11 rounded-lg border border-gray-300 flex-auto ${crawlLevel == 2 ? " bg-lime-400 hover:bg-lime-500" : "bg-white hover:bg-gray-100"} transition`}
               >
                 Level 2
               </button>
               <button
                 onClick={() => setCrawlLevel(3)}
                 className={
-                  "h-11 rounded-lg border border-gray-300 flex-1" +
-                  (crawlLevel == 3 ? " bg-lime-400" : "")
-                }
+                  `h-11 rounded-lg border border-gray-300 flex-auto ${crawlLevel == 3 ? " bg-lime-400 hover:bg-lime-500" : "bg-white hover:bg-gray-100"} transition`}
               >
                 Level 3
               </button>
@@ -129,9 +121,8 @@ const AddWebsiteModal = ({ setActive }) => {
               files on the website).
             </p>
             <div
-              className={`flex flex-col gap-5 mb-5 justify-start max-h-64 ${
-                includedLinks.length > 4 && "overflow-y-scroll"
-              }`}
+              className={`flex flex-col gap-5 mb-5 justify-start max-h-64 ${includedLinks.length > 4 && "overflow-y-scroll"
+                }`}
             >
               {includedLinks.map((link) => (
                 <div
@@ -171,19 +162,9 @@ const AddWebsiteModal = ({ setActive }) => {
               Add more links
             </button>
 
-            <Box className='flex justify-stretch items-stretch'>
-              <button
-                onClick={() => setActive(false)}
-                className='flex flex-auto justify-center items-center h-11 mr-3 rounded-lg border border-gray-300'
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => handleLinkCreate(websiteUrl, crawlLevel)}
-                className='flex flex-auto justify-center items-center h-11 bg-styleupPurple rounded-lg text-white'
-              >
-                Create
-              </button>
+            <Box className='flex justify-stretch items-stretch gap-2'>
+              <CustomButton onClick={() => setActive(false)} title="Cancel" size="expand" type="sub" />
+              <CustomButton onClick={() => handleLinkCreate(websiteUrl, crawlLevel)} title="Create" size="expand" />
             </Box>
           </Stack>
         ) : (

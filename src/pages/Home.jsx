@@ -33,7 +33,7 @@ const fetchCollectionData = (setCollectionList) => {
               <img src='/icons/Icon.svg' className='place-self-center' />
             </Box>
           ),
-          chatWindowIcon: "/icons/ChatWithDataFile.svg",
+          chatWindowIcon: "/icons/Icon.svg",
         });
       }
       setCollectionList(resData);
@@ -461,6 +461,7 @@ function Home() {
   const [audioStatus, setAudioStatus] = useState("inactive");
   const [audioSrc, setAudioSrc] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [hideMenu, setHideMenu] = useState(false);
   const audioProps = {
     audioType: "audio/wav",
     // audioOptions: {sampleRate: 30000}, // 设置输出音频采样率
@@ -580,7 +581,8 @@ function Home() {
           )}
           {sidebarSelection === "Community" && (
             <Box className='flex w-full h-full'>
-              <CommunityMenu />
+              {!hideMenu ? <CommunityMenu setHide={setHideMenu} /> : <></>}
+
               <CommunityWindow />
             </Box>
           )}

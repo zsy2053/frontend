@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Stack, Box } from '@mui/system';
 import Divider from '@mui/material/Divider';
-
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 const pinnedCategories = [
     { name: "All", icon: '/icons/House.svg' },
     { name: "Popular", icon: '/icons/Fire.svg' }
@@ -25,16 +25,19 @@ const categories = [
     { name: "Design", icon: '/icons/ArtistPalette.svg' }
 ];
 
-const CommunityMenu = () => {
+const CommunityMenu = ({ setHide }) => {
     return (
         <Stack className='w-72 py-8 px-4 bg-white border-r flex-shrink-0'>
-            <Box className='mb-4 text-menuText'>
-                Categories
+            <Box className='mb-4 text-menuText flex justify-between'>
+                <span >Categories</span>
+                <div className='rounded-md hover:bg-[#F9FAFB] w-6 h-6 flex justify-center items-center p-2 hover:cursor-pointer' onClick={() => setHide(true)}>
+                    <KeyboardDoubleArrowLeftIcon sx={{ color: "#939393" }} />
+                </div>
             </Box>
             <Box className='mb-1 text-menuText'>
                 {pinnedCategories.map((item, index) => (
                     <div key={index}>
-                        <button name={item.name} className='flex h-10 items-center'>
+                        <button name={item.name} className='flex h-10 w-full items-center hover:bg-zinc-100 rounded'>
                             <img className='mx-2' src={item.icon} />
                             <p className='text-menuText'>{item.name}</p>
                         </button>
@@ -45,7 +48,7 @@ const CommunityMenu = () => {
             <Box className='mt-1 text-menuText'>
                 {categories.map((item, index) => (
                     <div key={index}>
-                        <button name={item.name} className='flex h-10 items-center'>
+                        <button name={item.name} className='flex h-10 w-full items-center hover:bg-zinc-100 rounded'>
                             <img className='mx-2' src={item.icon} />
                             <p className='text-menuText'>{item.name}</p>
                         </button>
