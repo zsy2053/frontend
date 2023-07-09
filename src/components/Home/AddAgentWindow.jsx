@@ -13,7 +13,7 @@ import "react-quill/dist/quill.snow.css";
 import Modal from "@mui/material/Modal";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CustomButton from "./CustomButton";
-const AddAgentWindow = ({ setSidebarSelection }) => {
+const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollectionList, currentFocus }) => {
   const [coverImg, setCoverImg] = useState("");
   const [dragging, setDragging] = useState(false);
   const handleDrop = (event) => {
@@ -264,7 +264,7 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
           </div>
           <div className='flex flex-col'>
             <div
-              className='flex w-[512px] min-h-11 px-[14px] py-[10px] border 
+              className='flex w-[512px] min-h-11 px-[14px] py-[10px] border
             border-gray-300 rounded-lg focus:ring-2
             focus:ring-styleupPurple items-center overflow-hidden'
             >
@@ -374,7 +374,7 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
                     Cancel
                   </button>
                   <button
-                    onClick={() => setModalState(1)}
+                    onClick={() => handleCollectionDelete(currentFocus.name, setCollectionList)}
                     className='flex-1 h-11 bg-styleupPurple rounded-lg text-white'
                   >
                     Confirm

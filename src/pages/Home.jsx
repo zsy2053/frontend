@@ -420,7 +420,6 @@ const addMyChat = (setChatHistory, chatMessage) => {
 };
 
 const mapFocusContext = (focus) => {
-  console.log(focus);
   switch (focus["name"]) {
     case "Calendar agent":
       return "calendar_context";
@@ -532,8 +531,8 @@ function Home() {
                 collectionList={collectionList}
                 handleState={handleState}
                 setSidebarSelection={setSidebarSelection}
-                setCollectionList={setCollectionList}
                 handleCollectionDelete={deleteCollection}
+                setCollectionList={setCollectionList}
                 handleFocus={(focus) => {
                   const focusType = mapFocusContext(focus);
                   if (focusType !== "context") {
@@ -544,6 +543,7 @@ function Home() {
                   setCurrentFocus(focus);
                 }}
                 setActiveAgent={setCurrentFocus}
+                currentFocus={currentFocus}
               />
               <ChatWindow
                 chatTitle={currentFocus.name}
@@ -588,7 +588,13 @@ function Home() {
           )}
           {sidebarSelection === "API Keys" && <ApiPage apiKeys={apiKeyList} />}
           {sidebarSelection === "AddAgent" && (
-            <AddAgentWindow setSidebarSelection={setSidebarSelection} />
+            <AddAgentWindow
+              setSidebarSelection={setSidebarSelection}
+              handleCollectionDelete={deleteCollection}
+              setCollectionList={setCollectionList}
+              currentFocus={currentFocus}
+              setCurrentFocus={setCurrentFocus}
+            />
           )}
         </div>
       </div>
