@@ -38,7 +38,7 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
         <div className='max-h-[100vh] pt-8 flex-shrink-0 w-20 bg-white flex flex-col justify-between border-r'>
             <div className='flex flex-col'>
                 {data.map((item, index) => (
-                    <div key={index} className='flex mb-2 justify-center'>
+                    <div key={index} className='flex mb-2 justify-center '>
                         <StyledTooltip text={item.name} direction="right">
                             <button onClick={() => setSidebarSelection(item.name)}
                                 className='flex flex-col justify-center items-center'>

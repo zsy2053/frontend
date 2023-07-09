@@ -174,21 +174,21 @@ const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatM
                         {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[0]);
-                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#f2eefb]'>
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#F2EEFB] hover:border-[#F2EEFB]'>
                                 {chatSuggestions[0]}
                             </button>
                         }
                         {!isLoading && chatSuggestions && chatSuggestions.length > 1 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[1]);
-                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#f2eefb]'>
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#F2EEFB] hover:border-[#F2EEFB]'>
                                 {chatSuggestions[1]}
                             </button>
                         }
                         {!isLoading && chatSuggestions && chatSuggestions.length > 2 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[2]);
-                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#f2eefb]'>
+                            }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#F2EEFB] hover:border-[#F2EEFB]'>
                                 {chatSuggestions[2]}
                             </button>
                         }

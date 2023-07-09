@@ -4,7 +4,7 @@ import StyledTooltip from "./StyledTooltip";
 import { Modal, Popper, Tooltip, ClickAwayListener } from "@mui/material";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
+import CustomButton from "./CustomButton";
 const Navbar = ({ resetContext }) => {
   const [open, setOpen] = React.useState(false);
   const [anchor, setAnchor] = React.useState(null);
@@ -47,20 +47,9 @@ const Navbar = ({ resetContext }) => {
                   <img src='/icons/homeLinkBtn.svg' />
                 </div>
 
-                <div className='w-full justify-start items-start gap-3 inline-flex'>
-                  <button
-                    className='text-slate-700 text-[16px] font-semibold leading-normal flex-1 h-11 px-[18px] py-2.5 bg-white rounded-lg
-                  shadow border border-gray-300 flex items-center justify-center'
-                    onClick={() => setOpen(false)}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className='text-white text-[16px] font-semibold leading-normal
-                  flex-1 h-11 px-[18px] py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 flex items-center justify-center'
-                  >
-                    Copy Link
-                  </button>
+                <div className='w-full justify-start items-start gap-2 inline-flex'>
+                  <CustomButton title="Cancel" size="expand" type="sub" onClick={() => setOpen(false)} />
+                  <CustomButton title="Copy Link" size="expand" />
                 </div>
               </Box>
             </Modal>

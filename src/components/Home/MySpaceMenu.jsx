@@ -73,13 +73,13 @@ const MySpaceMenu = ({
                 item.name == "Add agent"
                   ? setSidebarSelection("AddAgent")
                   : handleFocus(
-                      agentsData.filter(
-                        (item) => item.name === event.currentTarget.name
-                      )[0]
-                    )
+                    agentsData.filter(
+                      (item) => item.name === event.currentTarget.name
+                    )[0]
+                  )
               }
               name={item.name}
-              className='flex h-10 items-center px-4'
+              className='flex h-10 items-center px-4 hover:bg-zinc-100 rounded'
             >
               <span className='mr-2'>{item.menuIcon}</span>
               <p className='text-menuText overflow-hidden text-ellipsis'>
@@ -107,7 +107,7 @@ const MySpaceMenu = ({
           ))}
           {collectionList.map((item, index) => (
             <button
-              className='flex h-10 items-center text-start px-4 hover:bg-zinc-300'
+              className='flex h-10 items-center text-start px-4 hover:bg-zinc-100 rounded'
               onClick={(event) =>
                 handleFocus(
                   collectionList.filter(
@@ -120,7 +120,7 @@ const MySpaceMenu = ({
               key={index}
             >
               <span className='mr-2'>{item.icon}</span>
-              <p className='text-menuText flex-1 overflow-hidden text-ellipsis'>
+              <p className='text-menuText flex-1 overflow-hidden text-ellipsis line-clamp-1'>
                 {item.name}
               </p>
             </button>

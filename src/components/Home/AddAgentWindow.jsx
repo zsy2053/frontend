@@ -12,7 +12,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Modal from "@mui/material/Modal";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-
+import CustomButton from "./CustomButton";
 const AddAgentWindow = ({ setSidebarSelection }) => {
   const [coverImg, setCoverImg] = useState("");
   const [dragging, setDragging] = useState(false);
@@ -113,9 +113,8 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
           <div className='flex flex-col'>
             <label
               htmlFor='file'
-              className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${
-                dragging && "border-styleupPurple bg-gray-100"
-              }`}
+              className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${dragging && "border-styleupPurple bg-gray-100"
+                }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={() => setDragging(false)}
@@ -345,25 +344,8 @@ const AddAgentWindow = ({ setSidebarSelection }) => {
         </div>
         {/* buttons */}
         <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
-          <button
-            className='px-4 py-2.5 bg-white rounded-lg shadow border border-gray-300 justify-center items-center gap-2 flex'
-            type='button'
-            onClick={() => setSidebarSelection("MySpace")}
-          >
-            <span className='text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight'>
-              Cancel
-            </span>
-          </button>
-
-          <button
-            className='px-4 py-2.5 bg-violet-500 rounded-lg shadow border border-violet-500 justify-center items-center gap-2 flex'
-            type='button'
-            onClick={handlePublish}
-          >
-            <span className='text-white text-[14px] font-semibold leading-tight'>
-              Publish
-            </span>
-          </button>
+          <CustomButton onClick={() => setSidebarSelection("MySpace")} title='Cancel' type='sub' />
+          <CustomButton onClick={handlePublish} title='Publish' type='main' />
         </div>
 
         <Modal

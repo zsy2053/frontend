@@ -33,7 +33,7 @@ const fetchCollectionData = (setCollectionList) => {
               <img src='/icons/Icon.svg' className='place-self-center' />
             </Box>
           ),
-          chatWindowIcon: "/icons/ChatWithDataFile.svg",
+          chatWindowIcon: "/icons/Icon.svg",
         });
       }
       setCollectionList(resData);
@@ -119,9 +119,8 @@ const fetchChatHistory = (setChatHistory, chat_type, file_name = null) => {
 const googleCalendarSignIn = () => {
   axios({
     method: "post",
-    url: `${
-      import.meta.env.VITE_API_URL
-    }/api/bots/authenticate_google_calendar`,
+    url: `${import.meta.env.VITE_API_URL
+      }/api/bots/authenticate_google_calendar`,
     headers: {
       "Content-Type": "application/json",
       "x-access-token": localStorage.getItem("jwt"),
