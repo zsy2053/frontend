@@ -15,6 +15,7 @@ import {
 } from "./pages";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { StyleUpProvider } from "./context/StyleUpContext";
+import Pricing from "./pages/Pricing";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
     path: "/how",
     element: <HowItWorks />,
   },
+  {
+    path: '/pricing',
+    element: <Pricing />
+  }
 ]);
 
 const App = () => {

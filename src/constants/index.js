@@ -147,4 +147,38 @@ export const addAgentSelectOptions = [
   { id: "5", text: "Developer Tools" },
   { id: "6", text: "Productivity" },
   { id: "7", text: "Social" },
-]
+];
+export const pricingMonthlyOptions = [
+  {
+    popular: true,
+    price: 19,
+    title: "Starter",
+    desc: "Automation plus enterprise-grade features.",
+    features: ["Multi-step Zap", "3 Premium Apps", "2 Users Team"],
+  },
+  {
+    popular: false,
+    price: 39,
+    title: "Pro",
+    desc: "Unleash the power of automation.",
+    features: [
+      "Multi-step Zap",
+      "Unlimited Premium",
+      "50 Users Team",
+      "Shared Workspace",
+    ],
+  },
+  {
+    popular: false,
+    price: 89,
+    title: "Team:3~7",
+    desc: "Advanced tools to take your work to the next level.",
+
+    features: [
+      "Multi-step Zap",
+      "Unlimited Premium Apps",
+      "Unlimited Users Team",
+      "Advanced Admin",
+    ],
+  },
+];
