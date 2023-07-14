@@ -8,14 +8,20 @@ const LandingDesc3 = () => (
       <img src='/images/landingDesc3.png'></img>
     </div>
     <div className='flex flex-col'>
-      <div className='text-black text-[48px] font-bold leading-tight mb-[24px]'>
+      <div className='text-black xs:text-[48px] text-2xl font-bold leading-tight mb-[24px]'>
         Agent Maker.
       </div>
-      <div className='max-w-[567px] text-neutral-600 text-[24px] font-medium'>
+      <div className='max-w-[567px] text-neutral-600 xs:text-[24px] text-base font-medium mb-5'>
         Our platform enables everyone to create AI agents with just a few
         clicks, and we offer unlimited use cases. Our platform is easy to use
         and brings ideas to life anytime, anywhere.
       </div>
+      <a
+        href='/#'
+        className='text-violet-500 xs:text-2xl text-base font-semibold'
+      >
+        Explore the Agents →
+      </a>
     </div>
   </section>
 );

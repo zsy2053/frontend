@@ -1,9 +1,9 @@
 import React from "react";
 import { footerLinks, footerContact } from "../../constants";
-const LandingFooter = () => {
+const LandingFooter = ({ variant = false }) => {
   return (
-    <div className='bg-footerBlack'>
-      <div className='xl:max-w-[1920px] flex justify-center px-16 sm:flex-row flex-col mx-auto'>
+    <div className={`${variant ? "bg-transparent" : "bg-black"}`}>
+      <div className='xl:max-w-[1920px] flex justify-center xs:px-16 px-4 sm:flex-row flex-col mx-auto relative z-10'>
         <div className=' w-full sm:h-52 h-44 flex justify-between items-center'>
           <img alt='StyleUp Logo Small' src='/images/logoFooter.svg'></img>
           <div className='justify-end items-center flex sm:hidden space-x-[20px]'>
@@ -32,6 +32,9 @@ const LandingFooter = () => {
           © Copyright 2023 StyleUp
         </span>
       </div>
+      {variant && (
+        <div className='bg-[url("/images/wave.svg")] absolute -top-24 w-[200%] h-[200%]'></div>
+      )}
     </div>
   );
 };
