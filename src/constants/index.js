@@ -9,8 +9,8 @@ export const landingNavLinks = [
   },
 ];
 
-export const styleUpCollection = "test12";
-export const styleUpAPIKey = "Q_3XsFeDRgZkYCMSElIF8zdSlUlKRUau3WnBGjTG-D8";
+export const styleUpCollection = "Introduction";
+export const styleUpAPIKey = "E7M4Oxgk7aKuRC2V-wx5MbzqfYc7Fr7YVQgb_cmoR7A";
 
 export const footerContact = "Contact: bella@styleup.fun";
 export const footerLinks = [
