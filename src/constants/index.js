@@ -12,7 +12,7 @@ export const landingNavLinks = [
 export const styleUpCollection = "test12";
 export const styleUpAPIKey = "Q_3XsFeDRgZkYCMSElIF8zdSlUlKRUau3WnBGjTG-D8";
 
-export const footerContact = "Contact: support@styleup.fun";
+export const footerContact = "Contact: bella@styleup.fun";
 export const footerLinks = [
   { link: "/#", title: "Privacy Policy", id: "14" },
   { link: "/#", title: "Terms of Service", id: "15" },
@@ -40,15 +40,18 @@ export const chatbotTipsOptions = [
 export const landingSectionText = [
   {
     title: "Build in minutes",
-    text: "Check out the drag-and-drop design system to build interactive experiences, With the No-Code App Builder, seize the opportunity to become an active participant in this technological revolution.",
+    text: "With the No-Code App Builder, seize the opportunity to become an active participant in this technological revolution.",
+    image: "/images/howitworks/hiwLightbulb.svg",
   },
   {
     title: "Share and earn",
     text: "Rapidly prototype, iterate, and deploy your AI apps, accelerating your path from idea to impact.",
+    image: "/images/howitworks/hiwDiamond.svg",
   },
   {
     title: "Free up time",
-    text: "You free up time to focus on more crucial, strategic aspects of life or work. Let your AI agents handle the tasks, while you handle the innovation.",
+    text: "Free up time to focus on crucial aspects of life or work. Let AI agents handle tasks while you handle innovation.",
+    image: "/images/howitworks/hiwRobot.svg",
   },
 ];
 
@@ -111,19 +114,19 @@ export const aboutTeamInfo = [
     desc: "Deloitte, Loblaw Companies, BrainStation, Lifelong learner.",
     switch: "#FF8DAE",
   },
-  {
-    image: "/images/victor.png",
-    image1: "/images/v1.png",
-    image2: "/images/v2.png",
-    image3: "/images/v3.png",
-    linkedIn: "https://www.google.com",
-    name: "Victor Zhu",
-    role: "CMO",
-    hashtags: "#Influencer #Writer #Marathon",
-    university: "lowa State University",
-    desc: "Enovix, Battery Engineer, Bilibili Host.",
-    switch: "#FBBA0E",
-  },
+  // {
+  //   image: "/images/victor.png",
+  //   image1: "/images/v1.png",
+  //   image2: "/images/v2.png",
+  //   image3: "/images/v3.png",
+  //   linkedIn: "https://www.google.com",
+  //   name: "Victor Zhu",
+  //   role: "CMO",
+  //   hashtags: "#Influencer #Writer #Marathon",
+  //   university: "lowa State University",
+  //   desc: "Enovix, Battery Engineer, Bilibili Host.",
+  //   switch: "#FBBA0E",
+  // },
   {
     image: "/images/raymond.png",
     image1: "/images/r1.png",
