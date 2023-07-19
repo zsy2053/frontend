@@ -154,15 +154,8 @@ const HowItWorks = () => {
           />
         </div>
       </div>
-      <div
-        className='w-full relative'
-      >
-        <LandingFooter variant/>
-        <button className='absolute -top-4 left-4 xs:w-[284px] w-[135px] xs:h-16 h-[35px] bg-black rounded-[32px]'>
-          <span className='text-center text-white xs:text-2xl font-medium'>
-            Start Free ✦
-          </span>
-        </button>
+      <div className='w-full relative'>
+        <LandingFooter variant />
       </div>
       <LandingChatbot />
     </div>

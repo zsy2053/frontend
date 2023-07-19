@@ -3,27 +3,42 @@ import React from "react";
 const AboutCore = () => (
   <section
     id='core'
-    className={`flex justify-center items-center w-full h-full text-black`}
+    className={`justify-center items-center w-full h-full text-black`}
   >
-    <div className='w-full h-full'>
-      <h1 className='font-semibold text-headerGray text-[56px]'>
-        Core values.
+    <div className='flex flex-col items-center mb-[100px]'>
+      <h1 className='text-zinc-900 text-[56px] font-semibold font-playfair'>
+        Core Values
       </h1>
-      <span className='font-semibold text-[56px]'>
-        Expressed in everything.
+      <span className='text-zinc-900 text-[32px] font-normal'>
+        Embedded in everything we do.
       </span>
     </div>
-    <div className='grid grid-rows-3 border-2 divide-y-2 h-full min-w-[322px]'>
-      <div className='m-auto'>
-        <img></img>
+    <div className='flex justify-center gap-40'>
+      <div className='w-[380px] flex-col justify-start items-center gap-9 inline-flex'>
+        <img
+          src='/icons/aboutThink.svg'
+          className='w-[100px] h-[100px] bg-fuchsia-100 bg-opacity-60 rounded-[100px]'
+        />
+        <span className='text-center text-zinc-900 text-[41px] font-medium leading-[44px]'>
+          Think Big
+        </span>
       </div>
-      <div>
-        <img className='object-fill w-full h-full'></img>
+      <div className='w-[380px] flex-col justify-start items-center gap-9 inline-flex'>
+        <img
+          src='/icons/aboutMove.svg'
+          className='w-[100px] h-[100px] bg-fuchsia-100 bg-opacity-60 rounded-[100px]'
+        />
+        <span className='text-center text-zinc-900 text-[41px] font-medium leading-[44px]'>
+          Move Fast & Iterate
+        </span>
       </div>
-      <div className='px-16 pt-8 flex flex-col'>
-        <span className='font-bold text-[18px] leading-[20px]'>AUG 2021</span>
-        <span className='font-bold text-[28px]'>
-          Our globe icon, logo and branding are finalized.
+      <div className='w-[380px] flex-col justify-start items-center gap-9 inline-flex'>
+        <img
+          src='/icons/aboutFocus.svg'
+          className='w-[100px] h-[100px] bg-fuchsia-100 bg-opacity-60 rounded-[100px]'
+        />
+        <span className='text-zinc-900 text-[41px] font-medium leading-[38px]'>
+          User Focused
         </span>
       </div>
     </div>

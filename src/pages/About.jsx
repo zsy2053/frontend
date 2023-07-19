@@ -41,14 +41,14 @@ const About = () => {
         </div>
       </div>
       <div className='mx-52 mt-64 flex justify-center items-center'>
-        <div className={`w-full h-screen xl:max-w-[1920px]`}>
+        <div className={`w-full  xl:max-w-[1920px]`}>
           <AboutCore />
         </div>
       </div>
 
       {/* footer */}
-      <div className='w-full'>
-        <LandingFooter />
+      <div className='w-full relative mt-60'>
+        <LandingFooter variant/>
       </div>
 
       <LandingChatbot />

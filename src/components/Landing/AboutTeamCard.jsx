@@ -72,14 +72,24 @@ const AboutTeamCard = ({ info, variant = false }) => {
         <div className='backface-hidden absolute inset-0 w-full h-full flex flex-col transition-all duration-100 delay-200'>
           <img src={info.image} height={"100%"} />
           {variant ? (
-            <div className='absolute bottom-[10px] right-0'>
-              <Switch
-                slots={{
-                  root: Root,
-                }}
-                checked={checked}
-                onClick={() => setChecked((prev) => !prev)}
-              />
+            <div className='w-full py-6 flex flex-col'>
+              <div className='text-zinc-900 text-[28px] font-medium'>
+                {info.name}
+              </div>
+              <div className='flex items-center relative'>
+                <div className='w-[360px] text-neutral-600 text-[20px] font-normal leading-relaxed tracking-wide'>
+                  {info.role}
+                </div>
+                <div className='absolute bottom-[10px] right-0'>
+                  <Switch
+                    slots={{
+                      root: Root,
+                    }}
+                    checked={checked}
+                    onClick={() => setChecked((prev) => !prev)}
+                  />
+                </div>
+              </div>
             </div>
           ) : (
             <div className='w-full py-6 flex flex-col'>

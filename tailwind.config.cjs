@@ -34,6 +34,7 @@ module.exports = {
       },
       fontFamily: {
         inter: ["Inter"],
+        playfair: ["Playfair Display"],
       },
       animation: {
         typing: "typing 1.2s steps(11), blink 1s steps(2) infinite",
@@ -49,7 +50,7 @@ module.exports = {
           to: { "border-right-color": "black" },
         },
         wave: {
-            to: { "transform": "rotate(360deg)" },
+          to: { transform: "rotate(360deg)" },
         },
       },
       boxShadow: {

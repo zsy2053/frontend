@@ -3,12 +3,12 @@ import AboutTeamCard from "./AboutTeamCard";
 import { aboutTeamInfo } from "../../constants";
 
 const AboutCEO = () => (
-  <section id='ceo' className={`flex items-start w-full h-full text-black`}>
+  <section id='ceo' className={`flex  w-full h-full text-black items-center`}>
     <div className='max-w-[552px] max-h-[790px] w-full h-full rounded-[40px] mr-52'>
       <AboutTeamCard info={aboutTeamInfo[0]} variant/>
     </div>
     <div className='flex flex-col'>
-      <h1 className='font-semibold text-[56px] leading-[68px] mb-24'>
+      <h1 className='font-semibold text-[56px] leading-[68px] mb-24 tracking-wide font-playfair'>
         "Automate all you want"
       </h1>
       <span className='font-medium text-[31px] leading-[38px] mb-16'>

@@ -35,6 +35,14 @@ const LandingFooter = ({ variant = false }) => {
       {variant && (
         <div className='bg-[url("/images/wave.svg")] bg-no-repeat md:bg-auto bg-cover md:bg-left bg-center absolute -top-24 w-[200%] h-[200%]'></div>
       )}
+
+      {variant && (
+        <button className='absolute md:-top-4 xs:-top-20 -top-20 left-8 xs:w-[284px] w-[135px] xs:h-16 h-[35px] bg-black rounded-[32px]'>
+          <span className='text-center text-white xs:text-2xl font-medium'>
+            Start Free ✦
+          </span>
+        </button>
+      )}
     </div>
   );
 };
