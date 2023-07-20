@@ -559,6 +559,10 @@ function Home() {
                 chatMessage={chatMessage}
                 googleCalendarSignIn={googleCalendarSignIn}
                 audioStatus={audioStatus}
+                resetContext={resetContext}
+                currentFocus={currentFocus}
+                mapFocusContext={mapFocusContext}
+                setChatHistory={setChatHistory}
                 setAudioStatus={setAudioStatus}
                 audioProps={audioProps}
                 isLoading={isLoading}

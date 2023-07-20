@@ -134,7 +134,7 @@ const getDefaultMsg = (chatTitle, index) => {
     return ""
 }
 
-const ChatWindow = ({ chatTitle, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
+const ChatWindow = ({ chatTitle, resetContext, currentFocus, mapFocusContext, setChatHistory, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
