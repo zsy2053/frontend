@@ -4,6 +4,7 @@ import { Grow, Fade } from "@mui/material";
 import EAButton from "./EAButton.jsx";
 import CircularProgress from "@mui/material/CircularProgress";
 import { StyleUpContext } from "../../context/StyleUpContext.jsx";
+import { Link, useNavigate } from "react-router-dom";
 import {
   chatbotTipsOptions,
   styleUpCollection,
@@ -47,6 +48,7 @@ const LandingChatbot = () => {
   const useStyleUp = useContext(StyleUpContext);
   const [open, setOpen] = useState(false);
   const [chatbotTips, setChatbotTips] = useState(false);
+  const navigate = useNavigate();
   const useExampleChat = false;
   return (
     // Icon
@@ -313,6 +315,7 @@ const LandingChatbot = () => {
               <EAButton
                 type='button'
                 name={"Get Started"}
+                onClick={() => navigate("/signin")}
                 className={`w-full h-[48px] overflow-visible mt-72`}
               ></EAButton>
             </div>

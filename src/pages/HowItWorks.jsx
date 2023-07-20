@@ -8,11 +8,13 @@ import {
   LandingDesc4,
   LandingChatbot,
 } from "../components";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
 import Marquee from "react-fast-marquee";
 import { InlineWidget } from "react-calendly";
 import { landingSectionText } from "../constants";
 const HowItWorks = () => {
+  const navigate = useNavigate();
   return (
     <div className=' bg-white h-full w-full overflow-hidden'>
       <div className={`${styles.paddingX} flex justify-center`}>
@@ -34,7 +36,7 @@ const HowItWorks = () => {
             <h1 class='h-8 text-center text-zinc-900 text-xl font-medium overflow-hidden whitespace-nowrap animate-typing border-r-4 border-r-black transition-none ss:flex hidden'>
               styleup.fun
             </h1>
-            <button className='w-[135px] h-[35px] px-2 bg-stone-950 rounded-[32px] self-center'>
+            <button className='w-[135px] h-[35px] px-2 bg-stone-950 rounded-[32px] self-center' onClick={() => navigate("/signin")}>
               <span className='text-center text-white text-base font-medium'>
                 Start Free ✦
               </span>

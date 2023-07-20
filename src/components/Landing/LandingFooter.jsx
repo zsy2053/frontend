@@ -1,6 +1,8 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { footerLinks, footerContact } from "../../constants";
 const LandingFooter = ({ variant = false }) => {
+  const navigate = useNavigate();
   return (
     <div className={`${variant ? "bg-transparent" : "bg-black"} text-white`}>
       <div className='xl:max-w-[1920px] flex justify-center xs:px-16 px-4 sm:flex-row flex-col mx-auto relative z-10'>
@@ -37,8 +39,8 @@ const LandingFooter = ({ variant = false }) => {
       )}
 
       {variant && (
-        <button className='absolute md:-top-4 xs:-top-20 -top-20 left-8 xs:w-[284px] w-[135px] xs:h-16 h-[35px] bg-black rounded-[32px]'>
-          <span className='text-center text-white xs:text-2xl font-medium'>
+        <button className='absolute md:-top-4 xs:-top-20 -top-20 left-8 xs:w-[284px] w-[135px] xs:h-16 h-[35px] bg-black rounded-[32px]' onClick={() => navigate("/signin")}>
+          <span className='text-center text-white xs:text-2xl font-medium' onClick={() => navigate("/signin")}>
             Start Free ✦
           </span>
         </button>
