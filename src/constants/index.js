@@ -1,7 +1,7 @@
 export const landingNavLinks = [
   { id: "/about", title: "About" },
   { id: "/how", title: "How it Works" },
-  { id: "/pricing", title: "Pricing" },
+  // { id: "/pricing", title: "Pricing" },
   {
     id: "/join",
     title: "Join our Community",
@@ -183,5 +183,143 @@ export const pricingMonthlyOptions = [
       "Unlimited Users Team",
       "Advanced Admin",
     ],
+  },
+];
+export const landingCategories = [
+  { img: "/icons/landing/bag.svg", title: "Shopping" },
+  { img: "/icons/landing/code.svg", title: "Dev Tools" },
+  { img: "/icons/landing/bulb.svg", title: "Productivity" },
+  { img: "/icons/landing/glassess.svg", title: "Social" },
+  { img: "/icons/landing/briefcase.svg", title: "Business" },
+  { img: "/icons/landing/music.svg", title: "Music" },
+  { img: "/icons/landing/bowlingBall.svg", title: "Design" },
+  { img: "/icons/landing/globe.svg", title: "Travel" },
+  { img: "/icons/landing/money.svg", title: "Finance" },
+  { img: "/icons/landing/health.svg", title: "Health" },
+  { img: "/icons/landing/chart.svg", title: "Marketing" },
+  { img: "/icons/landing/gear.svg", title: "Utilities" },
+  { img: "/icons/landing/game.svg", title: "Gaming" },
+];
+
+export const landingAgentCards = [
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card7.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card7.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card7.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card7.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card7.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card7.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card3.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
+  },
+  {
+    image: "/images/card4.png",
+    title: "Pokemon Go",
+    desc: 'The "my calendar" agent can check your calendar for events and schedule new ones!',
+    labels: ["Calendar", "Time Management", "Event"],
   },
 ];
