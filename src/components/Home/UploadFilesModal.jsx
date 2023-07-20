@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import axios from "axios";
 import CustomButton from "./CustomButton";
-const UploadFilesModal = ({ setActive }) => {
+const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList }) => {
   const [fileList, setFileList] = useState([]);
   const [dragging, setDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -28,12 +28,13 @@ const UploadFilesModal = ({ setActive }) => {
       },
     })
       .then((res) => {
-        setSubmitted(true);
         console.log(res);
         fetchCollectionData(setCollectionList);
+        setSubmitted(true);
       })
       .catch((err) => {
-        fetchCollectionData(setCollectionList);
+        //fetchCollectionData(setCollectionList);
+        window.alert(err);
         console.log(err);
         // navigate(-1);
       });

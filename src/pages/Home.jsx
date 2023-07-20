@@ -45,7 +45,7 @@ const fetchCollectionData = (setCollectionList) => {
     });
 };
 
-const deleteCollection = (collection_name, setCollectionList) => {
+const deleteCollection = (collection_name, setCollectionList, setConfirmDelete) => {
   axios({
     method: "delete",
     url: `${import.meta.env.VITE_API_URL}/api/bots/delete_collection?collection_name=${collection_name}`,
@@ -56,10 +56,12 @@ const deleteCollection = (collection_name, setCollectionList) => {
   }).then((res) => {
       console.log(res);
       fetchCollectionData(setCollectionList);
+      setConfirmDelete(false);
     })
     .catch((err) => {
       window.alert(err.message);
       console.log(err);
+      setConfirmDelete(false);
       // navigate(-1);
     });
 }
@@ -452,6 +454,7 @@ function Home() {
   ];
   const [currentFocus, setCurrentFocus] = useState(agentsData[1]);
   const [spaceState, setSpaceState] = useState(spaceStateInit);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [collectionList, setCollectionList] = useState([]);
   const [chatHistory, setChatHistory] = useState([
     "Agent: how can I help you?",
@@ -532,6 +535,8 @@ function Home() {
                 handleState={handleState}
                 setSidebarSelection={setSidebarSelection}
                 handleCollectionDelete={deleteCollection}
+                setConfirmDelete={setConfirmDelete}
+                confirmDelete={confirmDelete}
                 setCollectionList={setCollectionList}
                 handleFocus={(focus) => {
                   const focusType = mapFocusContext(focus);
