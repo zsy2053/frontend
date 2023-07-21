@@ -434,10 +434,56 @@ const mapFocusContext = (focus) => {
   }
 };
 
+const deleteKey = (key, setApiKeyList,fetchApiKeyListData) => {
+  axios({
+    method: "delete",
+    url: `${import.meta.env.VITE_API_URL
+      }/api/users/delete_api_key`,
+    data: {
+      key: key,
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("jwt"),
+    },
+  })
+    .then((res) => {
+      fetchApiKeyListData(setApiKeyList);
+    })
+    .catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+    });
+}
+
+const addNewKey = (keyName, setNewKey, setApiKeyList,fetchApiKeyListData) => {
+  axios({
+    method: "post",
+    url: `${import.meta.env.VITE_API_URL
+      }/api/users/add_api_key`,
+    data: {
+      key: keyName
+    },
+    headers: {
+      "Content-Type": "application/json",
+      "x-access-token": localStorage.getItem("jwt"),
+    },
+  })
+    .then((res) => {
+      setNewKey(res.data.data["key"]);
+      fetchApiKeyListData(setApiKeyList);
+    })
+    .catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+    });
+}
+
 function Home() {
   const [uploadFilesModalActive, setUploadFilesModalActive] = useState(false);
   const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
+  const [newApiKey, setNewKey] = useState("");
   const [sidebarSelection, setSidebarSelection] = useState("MySpace");
   const [apiKeyList, setApiKeyList] = useState([]);
   const spaceStateInit = [
@@ -595,7 +641,15 @@ function Home() {
               <CommunityWindow />
             </Box>
           )}
-          {sidebarSelection === "API Keys" && <ApiPage apiKeys={apiKeyList} />}
+          {sidebarSelection === "API Keys" && <ApiPage
+                                                apiKeys={apiKeyList}
+                                                deleteKey={deleteKey}
+                                                setApiKeyList={setApiKeyList}
+                                                fetchApiKeyListData={fetchApiKeyListData}
+                                                addNewKey={addNewKey}
+                                                setNewKey={setNewKey}
+                                                newApiKey={newApiKey}
+                                              />}
           {sidebarSelection === "AddAgent" && (
             <AddAgentWindow
               setSidebarSelection={setSidebarSelection}

@@ -8,9 +8,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import Modal from "@mui/material/Modal";
-const ApiPage = ({ apiKeys }) => {
-  console.log(apiKeys);
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
+
+const ApiPage = ({ apiKeys, deleteKey, fetchApiKeyListData, setApiKeyList, addNewKey, setNewKey, newApiKey }) => {
   const [modalState, setModalState] = useState(0);
+  const [keyName, setKeyName] = useState("");
   return (
     <Stack
       className='flex flex-col h-[100vh] max-w-[787px] items-center'
@@ -45,13 +48,13 @@ const ApiPage = ({ apiKeys }) => {
           </thead>
           <tbody>
             {apiKeys.map((item, index) => (
-              <tr className='h-10 [&_td]:px-6 [&_td]:py-4 text-neutral-600 whitespace-nowrap [&_td]:overflow-hidden [&_td]:text-ellipsis text-[14px] font-medium leading-none'>
+              <tr key={index} className='h-10 [&_td]:px-6 [&_td]:py-4 text-neutral-600 whitespace-nowrap [&_td]:overflow-hidden [&_td]:text-ellipsis text-[14px] font-medium leading-none'>
                 <td>{item["name"]}</td>
                 <td>{item["key"]}</td>
                 <td>{item["created"]}</td>
                 <td>{item["last_used"]}</td>
-                <td className='flex justify-between'>
-                  <EditIcon /> <DeleteIcon />
+                <td className='flex justify-center'>
+                   {item["name"] != "Default Key" && <button name={item["key"]} onClick={(e) => deleteKey(e.currentTarget.name, setApiKeyList, fetchApiKeyListData)}><DeleteIcon /></button>}
                 </td>
               </tr>
             ))}
@@ -86,6 +89,7 @@ const ApiPage = ({ apiKeys }) => {
               <input
                 className='mb-8 w-[512px] h-11 inline-block px-[14px] py-[10px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-styleupPurple focus:border-transparent'
                 placeholder='My Test Key'
+                onChange={(e) => setKeyName(e.target.value)}
               ></input>
               <div className='flex w-full'>
                 <button
@@ -95,7 +99,12 @@ const ApiPage = ({ apiKeys }) => {
                   Cancel
                 </button>
                 <button
-                  onClick={() => setModalState(2)}
+                  onClick={() => {
+                      console.log(keyName);
+                      addNewKey(keyName, setNewKey, setApiKeyList,fetchApiKeyListData)
+                      setModalState(2)
+                    }
+                  }
                   className='flex-1 h-11 bg-styleupPurple rounded-lg text-white'
                 >
                   Create secret key
@@ -116,11 +125,11 @@ const ApiPage = ({ apiKeys }) => {
               </div>
               <div className='w-full justify-start items-center flex mb-8'>
                 <div className='flex-1 h-11 px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 text-zinc-900 mr-1'>
-                  Link goes here...
+                  {newApiKey}
                 </div>
-                <div className='w-11 h-11  rounded-lg justify-center items-center gap-2 inline-flex hover:bg-gray-50'>
+                <CopyToClipboard text={newApiKey} onCopy={() => window.alert("Api Key Copied")} className='w-11 h-11  rounded-lg justify-center items-center gap-2 inline-flex hover:bg-gray-50'>
                   <img src='/icons/homeLinkBtn.svg' />
-                </div>
+                </CopyToClipboard>
               </div>
               <div className='flex w-full'>
                 <button
