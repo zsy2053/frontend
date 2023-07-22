@@ -8,8 +8,9 @@ const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList })
   const [fileList, setFileList] = useState([]);
   const [dragging, setDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  const handleFileUpload = (fileList) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleFileUpload = (fileList, setIsLoading) => {
+    setIsLoading(true);
       const formData = new FormData();
       formData.append("collection_type", "file");
       for (let i = 0; i < fileList.length; i++) {
@@ -31,12 +32,14 @@ const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList })
         console.log(res);
         fetchCollectionData(setCollectionList);
         setSubmitted(true);
+        setIsLoading(false);
       })
       .catch((err) => {
         //fetchCollectionData(setCollectionList);
         window.alert(err);
         console.log(err);
         // navigate(-1);
+        setIsLoading(false);
       });
   };
 
@@ -154,10 +157,16 @@ const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList })
                 Free if your upload file is less than 20000 characters.
               </span>
             </div>
-            <Box className='flex justify-stretch items-stretch gap-2'>
-              <CustomButton onClick={() => setActive(false)} title="Cancel" size="expand" type="sub" />
-              <CustomButton onClick={() => handleFileUpload(fileList)} title="Upload" size="expand" />
-            </Box>
+            <div>
+              {isLoading ? <img src='/icons/Spinner.svg'
+                  class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+                :
+                <Box className='flex justify-stretch items-stretch gap-2'>
+                <CustomButton onClick={() => setActive(false)} title="Cancel" size="expand" type="sub" />
+                <CustomButton onClick={() => handleFileUpload(fileList, setIsLoading)} title="Upload" size="expand" />
+              </Box>
+            }
+            </div>
           </Stack>
         ) : (
           <div className='flex flex-col justify-center items-center p-6'>
