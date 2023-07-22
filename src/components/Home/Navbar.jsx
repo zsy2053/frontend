@@ -58,7 +58,7 @@ const Navbar = ({ resetContext }) => {
                   Share Link
                 </h2>
                 <span className='text-neutral-600 text-[14px] font-normal leading-tight mb-5'>
-                  The shared content is only this chat content.
+                  Share your happiness with your friends
                 </span>
                 <div className='w-full justify-start items-center flex mb-8'>
                   <div className='flex-1 h-11 px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 text-zinc-900'>
