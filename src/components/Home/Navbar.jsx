@@ -5,6 +5,26 @@ import { Modal, Popper, Tooltip, ClickAwayListener } from "@mui/material";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import CustomButton from "./CustomButton";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+import {
+  FacebookShareButton,
+  InstapaperShareButton,
+  LinkedinShareButton,
+  PinterestShareButton,
+  RedditShareButton,
+  TwitterShareButton,
+  WhatsappShareButton
+} from "react-share";
+import {
+  FacebookIcon,
+  InstapaperIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  RedditIcon,
+  TwitterIcon,
+  WhatsappIcon
+} from "react-share";
+
 const Navbar = ({ resetContext }) => {
   const [open, setOpen] = React.useState(false);
   const [anchor, setAnchor] = React.useState(null);
@@ -33,7 +53,7 @@ const Navbar = ({ resetContext }) => {
               aria-labelledby='modal-modal-title'
               aria-describedby='modal-modal-description'
             >
-              <Box className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[512px] h-[244px] p-6 bg-white rounded-xl shadow flex-col flex'>
+              <Box className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[585px] h-[285px] p-6 bg-white rounded-xl shadow flex-col flex'>
                 <h2 className='text-zinc-900 text-[18px] font-semibold leading-7 mb-2'>
                   Share Link
                 </h2>
@@ -42,11 +62,34 @@ const Navbar = ({ resetContext }) => {
                 </span>
                 <div className='w-full justify-start items-center flex mb-8'>
                   <div className='flex-1 h-11 px-3.5 py-2.5 bg-white rounded-lg shadow border border-gray-300 text-zinc-900'>
-                    Link goes here...
+                    https://www.styleup.fun
                   </div>
-                  <img src='/icons/homeLinkBtn.svg' />
+                  <CopyToClipboard text="https://www.styleup.fun" onCopy={() => window.alert("Link Copied")} className='w-11 h-11  rounded-lg justify-center items-center gap-2 inline-flex hover:bg-gray-50'>
+                    <img src='/icons/homeLinkBtn.svg' />
+                  </CopyToClipboard>
                 </div>
-
+                <div className='flex-1'><FacebookShareButton url="https://www.styleup.fun">
+                      <FacebookIcon size={28} round />
+                      </FacebookShareButton>
+                <InstapaperShareButton url="https://www.styleup.fun">
+                <InstapaperIcon size={28} round />
+                </InstapaperShareButton>
+                <LinkedinShareButton url="https://www.styleup.fun">
+                <LinkedinIcon size={28} round />
+                </LinkedinShareButton>
+                <PinterestShareButton url="https://www.styleup.fun">
+                <PinterestIcon size={28} round />
+                </PinterestShareButton>
+                <RedditShareButton url="https://www.styleup.fun">
+                <RedditIcon size={28} round />
+                </RedditShareButton>
+                <TwitterShareButton url="https://www.styleup.fun">
+                <TwitterIcon size={28} round />
+                </TwitterShareButton>
+                <WhatsappShareButton url="https://www.styleup.fun">
+                <WhatsappIcon size={28} round />
+                </WhatsappShareButton>
+                </div>
                 <div className='w-full justify-start items-start gap-2 inline-flex'>
                   <CustomButton title="Cancel" size="expand" type="sub" onClick={() => setOpen(false)} />
                   <CustomButton title="Copy Link" size="expand" />
