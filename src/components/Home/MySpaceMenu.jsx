@@ -50,6 +50,8 @@ const MySpaceMenu = ({
   setCollectionList,
   setSidebarSelection,
   setActiveAgent,
+  isLoading,
+  setIsLoading,
   currentFocus,
 }) => {
   const [contextMenu, setContextMenu] = React.useState(null);
@@ -161,20 +163,24 @@ const MySpaceMenu = ({
           <div className='w-full text-neutral-600 text-[14px] font-normal leading-tight mb-12'>
             File deleted can't be recovered, be cautious with this action.
           </div>
-          <div className='flex w-full'>
-            <button
-              onClick={() => setConfirmDelete(false)}
-              className='flex-1 h-11 mr-3 rounded-lg border border-gray-300'
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => handleCollectionDelete(currentFocus.name, setCollectionList, setConfirmDelete)}
-              className='flex-1 h-11 bg-rose-600 rounded-lg text-white'
-            >
-              Delete
-            </button>
-          </div>
+          {isLoading ? <div className='flex w-full'><img src='/icons/Spinner.svg'
+              class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" /></div>
+            :
+            <div className='flex w-full'>
+              <button
+                onClick={() => setConfirmDelete(false)}
+                className='flex-1 h-11 mr-3 rounded-lg border border-gray-300'
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleCollectionDelete(currentFocus.name, setCollectionList, setConfirmDelete, setIsLoading)}
+                className='flex-1 h-11 bg-rose-600 rounded-lg text-white'
+              >
+                Delete
+              </button>
+            </div>
+          }
         </div>
       </Modal>
     </Stack>

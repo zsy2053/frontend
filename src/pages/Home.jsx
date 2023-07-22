@@ -45,7 +45,8 @@ const fetchCollectionData = (setCollectionList) => {
     });
 };
 
-const deleteCollection = (collection_name, setCollectionList, setConfirmDelete) => {
+const deleteCollection = (collection_name, setCollectionList, setConfirmDelete, setIsLoading) => {
+  setIsLoading(true);
   axios({
     method: "delete",
     url: `${import.meta.env.VITE_API_URL}/api/bots/delete_collection?collection_name=${collection_name}`,
@@ -57,11 +58,13 @@ const deleteCollection = (collection_name, setCollectionList, setConfirmDelete) 
       console.log(res);
       fetchCollectionData(setCollectionList);
       setConfirmDelete(false);
+      setIsLoading(false);
     })
     .catch((err) => {
       window.alert(err.message);
       console.log(err);
       setConfirmDelete(false);
+      setIsLoading(false);
       // navigate(-1);
     });
 }
@@ -581,6 +584,8 @@ function Home() {
                 handleState={handleState}
                 setSidebarSelection={setSidebarSelection}
                 handleCollectionDelete={deleteCollection}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
                 setConfirmDelete={setConfirmDelete}
                 confirmDelete={confirmDelete}
                 setCollectionList={setCollectionList}
