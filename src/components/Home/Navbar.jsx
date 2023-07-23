@@ -91,8 +91,7 @@ const Navbar = ({ resetContext }) => {
                 </WhatsappShareButton>
                 </div>
                 <div className='w-full justify-start items-start gap-2 inline-flex'>
-                  <CustomButton title="Cancel" size="expand" type="sub" onClick={() => setOpen(false)} />
-                  <CustomButton title="Copy Link" size="expand" />
+                  <CustomButton title="Done" size="expand" type="sub" onClick={() => setOpen(false)} />
                 </div>
               </Box>
             </Modal>

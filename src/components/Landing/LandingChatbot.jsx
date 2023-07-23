@@ -157,7 +157,7 @@ const LandingChatbot = () => {
                       rounded-tr-2xl
                       text-left'
                       >
-                        {item}
+                        {item.split("Human: ")[1]}
                       </span>
                     </div>
                   ) : (
@@ -175,7 +175,7 @@ const LandingChatbot = () => {
                       rounded-tl-2xl
                       text-left'
                       >
-                        {item}
+                        {item.split("AI: ")[1]}
                       </span>
                     </div>
                   )
