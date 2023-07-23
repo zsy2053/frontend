@@ -5,24 +5,67 @@ import Input from "@mui/material/Input";
 import axios from "axios";
 import CustomButton from "./CustomButton";
 
-const AddWebsiteModal = ({ setActive }) => {
+const AddWebsiteModal = ({ setActive, fetchCollectionData, setCollectionList }) => {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [crawlLevel, setCrawlLevel] = useState(1);
   const [includedLinks, setIncludedLinks] = useState([]);
   const [count, setCount] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchLinks = (websiteUrl) => {
+    setIsLoading(true);
+    if (!websiteUrl.includes("http") || !websiteUrl.includes("https")) {
+      websiteUrl = "https://" + websiteUrl;
+    }
+    axios({
+      method: "post",
+      url: `${import.meta.env.VITE_API_URL}/api/bots/fetch_links`,
+      data: {
+        urls: [websiteUrl],
+        link_levels: crawlLevel
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("jwt"),
+      },
+    })
+      .then(response => {
+        //setLinks(hrefs);
+        let dataList = []
+        for (let i = 0; i < response.data.data.length; i++) {
+          dataList.push({id: i, link: response.data.data[i]});
+        }
+        setIncludedLinks(dataList);
+        setCount(dataList.length);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        window.alert(err);
+        setIsLoading(false);
+      });
+  }
 
   const handleLinkCreate = (websiteUrl, crawlLevel) => {
+    if (includedLinks.length == 0) {
+      window.alert("Please give seed url first");
+      return;
+    }
+    setIsLoading(true);
     //this will probably mess up if the address has http in it... ex: www.http.com
     if (!websiteUrl.includes("http") || !websiteUrl.includes("https")) {
       websiteUrl = "https://" + websiteUrl;
+    }
+    let readyUrls = [websiteUrl];
+    for (let i = 0; i < includedLinks.length; i++) {
+      readyUrls.push(includedLinks[i].link);
     }
     const domainName = new URL(websiteUrl).hostname
       .replace("www.", "")
       .split(".")[0];
 
     const data = {
-      collection_content: websiteUrl,
+      collection_content: readyUrls,
       collection_name: domainName,
       collection_type: "link",
       link_levels: crawlLevel,
@@ -37,24 +80,27 @@ const AddWebsiteModal = ({ setActive }) => {
       },
     })
       .then((res) => {
+        setIsLoading(false);
         console.log(res);
-        setSubmitted(true);
+        setActive(false);
+        fetchCollectionData(setCollectionList);
       })
       .catch((err) => {
+        setIsLoading(false);
         console.log(err);
         // navigate(-1);
       });
   };
-  const newIncludedLink = () => {
-    setIncludedLinks([...includedLinks, { id: count, link: "" }]);
+  /*const newIncludedLink = (link) => {
+    setIncludedLinks([...includedLinks, { id: count, link: link }]);
     setCount(count + 1);
-  };
+  };*/
   const setIncludedLinkVal = (key, val) => {
-    const newLinks = includedLinks.map((link) => {
-      if (link.id == key) {
-        link.link = val;
+    const newLinks = includedLinks.map((item) => {
+      if (item.id == key) {
+        item.link = val;
       }
-      return link;
+      return item;
     });
     setIncludedLinks(newLinks);
   };
@@ -89,7 +135,7 @@ const AddWebsiteModal = ({ setActive }) => {
                   onChange={(event) => setWebsiteUrl(event.target.value)}
                 />
               </Box>
-              <CustomButton title="Fetch" size="expand" />
+              <CustomButton title="Fetch" size="expand" onClick={() => fetchLinks(websiteUrl)} />
             </Box>
             <p className='text-lg mb-2'>Crawling Levels</p>
             <Box className='flex justify-between gap-6 mb-6'>
@@ -139,6 +185,7 @@ const AddWebsiteModal = ({ setActive }) => {
                       type='text'
                       id={link.id}
                       placeholder='www.untitledui.com'
+                      value={link.link.split("https://")[1]}
                       className='text-[16px] font-normal leading-normal focus:outline-none px-[14px] rounded-lg flex-1'
                       onChange={(event) => {
                         setIncludedLinkVal(link.id, event.target.value);
@@ -154,18 +201,21 @@ const AddWebsiteModal = ({ setActive }) => {
                 </div>
               ))}
             </div>
-            <button
+            {/*<button
               className='flex justify-center items-center w-40 h-10 bg-[#10182810] rounded-lg mb-6'
-              onClick={newIncludedLink}
+              onClick={() => newIncludedLink()}
             >
               <p className='text-[20px] leading-[20px] mr-3'>+</p>
               Add more links
-            </button>
-
-            <Box className='flex justify-stretch items-stretch gap-2'>
-              <CustomButton onClick={() => setActive(false)} title="Cancel" size="expand" type="sub" />
-              <CustomButton onClick={() => handleLinkCreate(websiteUrl, crawlLevel)} title="Create" size="expand" />
-            </Box>
+            </button>*/}
+            {isLoading ? <Box className='flex justify-stretch items-stretch gap-2'><img src='/icons/Spinner.svg'
+                class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" /></Box>
+              :
+              <Box className='flex justify-stretch items-stretch gap-2'>
+                <CustomButton onClick={() => setActive(false)} title="Cancel" size="expand" type="sub" />
+                <CustomButton onClick={() => handleLinkCreate(websiteUrl, crawlLevel)} title="Create" size="expand" />
+              </Box>
+            }
           </Stack>
         ) : (
           <div className='flex flex-col justify-center items-center p-6'>

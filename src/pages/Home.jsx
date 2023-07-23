@@ -568,7 +568,7 @@ function Home() {
         />
       )}
       {addWebsiteModalActive && (
-        <AddWebsiteModal setActive={setAddWebsiteModalActive} />
+        <AddWebsiteModal setActive={setAddWebsiteModalActive} fetchCollectionData={fetchCollectionData} setCollectionList={setCollectionList} />
       )}
 
       <div className='flex flex-grow'>
