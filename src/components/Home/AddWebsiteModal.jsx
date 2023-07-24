@@ -53,15 +53,11 @@ const AddWebsiteModal = ({ setActive, fetchCollectionData, setCollectionList }) 
       window.alert("Please give seed url first");
       return;
     }
-    setIsLoading(true);
     //this will probably mess up if the address has http in it... ex: www.http.com
     if (!websiteUrl.includes("http") || !websiteUrl.includes("https")) {
       websiteUrl = "https://" + websiteUrl;
     }
     let readyUrls = [websiteUrl];
-    for (let i = 0; i < includedLinks.length; i++) {
-      readyUrls.push(includedLinks[i].link);
-    }
     const domainName = new URL(websiteUrl).hostname
       .replace("www.", "")
       .split(".")[0];
@@ -82,13 +78,11 @@ const AddWebsiteModal = ({ setActive, fetchCollectionData, setCollectionList }) 
       },
     })
       .then((res) => {
-        setIsLoading(false);
         console.log(res);
-        setActive(false);
-        fetchCollectionData(setCollectionList);
+        setSubmitted(true);
+        //fetchCollectionData(setCollectionList);
       })
       .catch((err) => {
-        setIsLoading(false);
         console.log(err);
         // navigate(-1);
       });

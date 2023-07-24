@@ -11,13 +11,13 @@ const UploadFilesModal = ({ setActive, fetchCollectionData, setCollectionList })
   const [isLoading, setIsLoading] = useState(false);
   const handleFileUpload = (fileList, setIsLoading) => {
     setIsLoading(true);
-      const formData = new FormData();
-      formData.append("collection_type", "file");
-      for (let i = 0; i < fileList.length; i++) {
-        const item = fileList[i];
-        formData.append("collection_content", item);
-        formData.append("collection_name", item.name.split(".")[0]);
-      }
+    const formData = new FormData();
+    formData.append("collection_type", "file");
+    for (let i = 0; i < fileList.length; i++) {
+      const item = fileList[i];
+      formData.append("collection_content", item);
+      formData.append("collection_name", item.name.split(".")[0]);
+    }
     axios({
       method: "post",
       url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
