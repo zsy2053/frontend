@@ -34,7 +34,9 @@ const AddWebsiteModal = ({ setActive, fetchCollectionData, setCollectionList }) 
         //setLinks(hrefs);
         let dataList = []
         for (let i = 0; i < response.data.data.length; i++) {
-          dataList.push({id: i, link: response.data.data[i]});
+          if(response.data.data[i] && response.data.data[i].includes("https")) {
+            dataList.push({id: i, link: response.data.data[i]});
+          }
         }
         setIncludedLinks(dataList);
         setCount(dataList.length);
