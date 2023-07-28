@@ -57,7 +57,7 @@ const LandingChatbot = () => {
         src='/images/logoChatbot.svg'
         onClick={() => setOpen(true)}
         className={open ? "hidden" : "sm:h-[150px] h-[80px]"}
-      ></img>
+      />
       {/* Chatbox */}
       <Grow direction='up' in={open} mountOnEnter unmountOnExit>
         <div
@@ -122,19 +122,19 @@ const LandingChatbot = () => {
                     height={24}
                     className='lg:hidden '
                     onClick={() => setChatbotTips((p) => !p)}
-                  ></img>
+                  />
                 )}
                 <img
                   src='/icons/chatbotRefresh.svg'
                   width={24}
                   height={24}
-                ></img>
+                />
                 <img
                   src='/icons/chatbotX.svg'
                   width={24}
                   height={24}
                   onClick={() => setOpen(false)}
-                ></img>
+                />
               </div>
             </div>
             {/* Chatbox left chat area */}
