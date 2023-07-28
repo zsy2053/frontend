@@ -72,7 +72,6 @@ function Sigin() {
                                     console.log("Login Failed");
                                 }}
                                 size="large"
-                                width="300"
                             />
                         </div>
                     </div>
