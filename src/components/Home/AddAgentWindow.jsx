@@ -22,6 +22,7 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
   const [collectionName, setCollectionName] = useState("")
   const [fileList, setFileList] = useState([]);
   const [coverImg, setCoverImg] = useState("");
+  const [count, setCount] = useState(0);
   const [chips, setChips] = useState([]);
   const [phText, setPhText] = useState("Select category");
   const [textArea, setTextArea] = useState("");
@@ -34,26 +35,42 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
   const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false);
 
   const handleLinkCreate = (websiteUrl, crawlLevel = 2) => {
+    if (includedLinks.length == 0) {
+      window.alert("Please give seed url first");
+      return;
+    }
+    //this will probably mess up if the address has http in it... ex: www.http.com
+    if (!websiteUrl.includes("http") || !websiteUrl.includes("https")) {
+      websiteUrl = "https://" + websiteUrl;
+    }
+    let readyUrls = websiteUrl;
     const domainName = new URL(websiteUrl).hostname
       .replace("www.", "")
       .split(".")[0];
-    const data = {
-      collection_content: websiteUrl,
-      collection_name: domainName,
-      collection_type: "link",
-      link_levels: crawlLevel,
-    };
+
+    let formData = new FormData();
+    formData.append("collection_content", readyUrls);
+    formData.append("agent_name", collectionName);
+    formData.append("coverImg", coverImg);
+    formData.append("category", phText);
+    formData.append("introduction", textArea);
+    formData.append("tags", chips);
+    formData.append("agent_type", "link");
     axios({
       method: "post",
       url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
-      data,
+      data: formData,
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         "x-access-token": localStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
       },
     })
       .then((res) => {
         console.log(res);
+        setOpenModal(true);
+        setModalState(2);
+        setSidebarSelection("MySpace");
       })
       .catch((err) => {
         console.log(err);
@@ -61,10 +78,44 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
       });
   };
 
+  const fetchLinks = (websiteUrl) => {
+    setIsLoading(true);
+    if (!websiteUrl.includes("http") || !websiteUrl.includes("https")) {
+      websiteUrl = "https://" + websiteUrl;
+    }
+    axios({
+      method: "post",
+      url: `${import.meta.env.VITE_API_URL}/api/bots/fetch_links`,
+      data: {
+        urls: [websiteUrl],
+        link_levels: crawlLevel
+      },
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("jwt"),
+      },
+    })
+      .then(response => {
+        //setLinks(hrefs);
+        let dataList = []
+        for (let i = 0; i < response.data.data.length; i++) {
+          if(response.data.data[i] && response.data.data[i].includes("https")) {
+            dataList.push({id: i, link: response.data.data[i]});
+          }
+        }
+        setIncludedLinks(dataList);
+        setCount(dataList.length);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        window.alert(err);
+        setIsLoading(false);
+      });
+  }
+
   const handleFileUpload = (fileList, setIsLoading) => {
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("collection_type", "file");
     for (let i = 0; i < fileList.length; i++) {
       const item = fileList[i];
       formData.append("collection_content", item);
@@ -684,6 +735,24 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
                   </div>
                 </div>
               </>
+            )}
+            {modalState === 2 && (
+              <div className='flex flex-col justify-center items-center p-6'>
+                <img src='/images/websiteUploadModalSuccess.png' className='mb-9' />
+                <div className='text-center text-neutral-600 text-[32px] font-semibold mb-5'>
+                  Hang Tight
+                </div>
+                <div className='w-[398px] text-center text-neutral-600 text-[16px] font-normal leading-snug mb-6'>
+                  We're preparing your data upload. We'll notify you by email as
+                  soon as it's ready!
+                </div>
+                <button
+                  onClick={() => setOpenModal(false)}
+                  className='w-[202px] h-11 bg-styleupPurple rounded-lg text-white'
+                >
+                  Confirm
+                </button>
+              </div>
             )}
           </div>
         </Modal>

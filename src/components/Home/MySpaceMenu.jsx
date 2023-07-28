@@ -48,10 +48,13 @@ const MySpaceMenu = ({
   setConfirmDelete,
   setCollectionList,
   setSidebarSelection,
+  mapFocusContext,
+  setChatHistory,
   setActiveAgent,
   isLoading,
   setIsLoading,
   currentFocus,
+  resetContext
 }) => {
   const [contextMenu, setContextMenu] = React.useState(null);
   const [selectedItem, setSelectedItem] = React.useState(null);
@@ -135,7 +138,7 @@ const MySpaceMenu = ({
                 Cancel
               </button>
               <button
-                onClick={() => handleCollectionDelete(currentFocus.name, setCollectionList, setConfirmDelete, setIsLoading)}
+                onClick={() => handleCollectionDelete(currentFocus.name, setCollectionList, setConfirmDelete, setIsLoading, resetContext, currentFocus, mapFocusContext, setChatHistory, setActiveAgent)}
                 className='flex-1 h-11 bg-rose-600 rounded-lg text-white'
               >
                 Delete

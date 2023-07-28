@@ -47,7 +47,7 @@ const fetchCollectionData = (setCollectionList) => {
     });
 };
 
-const deleteCollection = (collection_name, setCollectionList, setConfirmDelete, setIsLoading) => {
+const deleteCollection = (collection_name, setCollectionList, setConfirmDelete, setIsLoading, resetContext, currentFocus, mapFocusContext, setChatHistory, setActiveAgent) => {
   if (collection_name == 'Calendar agent' || collection_name == 'AI tutor' || collection_name == 'Blender bot') {
     window.alert("Cannot delete public agent");
     return;
@@ -65,6 +65,8 @@ const deleteCollection = (collection_name, setCollectionList, setConfirmDelete, 
       fetchCollectionData(setCollectionList);
       setConfirmDelete(false);
       setIsLoading(false);
+      resetContext(currentFocus, mapFocusContext, setChatHistory);
+      setActiveAgent(agentsData[1]);
     })
     .catch((err) => {
       window.alert(err.message);
@@ -561,11 +563,14 @@ function Home() {
                 handleState={handleState}
                 setSidebarSelection={setSidebarSelection}
                 handleCollectionDelete={deleteCollection}
+                mapFocusContext={mapFocusContext}
+                setChatHistory={setChatHistory}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
                 setConfirmDelete={setConfirmDelete}
                 confirmDelete={confirmDelete}
                 setCollectionList={setCollectionList}
+                resetContext={resetContext}
                 handleFocus={(focus) => {
                   const focusType = mapFocusContext(focus);
                   if (focusType !== "context") {
