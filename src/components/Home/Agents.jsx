@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import { Icon } from '@mui/material';
 
-const agentsData = [
+let agentsData = [
 	{
 		name: "Add agent",
 		menuIcon: <Box className='h-6 w-6 flex justify-center'><img src='/icons/PlusIcon.svg' className='place-self-center' /></Box>,

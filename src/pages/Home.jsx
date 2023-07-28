@@ -15,6 +15,8 @@ import BuildWindow from "../components/Home/BuildWindow";
 import AddAgentWindow from "../components/Home/AddAgentWindow";
 
 const fetchCollectionData = (setCollectionList) => {
+  let oldAgents = agentsData
+  console.log(agentsData)
   axios({
     method: "get",
     url: `${import.meta.env.VITE_API_URL}/api/bots/get_collections`,
@@ -24,19 +26,19 @@ const fetchCollectionData = (setCollectionList) => {
     },
   })
     .then((res) => {
-      let resData = [];
+      console.log(res.data.data.length)
+      let newAgents = []
       for (let i = 0; i < res.data.data.length; i++) {
-        resData.push({
-          name: res.data.data[i],
-          icon: (
-            <Box className='h-6 w-6 flex justify-center'>
-              <img src='/icons/Icon.svg' className='place-self-center' />
-            </Box>
-          ),
-          chatWindowIcon: "/icons/Icon.svg",
+        newAgents.push({
+          name: res.data.data[i]['name'],
+      		menuIcon: <Box className='h-6 w-6 flex justify-center'>
+            <img src={res.data.data[i]['coverImg'] || "/icons/Icon.svg"} className='place-self-center' />
+          </Box>,
+      		chatWindowIcon: res.data.data[i]['coverImg'] || "/icons/Icon.svg",
+      		chatSuggestions: ["Summarize the content", "Who is the author"]
         });
       }
-      setCollectionList(resData);
+      setCollectionList([...oldAgents, ...newAgents]);
     })
     .catch((err) => {
       window.alert(err.message);
@@ -46,6 +48,10 @@ const fetchCollectionData = (setCollectionList) => {
 };
 
 const deleteCollection = (collection_name, setCollectionList, setConfirmDelete, setIsLoading) => {
+  if (collection_name == 'Calendar agent' || collection_name == 'AI tutor' || collection_name == 'Blender bot') {
+    window.alert("Cannot delete public agent");
+    return;
+  }
   setIsLoading(true);
   axios({
     method: "delete",
@@ -156,35 +162,6 @@ const googleCalendarSignIn = () => {
     .catch((err) => {
       window.alert(err.message);
       console.log(err);
-    });
-};
-
-const handleLinkCreate = (websiteUrl, crawlLevel = 2) => {
-  console.log(websiteUrl);
-  const domainName = new URL(websiteUrl).hostname
-    .replace("www.", "")
-    .split(".")[0];
-  const data = {
-    collection_content: websiteUrl,
-    collection_name: domainName,
-    collection_type: "link",
-    link_levels: crawlLevel,
-  };
-  axios({
-    method: "post",
-    url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
-    data,
-    headers: {
-      "Content-Type": "application/json",
-      "x-access-token": localStorage.getItem("jwt"),
-    },
-  })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-      // navigate(-1);
     });
 };
 
@@ -504,7 +481,7 @@ function Home() {
   const [currentFocus, setCurrentFocus] = useState(agentsData[1]);
   const [spaceState, setSpaceState] = useState(spaceStateInit);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [collectionList, setCollectionList] = useState([]);
+  const [collectionList, setCollectionList] = useState(agentsData);
   const [chatHistory, setChatHistory] = useState([
     "Agent: how can I help you?",
   ]);
@@ -662,6 +639,7 @@ function Home() {
               setCollectionList={setCollectionList}
               currentFocus={currentFocus}
               setCurrentFocus={setCurrentFocus}
+              fetchCollectionData={fetchCollectionData}
             />
           )}
         </div>

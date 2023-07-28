@@ -4,7 +4,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Stack, Modal } from "@mui/material";
 import { Box } from "@mui/system";
-import agentsData from "./Agents";
 
 const libraryData = [
   {
@@ -74,68 +73,30 @@ const MySpaceMenu = ({
     setContextMenu(null);
     setConfirmDelete(true);
   };
-
   return (
     <Stack className='w-72 py-8 bg-white border-r flex-shrink-0'>
       <Box className='text-menuText'>
         <div className='mb-4 px-4'>Agents</div>
 
-        <Stack className='h-40'>
-          {agentsData.map((item, index) => (
+        <Stack className='h-40 gap-3'>
+          {collectionList.map((item, index) => (
             <button
               key={index}
               onClick={(event) =>
                 item.name == "Add agent"
                   ? setSidebarSelection("AddAgent")
                   : handleFocus(
-                    agentsData.filter(
+                    collectionList.filter(
                       (item) => item.name === event.currentTarget.name
                     )[0]
                   )
               }
+              onContextMenu={handleContextMenu}
               name={item.name}
               className='flex h-10 items-center px-4 hover:bg-zinc-100 rounded'
             >
               <span className='mr-2'>{item.menuIcon}</span>
-              <p className='text-menuText overflow-hidden text-ellipsis'>
-                {item.name}
-              </p>
-            </button>
-          ))}
-        </Stack>
-      </Box>
-      <Box className='mt-8 '>
-        <div className='mb-4 px-4'>Library</div>
-        <Stack className='h-50 mt-4'>
-          {libraryData.map((item, index) => (
-            <button
-              key={index}
-              className='flex h-10 items-center px-4'
-              name={item.name}
-              onClick={handleState}
-            >
-              <span className='mr-2'>{item.icon}</span>
-              <p className='text-menuText overflow-hidden text-ellipsis'>
-                {item.name}
-              </p>
-            </button>
-          ))}
-          {collectionList.map((item, index) => (
-            <button
-              className='flex h-10 items-center text-start px-4 hover:bg-zinc-100 rounded'
-              onClick={(event) =>
-                handleFocus(
-                  collectionList.filter(
-                    (item) => item.name === event.currentTarget.name
-                  )[0]
-                )
-              }
-              onContextMenu={handleContextMenu}
-              name={item.name}
-              key={index}
-            >
-              <span className='mr-2'>{item.icon}</span>
-              <p className='text-menuText flex-1 overflow-hidden text-ellipsis line-clamp-1'>
+              <p className='text-menuText overflow-hidden text-ellipsis line-clamp-1'>
                 {item.name}
               </p>
             </button>

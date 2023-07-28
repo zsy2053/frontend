@@ -5,7 +5,7 @@ import Input from "@mui/material/Input";
 import axios from "axios";
 import CustomButton from "./CustomButton";
 
-const AddWebsiteModal = ({ setActive, fetchCollectionData, setCollectionList }) => {
+const AddWebsiteModal = ({ setActive, addWebsiteModalActive, fetchCollectionData, setCollectionList }) => {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [crawlLevel, setCrawlLevel] = useState(1);
   const [includedLinks, setIncludedLinks] = useState([]);

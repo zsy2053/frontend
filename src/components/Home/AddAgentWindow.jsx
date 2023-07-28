@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import ReactDOM from "react-dom";
+import { Box, Stack } from "@mui/system";
 import Divider from "@mui/material/Divider";
+import CloseIcon from "@mui/icons-material/Close";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import { addAgentSelectOptions } from "../../constants";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -13,8 +16,92 @@ import "react-quill/dist/quill.snow.css";
 import Modal from "@mui/material/Modal";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CustomButton from "./CustomButton";
-const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollectionList, currentFocus }) => {
+import AddWebsiteModal from "./AddWebsiteModal";
+
+const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollectionList, currentFocus, fetchCollectionData }) => {
+  const [collectionName, setCollectionName] = useState("")
+  const [fileList, setFileList] = useState([]);
   const [coverImg, setCoverImg] = useState("");
+  const [chips, setChips] = useState([]);
+  const [phText, setPhText] = useState("Select category");
+  const [textArea, setTextArea] = useState("");
+  const [linkCollectionList, setLinkCollectionList] = useState([]);
+  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [crawlLevel, setCrawlLevel] = useState(1);
+  const [includedLinks, setIncludedLinks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [addWebsiteModalActive, setAddWebsiteModalActive] = useState(false);
+
+  const handleLinkCreate = (websiteUrl, crawlLevel = 2) => {
+    const domainName = new URL(websiteUrl).hostname
+      .replace("www.", "")
+      .split(".")[0];
+    const data = {
+      collection_content: websiteUrl,
+      collection_name: domainName,
+      collection_type: "link",
+      link_levels: crawlLevel,
+    };
+    axios({
+      method: "post",
+      url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
+      data,
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("jwt"),
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        // navigate(-1);
+      });
+  };
+
+  const handleFileUpload = (fileList, setIsLoading) => {
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("collection_type", "file");
+    for (let i = 0; i < fileList.length; i++) {
+      const item = fileList[i];
+      formData.append("collection_content", item);
+      formData.append("collection_name", item.name.split(".")[0]);
+    }
+    formData.append("agent_name", collectionName);
+    formData.append("coverImg", coverImg);
+    formData.append("category", phText);
+    formData.append("introduction", textArea);
+    formData.append("tags", chips);
+    formData.append("agent_type", "file");
+    axios({
+      method: "post",
+      url: `${import.meta.env.VITE_API_URL}/api/bots/add_collection`,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "x-access-token": localStorage.getItem("jwt"),
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        fetchCollectionData(setCollectionList);
+        setOpenModal(true);
+        setModalState(0);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        //fetchCollectionData(setCollectionList);
+        window.alert(err);
+        console.log(err);
+        // navigate(-1);
+        setIsLoading(false);
+      });
+  };
+
   const [dragging, setDragging] = useState(false);
   const handleDrop = (event) => {
     event.preventDefault();
@@ -35,7 +122,6 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
     setDragging(true);
   };
 
-  const [phText, setPhText] = useState("Select category");
   const [openSelect, setOpenSelect] = useState(false);
 
   const handleSelect = (id, ph) => {
@@ -44,12 +130,13 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
   };
 
   const [chipVal, setChipVal] = useState("");
-  const [chips, setChips] = useState([]);
   const handleChips = (e) => {
     if (e.key === "Enter") {
       if (chips.length < 3) {
         setChips([...chips, chipVal]);
         setChipVal("");
+      } else {
+        window.alert("Can only add 3 tags at most")
       }
     }
   };
@@ -57,13 +144,15 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
     setChips(chips.filter((item, i) => i !== index));
   };
 
-  const [textArea, setTextArea] = useState("");
-
   const [openModal, setOpenModal] = useState(false);
   const [modalState, setModalState] = useState(0);
   const handlePublish = () => {
-    if (coverImg) {
-      setOpenModal(true);
+    if (fileList.length > 0) {
+      handleFileUpload(fileList, setIsLoading);
+    } else if (websiteUrl.length > 0) {
+      handleLinkCreate(websiteUrl);
+    } else {
+      window.alert("Please upload file or provide website url as data source")
     }
   };
 
@@ -93,6 +182,7 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
           <input
             className='w-[512px] h-11 inline-block px-[14px] py-[10px] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-styleupPurple focus:border-transparent'
             placeholder='e.g. Chat with Environmental Economics Expert'
+            onChange={(e) => setCollectionName(e.target.value)}
           ></input>
         </div>
 
@@ -112,7 +202,7 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
           </div>
           <div className='flex flex-col'>
             <label
-              htmlFor='file'
+              htmlFor='image_file'
               className={`flex flex-col justify-center items-center w-[512px] h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${dragging && "border-styleupPurple bg-gray-100"
                 }`}
               onDrop={handleDrop}
@@ -121,10 +211,10 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
             >
               <input
                 type='file'
-                accept='png, jpg, jpeg'
+                accept='.png,.jpg,.jpeg'
                 onChange={(event) => setCoverImg(event.target.files[0])}
-                id='file'
-                name='file'
+                id='image_file'
+                name='image_file'
                 key={coverImg && coverImg.name} // to reset the input. Otherwise, the same file won't be accepted
                 hidden
               />
@@ -150,15 +240,9 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
             </label>
             {coverImg && (
               <div className='w-full overflow-hidden p-4 h-[72px] flex items-center border rounded-lg border-gray-200 hover:border-styleupPurple mb-3'>
-                <img
-                  src='/icons/coverImageUploadIcon.svg'
-                  width={24}
-                  height={24}
-                  className='mr-4 flex-shrink-0'
-                />
                 <div className='flex flex-col w-[332px]'>
                   <p className='text-zinc-900 text-[14px] font-medium leading-tight text-ellipsis overflow-hidden'>
-                    {coverImg.name}
+                    <img src={URL.createObjectURL(coverImg)} />
                   </p>
                   <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
                     {coverImg.size >= 10000024
@@ -342,11 +426,211 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
         <div className='w-full my-8'>
           <Divider />
         </div>
-        {/* buttons */}
-        <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
-          <CustomButton onClick={() => setSidebarSelection("MySpace")} title='Cancel' type='sub' />
-          <CustomButton onClick={handlePublish} title='Publish' type='main' />
+
+        {/* Upload agent data */}
+        <div className='flex'>
+          <div className='w-[280px] mr-8 flex flex-col'>
+            <span className='text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight'>
+              Agent data
+            </span>
+            <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
+              Uploading a file as agent data
+            </span>
+          </div>
+          <div className='flex flex-col w-[512px]'>
+          <label
+            htmlFor='data_file'
+            className={`flex flex-col justify-center items-center h-32 mb-4 rounded-lg border border-gray-200 hover:border-styleupPurple hover:bg-gray-100 cursor-pointer ${dragging && "border-styleupPurple bg-gray-100"
+              }`}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={() => setDragging(false)}
+          >
+            <input
+              type='file'
+              accept='.xls,.csv,.pdf,.txt'
+              onChange={(event) => {
+                setFileList(fileList.concat(Array.from(event.target.files)))
+                setCrawlLevel(1)
+                setIncludedLinks([])
+                setWebsiteUrl("")
+                }
+              }
+              id='data_file'
+              name='data_file'
+              key={fileList.length > 0 && fileList[0].name} // to reset input. otherwise, same file cannot be uploaded again
+              hidden
+              multiple
+            />
+            <img
+              src='/icons/uploadIcon.svg'
+              className='w-5 h-5 self-center'
+            />
+            <Box className='flex'>
+              <p className='text-styleupPurple font-semibold mr-1'>
+                Click to upload
+              </p>
+              <p className='text-[#555555]'>or drag and drop</p>
+            </Box>
+            <p className='text-[#555555]'>XLS or CSV or PDF</p>
+          </label>
+          <div
+            className={fileList.length > 3 && "overflow-y-scroll h-72 mb-4"}
+          >
+            {fileList.length > 0 &&
+              fileList.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className='w-full overflow-hidden p-4 h-[72px] flex items-center border rounded-lg border-gray-200 hover:border-styleupPurple mb-3'
+                  >
+                    <img
+                      src='/icons/fileIcon.svg'
+                      width={24}
+                      height={24}
+                      className='mr-4 flex-shrink-0'
+                    />
+                    <div className='flex flex-col w-[332px]'>
+                      <p className='text-zinc-900 text-[14px] font-medium leading-tight text-ellipsis overflow-hidden'>
+                        {item.name}
+                      </p>
+                      <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
+                        {item.size >= 1000024
+                          ? Math.ceil(item.size / 1000024) + "MB"
+                          : Math.ceil(item.size / 1024) + "KB"}
+                      </span>
+                    </div>
+
+                    <img
+                      src='/icons/trashIcon.svg'
+                      onClick={() => {
+                        setFileList(
+                          fileList.filter(
+                            (subItem) => subItem.name != item.name
+                          )
+                        );
+                      }}
+                      className='hover:cursor-pointer ml-auto hover:bg-gray-100 rounded-full p-1'
+                    />
+                  </div>
+                );
+              })}
+          </div>
+          </div>
         </div>
+
+        <div className='w-full my-8'>
+          <Divider />
+        </div>
+
+        {/* Upload agent data */}
+        <div className='flex'>
+          <div className='w-[280px] mr-8 flex flex-col'>
+            <span className='text-zinc-900 text-opacity-80 text-[14px] font-semibold leading-tight'>
+              Agent data
+            </span>
+            <span className='text-neutral-600 text-[14px] font-normal leading-tight'>
+              Crawling website as agent data
+            </span>
+          </div>
+          <div className='flex flex-col w-[512px]'>
+          <Stack className='flex flex-col p-6'>
+            <Box className='flex gap-6 mb-8'>
+              <Box className='flex h-11 rounded-lg border border-gray-300 flex-1'>
+                <div className='px-3 py-2.5 rounded-l-lg justify-start items-center flex border-r'>
+                  <span className='text-neutral-400 text-[16px] font-normal leading-normal select-none'>
+                    http://
+                  </span>
+                </div>
+                <input
+                  type='text'
+                  id='outlined-folder-name-input'
+                  placeholder='www.untitledui.com'
+                  className='text-[16px] font-normal leading-normal focus:outline-none px-[14px] py-[10px] rounded-lg flex-1'
+                  onChange={(event) => setWebsiteUrl(event.target.value)}
+                />
+              </Box>
+              <CustomButton title="Fetch" size="expand" onClick={() => {
+                fetchLinks(websiteUrl)
+                setFileList([])
+              }} />
+            </Box>
+            <p className='text-lg mb-2'>Crawling Levels</p>
+            <Box className='flex justify-between gap-6 mb-6'>
+              <button
+                onClick={() => setCrawlLevel(1)}
+                className={
+                  `h-11 rounded-lg border border-gray-300 flex-auto ${crawlLevel == 1 ? "bg-lime-400 hover:bg-lime-500" : "bg-white hover:bg-gray-100"} transition`}
+              >
+                Level 1
+              </button>
+              <button
+                onClick={() => setCrawlLevel(2)}
+                className={
+                  `h-11 rounded-lg border border-gray-300 flex-auto ${crawlLevel == 2 ? " bg-lime-400 hover:bg-lime-500" : "bg-white hover:bg-gray-100"} transition`}
+              >
+                Level 2
+              </button>
+              <button
+                onClick={() => setCrawlLevel(3)}
+                className={
+                  `h-11 rounded-lg border border-gray-300 flex-auto ${crawlLevel == 3 ? " bg-lime-400 hover:bg-lime-500" : "bg-white hover:bg-gray-100"} transition`}
+              >
+                Level 3
+              </button>
+            </Box>
+            <p className='text-lg mb-2'>Included Links</p>
+            <p className='text-sm text-[#1c1c1c60] mb-6 overflow-auto'>
+              This will crawl all the links starting with the URL (not including
+              files on the website).
+            </p>
+            <div
+              className={`flex flex-col gap-5 mb-5 justify-start max-h-64 ${includedLinks.length > 4 && "overflow-y-scroll"
+                }`}
+            >
+              {includedLinks.map((link) => (
+                <div
+                  className='flex flex-1 rounded-lg items-center gap-2'
+                  key={link.id}
+                >
+                  <Box className='flex h-11 rounded-lg border border-gray-300 flex-1 items-center'>
+                    <div className='px-3 py-2.5 rounded-l-lg border-r'>
+                      <span className='text-neutral-400 text-[16px] font-normal leading-normal select-none'>
+                        http://
+                      </span>
+                    </div>
+                    <input
+                      type='text'
+                      id={link.id}
+                      placeholder='www.untitledui.com'
+                      value={link.link.split("https://")[1]}
+                      className='text-[16px] font-normal leading-normal focus:outline-none px-[14px] rounded-lg flex-1'
+                      onChange={(event) => {
+                        setIncludedLinkVal(link.id, event.target.value);
+                      }}
+                    />
+                  </Box>
+                  <div
+                    className='w-[28px] h-[28px] hover:cursor-pointer hover:bg-gray-100 rounded-full p-1'
+                    onClick={() => deleteIncludedLink(link.id)}
+                  >
+                    <img src='/icons/trashIcon.svg' />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Stack>
+          </div>
+        </div>
+        {/* buttons */}
+        {isLoading ? <div className='flex w-full'><img src='/icons/Spinner.svg'
+            class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" /></div>
+            :
+            <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
+              <CustomButton onClick={() => setSidebarSelection("MySpace")} title='Cancel' type='sub' />
+              <CustomButton onClick={handlePublish} title='Publish' type='main' />
+            </div>
+          }
 
         <Modal
           open={openModal}
@@ -374,7 +658,7 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
                     Cancel
                   </button>
                   <button
-                    onClick={() => handleCollectionDelete(currentFocus.name, setCollectionList)}
+                    onClick={() => setOpenModal(false)}
                     className='flex-1 h-11 bg-styleupPurple rounded-lg text-white'
                   >
                     Confirm
