@@ -5,7 +5,6 @@ export const landingNavLinks = [
   {
     id: "/join",
     title: "Join our Community",
-    // link: "https://discord.gg/AtEtD6Y5Mm",
   },
 ];
 
