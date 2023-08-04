@@ -15,6 +15,37 @@ import {
 import { landingSectionText, landingCategories } from "../constants";
 import Label from "../components/Home/Label";
 import { landingAgentCards } from "../constants";
+import axios from "axios";
+
+const fetchCollectionData = (setCollectionList) => {
+  axios({
+    method: "get",
+    url: `${import.meta.env.VITE_API_URL}/api/bots/get_all_collections`,
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+    .then((res) => {
+      console.log(res.data.data.length)
+      let resData = [];
+      for (let i = 0; i < Math.min(res.data.data.length, 20); i++) {
+        resData.push({
+          "image": res.data.data[i]["coverImg"],
+          "desc": res.data.data[i]["introduction"].replace( /(<([^>]+)>)/ig, ''),
+          "title": res.data.data[i]["name"],
+          "labels": res.data.data[i]["tags"].length > 0 ? res.data.data[i]["tags"].split(",") : []
+        })
+      }
+      console.log(resData);
+      setCollectionList(resData);
+    })
+    .catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+      // navigate(-1);
+    });
+};
+
 const AppCard = ({ item }) => {
   return (
     <div className='w-full h-full bg-white rounded-[14px] flex flex-col relative z-10'>
@@ -67,6 +98,11 @@ const AgentCard = ({ item }) => {
 };
 
 const Landing = () => {
+  const [collectionList, setCollectionList] = React.useState([])
+  React.useEffect(() => {
+      fetchCollectionData(setCollectionList)
+  }, []);
+
   return (
     <div className='w-full overflow-hidden'>
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -258,7 +294,7 @@ const Landing = () => {
             </button>
           </div>
           <div className='flex flex-wrap gap-8 max-w-[1514px] justify-center items-center py-6'>
-            {landingAgentCards.map((item, index) => (
+            {collectionList.map((item, index) => (
               <AgentCard key={index} item={item} />
             ))}
           </div>
