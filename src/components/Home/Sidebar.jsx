@@ -72,7 +72,7 @@ const Sidebar = ({ sidebarSelection, setSidebarSelection }) => {
                     </StyledTooltip>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="1" viewBox="0 0 48 1" fill="none" className="my-6 justify-center items-center">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M48 1H0V0H48V1Z" fill="#555555" />
+                    <path fillRule="evenodd" clipRule="evenodd" d="M48 1H0V0H48V1Z" fill="#555555" />
                 </svg>
                 <StyledTooltip text={localStorage.getItem('user_name')} direction="right">
                     <img src={`${localStorage.getItem('user_avatar')}`} className="rounded-full h-12 w-12 mb-6" />

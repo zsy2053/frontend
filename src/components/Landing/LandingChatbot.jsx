@@ -44,20 +44,54 @@ const sendStyleUpMsg = (msg, setStyleMsgHistory, setIsLoading) => {
     });
 };
 
-const LandingChatbot = () => {
+const AgentCard = ({ item }) => {
+  return (
+      <>
+          <div className='w-[270px] h-80 bg-white rounded shadow flex flex-col' >
+              <img src={item.image} className='aspect-[270/192]' />
+              <div className='p-2 flex-col justify-start items-start gap-2 flex flex-grow'>
+                  <div className='w-[230px] h-10 justify-start items-center gap-2 inline-flex'>
+                      <img className='w-10 h-10 relative' src='/icons/Female06.svg' />
+                      <div className='text-zinc-900 text-[14px] font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis'>
+                          {item.title}
+                      </div>
+                  </div>
+                  <div className='text-zinc-900 text-opacity-80 text-[12px] font-normal leading-none w-full line-clamp-2'>
+                      {item.desc}
+                  </div>
+                  <div className='flex flex-wrap gap-2'>
+                      {item.labels.map((l, index) => (
+                          <Label key={index} text={l} />
+                      ))}
+                  </div>
+              </div>
+          </div>
+
+      </>
+  );
+};
+
+const LandingChatbot = ({ index, item=null, AgentCard=null }) => {
   const useStyleUp = useContext(StyleUpContext);
   const [open, setOpen] = useState(false);
   const [chatbotTips, setChatbotTips] = useState(false);
   const navigate = useNavigate();
   const useExampleChat = false;
   return (
-    // Icon
+    <>
+    {item && <div onClick={() => {
+        setOpen(true)
+        //setCurrentFocus(agentsData.filter((agent) => agent.name == item.title)[0])
+    }} className="relative z-10">
+        <AgentCard index={index} item={item} />
+    </div>}
+  
     <div className='fixed sm:bottom-14 sm:right-14 bottom-4 right-4 z-50'>
-      <img
+      { !item && <img
         src='/images/logoChatbot.svg'
         onClick={() => setOpen(true)}
         className={open ? "hidden" : "sm:h-[150px] h-[80px]"}
-      ></img>
+      />}
       {/* Chatbox */}
       <Grow direction='up' in={open} mountOnEnter unmountOnExit>
         <div
@@ -122,19 +156,19 @@ const LandingChatbot = () => {
                     height={24}
                     className='lg:hidden '
                     onClick={() => setChatbotTips((p) => !p)}
-                  ></img>
+                  />
                 )}
                 <img
                   src='/icons/chatbotRefresh.svg'
                   width={24}
                   height={24}
-                ></img>
+                />
                 <img
                   src='/icons/chatbotX.svg'
                   width={24}
                   height={24}
                   onClick={() => setOpen(false)}
-                ></img>
+                />
               </div>
             </div>
             {/* Chatbox left chat area */}
@@ -220,12 +254,13 @@ const LandingChatbot = () => {
             <div>
               {/* Chatbox left selectors */}
               <div className='mx-9 h-[40px] flex overflow-x-scroll overflow-y-visible whitespace-nowrap scrollbar-none'>
-                {chatbotSelectors.map((name) => (
+                {chatbotSelectors.map((name, index) => (
                   <button
                     className='bg-[#EEEEEE] w-fit h-[40px] px-[16px] py-[10px]
                     rounded-lg shadow-[0_0px_1px_2px_rgba(16,24,40,0.05)]
                     font-medium text-[16px] leading-5 mr-8'
                     onClick={() => useStyleUp.setStyleUpMsg(name)}
+                    key={index}
                   >
                     {name}
                   </button>
@@ -323,6 +358,7 @@ const LandingChatbot = () => {
         </div>
       </Grow>
     </div>
+    </>
   );
 };
 

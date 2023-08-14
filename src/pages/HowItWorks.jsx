@@ -33,7 +33,7 @@ const HowItWorks = () => {
         </div>
         <div className='flex flex-col relative justify-center items-center w-full'>
           <div className='absolute top-12 z-0 h-40 flex flex-col gap-3 items-center'>
-            <h1 class='h-8 text-center text-zinc-900 text-xl font-medium overflow-hidden whitespace-nowrap animate-typing border-r-4 border-r-black transition-none ss:flex hidden'>
+            <h1 className='h-8 text-center text-zinc-900 text-xl font-medium overflow-hidden whitespace-nowrap animate-typing border-r-4 border-r-black transition-none ss:flex hidden'>
               styleup.fun
             </h1>
             <button className='w-[135px] h-[35px] px-2 bg-stone-950 rounded-[32px] self-center' onClick={() => navigate("/signin")}>

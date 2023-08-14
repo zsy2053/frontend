@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../style";
 import {
   LandingHero,
@@ -11,10 +11,72 @@ import {
   LandingExplore,
   LandingFAQs,
   LandingChatbot,
+  LandingAgentChatWindow,
 } from "../components";
 import { landingSectionText, landingCategories } from "../constants";
 import Label from "../components/Home/Label";
 import { landingAgentCards } from "../constants";
+import axios from "axios";
+
+const fetchCollectionData = (setCollectionList) => {
+  axios({
+    method: "get",
+    url: `${import.meta.env.VITE_API_URL}/api/bots/get_all_collections`,
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+    .then((res) => {
+      console.log(res.data.data.length)
+      let resData = [];
+      for (let i = 0; i < Math.min(res.data.data.length, 20); i++) {
+        resData.push({
+          "image": res.data.data[i]["coverImg"],
+          "desc": res.data.data[i]["introduction"].replace( /(<([^>]+)>)/ig, ''),
+          "title": res.data.data[i]["name"],
+          "labels": res.data.data[i]["tags"].length > 0 ? res.data.data[i]["tags"].split(",") : []
+        })
+      }
+      console.log(resData);
+      setCollectionList(resData);
+    })
+    .catch((err) => {
+      window.alert(err.message);
+      console.log(err);
+      // navigate(-1);
+    });
+};
+
+
+
+const AgentCard = ({ item }) => {
+  return (
+      <>
+          <div className='w-[270px] h-80 bg-white rounded shadow flex flex-col' >
+              <img src={item.image} className='aspect-[270/200] object-cover' />
+              <div className='p-2 flex-col justify-start items-start gap-2 flex flex-grow'>
+                  <div className='w-[230px] h-10 justify-start items-center gap-2 inline-flex'>
+                      <img className='w-10 h-10 relative' src='/icons/Female06.svg' />
+                      <div className='text-zinc-900 text-[14px] font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis'>
+                          {item.title}
+                      </div>
+                  </div>
+                  <div className='text-zinc-900 text-opacity-80 text-[12px] font-normal leading-none w-full line-clamp-2'>
+                      {item.desc}
+                  </div>
+                  <div className='flex flex-wrap gap-2'>
+                      {item.labels.map((l, index) => (
+                          <Label key={index} text={l} />
+                      ))}
+                  </div>
+              </div>
+          </div>
+
+      </>
+  );
+};
+
+
 const AppCard = ({ item }) => {
   return (
     <div className='w-full h-full bg-white rounded-[14px] flex flex-col relative z-10'>
@@ -42,31 +104,15 @@ const AppCard = ({ item }) => {
     </div>
   );
 };
-const AgentCard = ({ item }) => {
-  return (
-    <div className='w-[270px] h-80 bg-white rounded shadow flex flex-col'>
-      <img src={item.image} className='aspect-[270/192]' />
-      <div className='p-2 flex-col justify-start items-start gap-2 flex flex-grow'>
-        <div className='w-[230px] h-10 justify-start items-center gap-2 inline-flex'>
-          <img className='w-10 h-10 relative' src='/icons/Female06.svg' />
-          <div className='text-zinc-900 text-[14px] font-semibold leading-tight whitespace-nowrap overflow-hidden text-ellipsis'>
-            {item.title}
-          </div>
-        </div>
-        <div className='text-zinc-900 text-opacity-80 text-[12px] font-normal leading-none w-full line-clamp-2'>
-          {item.desc}
-        </div>
-        <div className='flex flex-wrap gap-2'>
-          {item.labels.map((l, index) => (
-            <Label key={index} text={l} />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+
 
 const Landing = () => {
+  const [collectionList, setCollectionList] = React.useState([])
+  const [open, setOpen] = useState(false);
+  React.useEffect(() => {
+      fetchCollectionData(setCollectionList)
+  }, []);
+
   return (
     <div className='w-full overflow-hidden'>
       <div className={`${styles.paddingX} ${styles.flexCenter}`}>
@@ -258,8 +304,17 @@ const Landing = () => {
             </button>
           </div>
           <div className='flex flex-wrap gap-8 max-w-[1514px] justify-center items-center py-6'>
+            {collectionList.map((item, index) => (
+                <LandingChatbot
+                key={index}
+                item={item}
+                AgentCard={AgentCard}/>
+            ))}
             {landingAgentCards.map((item, index) => (
-              <AgentCard key={index} item={item} />
+              <LandingAgentChatWindow
+              key={index}
+              item={item}
+              AgentCard={AgentCard}/>
             ))}
           </div>
         </div>
@@ -268,7 +323,7 @@ const Landing = () => {
       <div className='w-full relative mt-36'>
         <LandingFooter variant />
       </div>
-      <LandingChatbot />
+      <LandingChatbot/>
     </div>
   );
 };

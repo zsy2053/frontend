@@ -25,7 +25,8 @@ import {
   WhatsappIcon
 } from "react-share";
 
-const Navbar = ({ resetContext }) => {
+// setOpen2 comes from parent Component, it closes the LandingAgentChatWindow
+const Navbar = ({ resetContext, setOpen2=null }) => {
   const [open, setOpen] = React.useState(false);
   const [anchor, setAnchor] = React.useState(null);
   const [openCopy, setOpenCopy] = React.useState(false);
@@ -99,7 +100,7 @@ const Navbar = ({ resetContext }) => {
           <>
             <StyledTooltip text='API'>
               <button
-                className='mr-5 h-full'
+                className='mr-4 h-full'
                 onClick={(event) =>
                   setAnchor(anchor ? null : event.currentTarget)
                 }
@@ -107,6 +108,23 @@ const Navbar = ({ resetContext }) => {
                 <img src='/icons/three-dot.svg' />
               </button>
             </StyledTooltip>
+
+            {setOpen2 &&
+              <StyledTooltip text='Exit'>
+                <button
+                  className='mr-5 h-full'
+                  onClick={(event) =>
+                    setOpen2(false)
+                  }
+                >
+                  <img
+                    src='/icons/chatbotX.svg'
+                    width={24}
+                    height={24}
+                />
+                </button>
+              </StyledTooltip>
+            }
             <>
               <Popper
                 open={Boolean(anchor)}

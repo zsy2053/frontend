@@ -36,7 +36,7 @@ const ApiPage = ({ apiKeys, deleteKey, fetchApiKeyListData, setApiKeyList, addNe
       </div>
 
       <div className='relative overflow-x-auto shadow-md border-gray-200 border rounded-lg mb-7'>
-        <table class='table-fixed text-left w-full  text-neutral-600 text-[14px] font-normal leading-tight rounded-lg border-0'>
+        <table className='table-fixed text-left w-full  text-neutral-600 text-[14px] font-normal leading-tight rounded-lg border-0'>
           <thead className='bg-gray-50 border-b rounded-lg'>
             <tr className='[&_th]:px-6 [&_th]:py-3 [&_th]:text-neutral-600 [&_th]:text-[12px] [&_th]:font-medium'>
               <th className='w-3/12'>NAME</th>
