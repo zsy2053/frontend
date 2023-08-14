@@ -675,7 +675,7 @@ const AddAgentWindow = ({ setSidebarSelection, handleCollectionDelete, setCollec
         </div>
         {/* buttons */}
         {isLoading ? <div className='flex w-full'><img src='/icons/Spinner.svg'
-            class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" /></div>
+            className="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" /></div>
             :
             <div className='w-full h-10 justify-end items-center gap-3 inline-flex'>
               <CustomButton onClick={() => setSidebarSelection("MySpace")} title='Cancel' type='sub' />

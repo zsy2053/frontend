@@ -134,7 +134,7 @@ const getDefaultMsg = (chatTitle, index) => {
     return ""
 }
 
-const ChatWindow = ({ chatTitle, resetContext, currentFocus, mapFocusContext, setChatHistory, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading }) => {
+const ChatWindow = ({ chatTitle, resetContext, currentFocus, mapFocusContext, setChatHistory, chatWindowIcon, chatSuggestions, content, chatMessage, setMessage, sendMessage, googleCalendarSignIn, audioStatus, setAudioStatus, audioProps, isLoading, setOpen=null }) => {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
@@ -147,45 +147,48 @@ const ChatWindow = ({ chatTitle, resetContext, currentFocus, mapFocusContext, se
 
 
     return (
-        <Stack className='flex flex-col flex-1 max-h-[100vh]'>
+        <Stack className={`flex flex-col flex-1 max-h-[100vh] ${setOpen ? 'h-[78vh]' : '}'}`}>
             <Navbar
                 resetContext={() =>
                     resetContext(currentFocus, mapFocusContext, setChatHistory)
                 }
+                setOpen2={setOpen}
             />
             <Box className='flex p-6 items-center '>
-                <Box className='h-10 w-10 flex-shrink-0 justify-center mr-4'><img src={chatWindowIcon} width={100} height={100} /></Box>
+                <Box className='h-10 w-10  justify-center mr-4'><img src={chatWindowIcon} width={100} height={100} /></Box>
                 <p className='text-[24px] overflow-hidden text-ellipsis max-w-md'>{chatTitle}</p>
+                
+                
             </Box>
-            <Box className='flex flex-col justify-center xl:px-32 lg:px-12 overflow-y-scroll'>
+            <Box className='flex flex-col justify-start xl:px-32 lg:px-12 overflow-y-auto h-full'>
                 {content && content.length > 0 ?
                     content.map((item, index) => messageMapper(item, index, googleCalendarSignIn))
                     : getDefaultMsg(chatTitle, 0)}
                 <div ref={messagesEndRef} />
             </Box>
-            <Box className='w-full xl:px-32 lg:px-12 bg-white mt-auto'>
+            <Box className='w-full xl:px-12 lg:px-12 bg-white mt-auto'>
                 <Box className='flex-col justify-center' >
-                    {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
+                    {!setOpen && !isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                         <Box className='flex justify-start mb-4'>
                             <p className='text-[#555555]'>Chat Suggestions</p>
                         </Box>
                     }
                     <Box className='flex justify-start mb-4 overflow-x-auto whitespace-nowrap'>
-                        {!isLoading && chatSuggestions && chatSuggestions.length > 0 &&
+                        {!setOpen && !isLoading && chatSuggestions && chatSuggestions.length > 0 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[0]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#F2EEFB] hover:border-[#F2EEFB]'>
                                 {chatSuggestions[0]}
                             </button>
                         }
-                        {!isLoading && chatSuggestions && chatSuggestions.length > 1 &&
+                        {!setOpen && !isLoading && chatSuggestions && chatSuggestions.length > 1 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[1]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#F2EEFB] hover:border-[#F2EEFB]'>
                                 {chatSuggestions[1]}
                             </button>
                         }
-                        {!isLoading && chatSuggestions && chatSuggestions.length > 2 &&
+                        {!setOpen && !isLoading && chatSuggestions && chatSuggestions.length > 2 &&
                             <button onClick={() => {
                                 sendMessage(chatSuggestions[2]);
                             }} className='flex px-4 mr-4 justify-center items-center h-11 rounded-lg border border-gray-300 hover:bg-[#F2EEFB] hover:border-[#F2EEFB]'>
@@ -216,7 +219,7 @@ const ChatWindow = ({ chatTitle, resetContext, currentFocus, mapFocusContext, se
                                             </button>
                                             {isLoading ?
                                                 <img src='/icons/Spinner.svg'
-                                                    class="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" />
+                                                    className="h-10 w-10 ml-5 mr-7 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]" />
                                                 :
                                                 <button onClick={() => {
                                                     sendMessage();

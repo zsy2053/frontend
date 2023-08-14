@@ -18,3 +18,4 @@ export { default as AboutCEO } from "./Landing/AboutCEO";
 export { default as AboutStyleUp } from "./Landing/AboutStyleUp";
 export { default as AboutTeam } from "./Landing/AboutTeam";
 export { default as LandingChatbot } from "./Landing/LandingChatbot";
+export { default as LandingAgentChatWindow } from "./Landing/LandingAgentChatWindow";
